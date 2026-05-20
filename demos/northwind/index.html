@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Northwind Aircon Services — Singapore. Cool, quiet, fixed. Get an instant quote in 2 minutes. Servicing, chemical wash, repair, installation." />
+<meta property="og:title" content="Northwind Aircon Services — Singapore" />
+<meta property="og:description" content="Cool. Quiet. Fixed. Get an instant quote in 2 minutes." />
+<meta name="robots" content="noindex,nofollow">
+<title>Northwind Aircon — Singapore servicing, repair & install</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; }
+input, textarea, select { font: inherit; color: inherit; }
+
+:root {
+  --bg: #FBFCFE;
+  --paper: #F1F4F9;
+  --ink: #0A1628;
+  --ink-2: #1E2A3F;
+  --muted: #5B6B85;
+  --mute-2: #93A0B5;
+  --line: rgba(10,22,40,0.08);
+  --line-2: rgba(10,22,40,0.14);
+  --blue: #0066CC;
+  --blue-deep: #0052A8;
+  --teal: #00A8C8;
+  --cool-bg: #E8F1FB;
+  --success: #16A34A;
+
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+::selection { background: var(--blue); color: white; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+.display {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 96;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--blue);
+  border-radius: 2px;
+}
+.eyebrow.on-dark { color: var(--teal); }
+.eyebrow.on-dark::before { background: var(--teal); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), background .25s, box-shadow .25s, color .25s;
+  white-space: nowrap;
+  font-family: var(--sans);
+}
+.btn-primary {
+  background: var(--blue);
+  color: white;
+  box-shadow: 0 4px 14px rgba(0,102,204,0.25);
+}
+.btn-primary:hover {
+  background: var(--blue-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,102,204,0.35);
+}
+.btn-ghost-dark {
+  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.btn-ghost-dark:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.55); }
+.btn-outline {
+  color: var(--ink);
+  border: 1px solid var(--line-2);
+  background: white;
+}
+.btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
+.btn .arrow { transition: transform .25s ease; }
+.btn:hover .arrow { transform: translate(2px, -2px); }
+
+/* =========================
+   NAV
+   ========================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(251, 252, 254, 0.85);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  transition: transform .35s ease;
+}
+.nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 14px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.nav-brand-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.nav-brand-mark::before {
+  content: '';
+  width: 14px; height: 14px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(45deg);
+}
+.nav-links {
+  display: flex; gap: 28px;
+  font-size: 14px; font-weight: 500;
+  color: var(--muted);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--ink);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .25s;
+}
+.nav-cta:hover { background: var(--blue); }
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 72px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--ink);
+  color: white;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1631545806609-cea6f9af0d05?w=1800&q=85&auto=format&fit=crop");
+  background-size: cover; background-position: center;
+  filter: brightness(0.42) saturate(1.15);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,22,40,0.7) 0%, rgba(10,22,40,0.55) 35%, rgba(10,22,40,0.85) 100%),
+    radial-gradient(circle at 80% 30%, rgba(0,168,200,0.25), transparent 50%),
+    radial-gradient(circle at 10% 80%, rgba(0,102,204,0.18), transparent 45%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 80px 0 100px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+@media (min-width: 980px) {
+  .hero-grid { grid-template-columns: 1.4fr 1fr; gap: 80px; }
+}
+
+.hero-content { max-width: 700px; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(56px, 8vw, 100px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin: 24px 0 32px;
+  font-variation-settings: "opsz" 96;
+}
+.hero h1 .accent {
+  color: var(--teal);
+}
+.hero h1 br { display: block; }
+.hero-sub {
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.78);
+  max-width: 540px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+.hero-cta-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+/* hero stat card */
+.hero-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.hero-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hero-card-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.live-dot {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+  color: var(--teal); text-transform: uppercase;
+}
+.live-dot::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(0,168,200,0.25);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(0,168,200,0.25); }
+  50% { box-shadow: 0 0 0 8px rgba(0,168,200,0.05); }
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+.hero-stat {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 12px;
+}
+.hero-stat-n {
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: white;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hero-stat-n .small {
+  font-size: 18px;
+  color: var(--teal);
+  font-weight: 500;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* hero animations */
+.hero .eyebrow, .hero h1, .hero-sub, .hero-cta-row, .hero-card {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rise 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero .eyebrow { animation-delay: .1s; }
+.hero h1 { animation-delay: .25s; }
+.hero-sub { animation-delay: .4s; }
+.hero-cta-row { animation-delay: .55s; }
+.hero-card { animation-delay: .7s; }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+/* =========================
+   TRUST STRIP
+   ========================= */
+.trust {
+  background: white;
+  border-bottom: 1px solid var(--line);
+  padding: 32px 0;
+}
+.trust-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .trust-row { grid-template-columns: repeat(4, 1fr); }
+}
+.trust-item {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.trust-item b {
+  display: block;
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  font-weight: 700;
+  text-transform: none;
+}
+.trust-item .accent { color: var(--blue); }
+
+/* =========================
+   SECTION BASE
+   ========================= */
+section.block { padding: clamp(80px, 12vw, 140px) 0; position: relative; }
+.section-head {
+  margin-bottom: clamp(48px, 6vw, 80px);
+  max-width: 720px;
+}
+.section-head h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-top: 24px;
+  font-variation-settings: "opsz" 96;
+}
+.section-head h2 .accent { color: var(--blue); }
+.section-head p {
+  font-size: clamp(17px, 1.6vw, 19px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 56ch;
+  margin-top: 20px;
+}
+
+/* =========================
+   SERVICES
+   ========================= */
+.services { background: var(--bg); }
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+@media (min-width: 1024px) { .services-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+.service-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -16px rgba(10,22,40,0.15);
+  border-color: var(--line-2);
+}
+
+.svc-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: var(--cool-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  color: var(--blue);
+}
+.svc-icon svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.svc-card-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.svc-card-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.svc-price-row {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.svc-price {
+  display: flex;
+  flex-direction: column;
+}
+.svc-price-from {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+  margin-bottom: 4px;
+}
+.svc-price-amt {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.svc-price-amt .unit {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-left: 4px;
+}
+.svc-link {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap .2s;
+}
+.service-card:hover .svc-link { gap: 8px; }
+
+/* =========================
+   QUOTE (PRO FEATURE)
+   ========================= */
+.quote {
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.quote::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(circle, rgba(0,168,200,0.18), transparent 60%);
+  pointer-events: none;
+}
+.quote::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -10%;
+  width: 50%; height: 80%;
+  background: radial-gradient(circle, rgba(0,102,204,0.15), transparent 60%);
+  pointer-events: none;
+}
+.quote .section-head { position: relative; z-index: 2; }
+.quote .section-head h2 { color: white; }
+.quote .section-head h2 .accent { color: var(--teal); }
+.quote .section-head p { color: rgba(255,255,255,0.7); }
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  position: relative; z-index: 2;
+}
+@media (min-width: 1024px) {
+  .quote-grid { grid-template-columns: 1.3fr 1fr; gap: 64px; }
+}
+
+.quote-form-wrap {
+  background: white;
+  color: var(--ink);
+  border-radius: 20px;
+  padding: clamp(28px, 3.5vw, 44px);
+  box-shadow: 0 30px 80px -10px rgba(0,0,0,0.4);
+}
+.quote-step-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.quote-step-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+  padding: 6px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-weight: 500;
+}
+.quote-step-pill.active {
+  color: var(--blue);
+  border-color: var(--blue);
+  background: var(--cool-bg);
+}
+
+.q-field { margin-bottom: 20px; }
+.q-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.q-field label .req { color: var(--blue); }
+.q-field input, .q-field select, .q-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: white;
+  font-size: 15px;
+  color: var(--ink);
+  font-family: var(--sans);
+  transition: border-color .2s, box-shadow .2s;
+}
+.q-field textarea { resize: vertical; min-height: 84px; }
+.q-field input:focus, .q-field select:focus, .q-field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0,102,204,0.12);
+}
+.q-field .hint {
+  font-size: 12px;
+  color: var(--mute-2);
+  margin-top: 6px;
+}
+
+.q-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 560px) { .q-row { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 560px) { .q-row.three { grid-template-columns: 1fr 1fr 1fr; } }
+
+/* service select tiles */
+.svc-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (min-width: 560px) {
+  .svc-tiles { grid-template-columns: repeat(3, 1fr); }
+}
+.svc-tile {
+  border: 1.5px solid var(--line-2);
+  border-radius: 10px;
+  padding: 14px 12px;
+  text-align: left;
+  cursor: pointer;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all .2s ease;
+}
+.svc-tile:hover { border-color: var(--mute-2); }
+.svc-tile.active {
+  border-color: var(--blue);
+  background: var(--cool-bg);
+  box-shadow: 0 0 0 3px rgba(0,102,204,0.08);
+}
+.svc-tile-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.svc-tile-price {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.svc-tile.active .svc-tile-price { color: var(--blue); font-weight: 600; }
+
+/* units stepper */
+.units-row {
+  display: flex; align-items: center; gap: 12px;
+}
+.units-btn {
+  width: 40px; height: 40px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: white;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: all .15s;
+}
+.units-btn:hover { background: var(--paper); border-color: var(--ink); }
+.units-display {
+  flex: 1;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink);
+  padding: 8px 14px;
+  background: var(--paper);
+  border-radius: 10px;
+  letter-spacing: -0.02em;
+}
+.units-display .label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* photo upload */
+.photo-drop {
+  border: 1.5px dashed var(--line-2);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background: var(--paper);
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+.photo-drop:hover {
+  border-color: var(--blue);
+  background: var(--cool-bg);
+}
+.photo-drop.has-file {
+  border-style: solid;
+  border-color: var(--success);
+  background: rgba(22,163,74,0.05);
+}
+.photo-drop input[type=file] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.photo-drop-icon {
+  width: 36px; height: 36px;
+  margin: 0 auto 8px;
+  color: var(--muted);
+}
+.photo-drop.has-file .photo-drop-icon { color: var(--success); }
+.photo-drop-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.photo-drop-text {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.photo-drop-hint {
+  font-size: 11.5px;
+  color: var(--mute-2);
+  margin-top: 4px;
+  font-family: var(--mono);
+}
+
+/* estimate */
+.estimate-box {
+  background: linear-gradient(135deg, var(--cool-bg), white);
+  border: 1px solid rgba(0,102,204,0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.estimate-box .est-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.estimate-box .est-value {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.estimate-box .est-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.q-submit-row {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.q-note {
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 40ch;
+}
+
+.q-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.q-success.active { display: block; }
+.q-success-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 18px;
+  background: var(--success);
+  color: white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.q-success h3 {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.q-success p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 40ch;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* side: trust + how */
+.quote-side {
+  align-self: stretch;
+  color: white;
+}
+.quote-side h3 {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.quote-side h3 .accent { color: var(--teal); }
+.steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.steps-list li {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.steps-list li:last-child { border-bottom: none; }
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(0,168,200,0.15);
+  color: var(--teal);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step-text strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.step-text p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+/* =========================
+   WHY US
+   ========================= */
+.why { background: var(--paper); }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 760px) { .why-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+@media (min-width: 1024px) { .why-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+.why-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid var(--line);
+  transition: transform .3s, box-shadow .3s;
+}
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -16px rgba(10,22,40,0.12);
+}
+.why-card .why-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--cool-bg);
+  color: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+.why-card .why-icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.why-card h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.why-card p {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* =========================
+   AREAS
+   ========================= */
+.areas { background: white; }
+.areas-inner {
+  background: var(--ink);
+  color: white;
+  border-radius: 24px;
+  padding: clamp(40px, 6vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+.areas-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 30%, rgba(0,168,200,0.18), transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(0,102,204,0.14), transparent 50%);
+  pointer-events: none;
+}
+.areas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  position: relative; z-index: 2;
+}
+@media (min-width: 900px) { .areas-grid { grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; } }
+.areas-text h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 20px 0;
+}
+.areas-text h2 .accent { color: var(--teal); }
+.areas-text p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 24px;
+  max-width: 46ch;
+}
+.areas-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px;
+}
+@media (min-width: 600px) { .areas-list { grid-template-columns: repeat(3, 1fr); } }
+.area {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.area::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* =========================
+   VISIT
+   ========================= */
+.visit { background: var(--bg); }
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 760px) { .visit-grid { grid-template-columns: repeat(3, 1fr); } }
+.visit-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px 28px;
+  transition: transform .3s, box-shadow .3s;
+  display: flex; flex-direction: column;
+}
+.visit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -16px rgba(10,22,40,0.12);
+}
+.visit-card .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.visit-card h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.018em;
+  margin-bottom: 14px;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.visit-card .lines { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.visit-card .lines p {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.visit-card .lines p.muted { color: var(--muted); font-size: 13.5px; }
+.visit-card ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.visit-card li {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  display: flex; justify-content: space-between;
+}
+.visit-card li.closed { color: var(--mute-2); }
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.65);
+  padding: 56px 0 28px;
+}
+.footer-row {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 24px; margin-bottom: 32px;
+}
+.footer-brand-group {
+  display: flex; align-items: center; gap: 12px;
+  color: white;
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.footer-brand-mark {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+  border-radius: 10px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-brand-mark::before {
+  content: '';
+  width: 18px; height: 18px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(45deg);
+}
+.footer-tag {
+  color: rgba(255,255,255,0.7);
+  font-size: 15px;
+  max-width: 30ch;
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-weight: 400;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 22px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.45);
+}
+.demo-badge {
+  background: rgba(0,168,200,0.12);
+  border: 1px solid rgba(0,168,200,0.35);
+  color: var(--teal);
+  padding: 14px 22px;
+  border-radius: 12px;
+  margin: 28px auto 0;
+  max-width: max-content;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.demo-badge a {
+  color: white;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* =========================
+   SCROLL REVEAL
+   ========================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal[data-delay="1"] { transition-delay: .1s; }
+.reveal[data-delay="2"] { transition-delay: .2s; }
+.reveal[data-delay="3"] { transition-delay: .3s; }
+.reveal[data-delay="4"] { transition-delay: .4s; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <span class="nav-brand-mark"></span>
+      Northwind <span style="color:var(--blue);">Aircon</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#quote">Instant quote</a>
+      <a href="#areas">Service areas</a>
+      <a href="#visit">Contact</a>
+    </div>
+    <a href="#quote" class="nav-cta">Get a quote →</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-inner">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow on-dark">Singapore · Since 2018</span>
+        <h1 class="display">Cool. Quiet.<br><span class="accent">Fixed.</span></h1>
+        <p class="hero-sub">Aircon servicing, chemical wash, repair and install — done by professionals who pick up the phone. Get an instant quote in 2 minutes.</p>
+        <div class="hero-cta-row">
+          <a href="#quote" class="btn btn-primary">Get instant quote <span class="arrow">↗</span></a>
+          <a href="#services" class="btn btn-ghost-dark">See services</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <div class="hero-card-title">Today's response</div>
+          <span class="live-dot">Live</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-n">< 2<span class="small"> hrs</span></div>
+            <div class="hero-stat-label">Quote response time</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-n">98<span class="small">%</span></div>
+            <div class="hero-stat-label">Same-day appointments</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-n">1,840<span class="small">+</span></div>
+            <div class="hero-stat-label">Homes serviced</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-n">4.9<span class="small">★</span></div>
+            <div class="hero-stat-label">Google rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== TRUST STRIP ===== -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-item"><b>BCA</b>Licensed</div>
+      <div class="trust-item"><b>NEA</b>Compliant</div>
+      <div class="trust-item"><b class="accent">90-day</b>Workmanship warranty</div>
+      <div class="trust-item"><b>Fixed</b>Pricing, no surprises</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="block services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 01 / What we do</span>
+      <h2 class="display">Honest work. <span class="accent">Honest pricing.</span></h2>
+      <p>No surprise fees, no upselling. You see the price upfront. Same-day service for most of Singapore.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card reveal" data-delay="1">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/><circle cx="6" cy="7" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="14" cy="17" r="1.5"/></svg>
+        </div>
+        <h3 class="svc-card-title">General Servicing</h3>
+        <p class="svc-card-desc">Coil clean, drainage check, gas pressure test, filter wash. The basic maintenance every 3 months.</p>
+        <div class="svc-price-row">
+          <div class="svc-price">
+            <span class="svc-price-from">From</span>
+            <span class="svc-price-amt">S$50<span class="unit">/unit</span></span>
+          </div>
+          <a href="#quote" class="svc-link">Quote →</a>
+        </div>
+      </div>
+
+      <div class="service-card reveal" data-delay="2">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v6m0 0L9 5m3 3 3-3"/><path d="M5 13a7 7 0 1 0 14 0M5 13c0-2 1-4 3-5m11 5c0-2-1-4-3-5"/></svg>
+        </div>
+        <h3 class="svc-card-title">Chemical Wash</h3>
+        <p class="svc-card-desc">Deep clean for evaporator and blower. Removes mould, restores airflow, fixes that musty smell.</p>
+        <div class="svc-price-row">
+          <div class="svc-price">
+            <span class="svc-price-from">From</span>
+            <span class="svc-price-amt">S$120<span class="unit">/unit</span></span>
+          </div>
+          <a href="#quote" class="svc-link">Quote →</a>
+        </div>
+      </div>
+
+      <div class="service-card reveal" data-delay="3">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 1 1-6.4 6.4l-5.6 5.6a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l5.6-5.6a4.5 4.5 0 0 0 6.4-6.4l-3.6 3.6-1.4-1.4 3.6-3.6Z"/></svg>
+        </div>
+        <h3 class="svc-card-title">Repair & Top-up</h3>
+        <p class="svc-card-desc">Gas leak repair, refrigerant top-up, control board diagnostics, drainage unclog. Quote after inspection.</p>
+        <div class="svc-price-row">
+          <div class="svc-price">
+            <span class="svc-price-from">Diagnosis</span>
+            <span class="svc-price-amt">S$50<span class="unit">free w/ repair</span></span>
+          </div>
+          <a href="#quote" class="svc-link">Quote →</a>
+        </div>
+      </div>
+
+      <div class="service-card reveal" data-delay="4">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+        </div>
+        <h3 class="svc-card-title">New Install</h3>
+        <p class="svc-card-desc">New unit installation, bracket mounting, copper piping, electrical work. Free site assessment.</p>
+        <div class="svc-price-row">
+          <div class="svc-price">
+            <span class="svc-price-from">From</span>
+            <span class="svc-price-amt">S$300<span class="unit">+ unit</span></span>
+          </div>
+          <a href="#quote" class="svc-link">Quote →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUOTE (PRO FEATURE) ===== -->
+<section id="quote" class="block quote">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow on-dark">— 02 / Instant quote</span>
+      <h2 class="display">Get a price <span class="accent">in 2 minutes.</span></h2>
+      <p>Tell us what you need, snap a photo of your unit (optional, but speeds things up), and we'll send a quote by email — usually within the hour.</p>
+    </div>
+
+    <div class="quote-grid">
+
+      <!-- form -->
+      <div class="quote-form-wrap reveal">
+
+        <div class="quote-step-bar">
+          <span class="quote-step-pill active">1. Service</span>
+          <span class="quote-step-pill active">2. Details</span>
+          <span class="quote-step-pill active">3. Contact</span>
+        </div>
+
+        <form id="quoteForm" novalidate>
+
+          <!-- service tiles -->
+          <div class="q-field">
+            <label>Which service? <span class="req">*</span></label>
+            <div class="svc-tiles" id="svcTiles">
+              <button type="button" class="svc-tile" data-svc="general" data-base="50">
+                <span class="svc-tile-name">General Service</span>
+                <span class="svc-tile-price">From S$50 / unit</span>
+              </button>
+              <button type="button" class="svc-tile" data-svc="chemwash" data-base="120">
+                <span class="svc-tile-name">Chemical Wash</span>
+                <span class="svc-tile-price">From S$120 / unit</span>
+              </button>
+              <button type="button" class="svc-tile" data-svc="repair" data-base="80">
+                <span class="svc-tile-name">Repair / Top-up</span>
+                <span class="svc-tile-price">Inspect first</span>
+              </button>
+              <button type="button" class="svc-tile" data-svc="install" data-base="300">
+                <span class="svc-tile-name">New Install</span>
+                <span class="svc-tile-price">From S$300</span>
+              </button>
+              <button type="button" class="svc-tile" data-svc="multi" data-base="60">
+                <span class="svc-tile-name">Multiple / Combo</span>
+                <span class="svc-tile-price">Bundle quote</span>
+              </button>
+              <button type="button" class="svc-tile" data-svc="unsure" data-base="0">
+                <span class="svc-tile-name">Not sure yet</span>
+                <span class="svc-tile-price">Help me decide</span>
+              </button>
+            </div>
+            <input type="hidden" name="service_type" required>
+          </div>
+
+          <!-- units stepper -->
+          <div class="q-row">
+            <div class="q-field">
+              <label>Number of units</label>
+              <div class="units-row">
+                <button type="button" class="units-btn" id="unitsMinus">−</button>
+                <div class="units-display"><span id="unitsCount">2</span><span class="label">aircon units</span></div>
+                <button type="button" class="units-btn" id="unitsPlus">+</button>
+              </div>
+              <input type="hidden" name="units" value="2">
+            </div>
+
+            <div class="q-field">
+              <label>Postal code <span class="req">*</span></label>
+              <input type="text" name="postal" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required placeholder="e.g. 427773">
+              <p class="hint">For service coverage check</p>
+            </div>
+          </div>
+
+          <!-- photo upload -->
+          <div class="q-field">
+            <label>Photo of your unit (optional but helps!)</label>
+            <div class="photo-drop" id="photoDrop">
+              <div class="photo-drop-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4"/><path d="M3 16v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+              </div>
+              <div class="photo-drop-text" id="photoText">Click or drop a photo here</div>
+              <div class="photo-drop-hint">JPG / PNG · up to 5MB</div>
+              <input type="file" id="photoInput" accept="image/jpeg,image/png,image/jpg">
+            </div>
+          </div>
+
+          <!-- contact -->
+          <div class="q-row">
+            <div class="q-field">
+              <label>Your name <span class="req">*</span></label>
+              <input type="text" name="name" required placeholder="e.g. Tan Wei Ming">
+            </div>
+            <div class="q-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" required placeholder="you@email.com">
+            </div>
+          </div>
+
+          <div class="q-row">
+            <div class="q-field">
+              <label>Mobile <span class="req">*</span></label>
+              <input type="tel" name="mobile" required placeholder="9123 4567">
+            </div>
+            <div class="q-field">
+              <label>Preferred date</label>
+              <input type="date" name="preferred_date">
+            </div>
+          </div>
+
+          <div class="q-field">
+            <label>Anything else we should know?</label>
+            <textarea name="notes" placeholder="Symptoms, noise, last serviced, accessibility..."></textarea>
+          </div>
+
+          <!-- live estimate -->
+          <div class="estimate-box" id="estimateBox" style="display:none;">
+            <div>
+              <div class="est-label">Estimated quote</div>
+              <div class="est-value" id="estValue">—</div>
+              <div class="est-note" id="estNote">Final price confirmed after photo review.</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="est-label">Includes</div>
+              <div style="font-size:13px; color:var(--ink); font-weight:500;" id="estIncludes">Labor + materials</div>
+            </div>
+          </div>
+
+          <div class="q-submit-row">
+            <p class="q-note">We'll email your full quote within an hour during opening hours. No spam — quote only.</p>
+            <button type="submit" class="btn btn-primary">Send my quote <span class="arrow">↗</span></button>
+          </div>
+
+        </form>
+
+        <div class="q-success" id="quoteSuccess">
+          <div class="q-success-icon">✓</div>
+          <h3>Quote on its way.</h3>
+          <p>We've received your request and our team will email your full quote within the hour. Check your inbox — it'll come from Northwind Aircon directly.</p>
+        </div>
+
+      </div>
+
+      <!-- side -->
+      <div class="quote-side reveal" data-delay="2">
+        <span class="eyebrow on-dark" style="margin-bottom:18px;">How it works</span>
+        <h3 class="display">From <span class="accent">submit to service</span> in 24 hours.</h3>
+
+        <ol class="steps-list">
+          <li>
+            <span class="step-num">01</span>
+            <div class="step-text">
+              <strong>You submit this form</strong>
+              <p>Pick service, snap a photo, send. Takes 2 minutes.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">02</span>
+            <div class="step-text">
+              <strong>We send the quote</strong>
+              <p>Full price by email within the hour, plus available time slots.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">03</span>
+            <div class="step-text">
+              <strong>You pick a slot</strong>
+              <p>Confirm by reply, deposit if needed — same-day for most jobs.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">04</span>
+            <div class="step-text">
+              <strong>We turn up &amp; fix it</strong>
+              <p>2-hour arrival window, licensed technician, 90-day warranty.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section id="why" class="block why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 03 / Why Northwind</span>
+      <h2 class="display">Tired of <span class="accent">"call you back"?</span></h2>
+      <p>We're not a call centre passing your job to whoever's free. Same team, fixed pricing, and we tell you upfront if we can't help.</p>
+    </div>
+
+    <div class="why-grid">
+
+      <div class="why-card reveal" data-delay="1">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Licensed &amp; insured</h3>
+        <p>BCA-licensed company, NEA-compliant disposal, fully insured technicians. Your home and warranty are protected.</p>
+      </div>
+
+      <div class="why-card reveal" data-delay="2">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>2-hour quote response</h3>
+        <p>Submit during 9am–9pm and we'll email back within 2 hours. Need it faster? Mention "urgent" — we triage same-day jobs first.</p>
+      </div>
+
+      <div class="why-card reveal" data-delay="3">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>
+        </div>
+        <h3>Fixed pricing</h3>
+        <p>Quote = final price. No "additional parts" surprise. If we miss something, we eat the difference — it's already happened twice this year.</p>
+      </div>
+
+      <div class="why-card reveal" data-delay="4">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-8-8m8 0v8h-8"/></svg>
+        </div>
+        <h3>90-day workmanship warranty</h3>
+        <p>Something goes wrong with the work we did? We come back free. Doesn't cover unrelated faults, but you'll know — we'll explain on site.</p>
+      </div>
+
+      <div class="why-card reveal" data-delay="1">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M3 12h2m14 0h2m-7 7v2m0-18v2m-6.4 1.6L7 9m10 0 1.4-1.4M5.6 18.4 7 17m10 0 1.4 1.4"/></svg>
+        </div>
+        <h3>All brands serviced</h3>
+        <p>Daikin, Mitsubishi, Panasonic, LG, Samsung, Midea, Hitachi, York, McQuay, Carrier. If it cools air, we know it.</p>
+      </div>
+
+      <div class="why-card reveal" data-delay="2">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10Z"/></svg>
+        </div>
+        <h3>WhatsApp updates</h3>
+        <p>Technician sends "10 min away" before arrival. Photo of work done. Receipt by message. No chasing for paperwork.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== AREAS ===== -->
+<section id="areas" class="block areas">
+  <div class="container">
+    <div class="areas-inner">
+      <div class="areas-grid">
+        <div class="areas-text reveal">
+          <span class="eyebrow on-dark">— 04 / Service areas</span>
+          <h2 class="display">We cover <span class="accent">all Singapore.</span></h2>
+          <p>Same-day appointments across the island. Far-East and Far-West may need next-day for non-urgent jobs.</p>
+          <p style="font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.55); letter-spacing:0.04em;">Postal code coverage check in the quote form above</p>
+        </div>
+        <div class="areas-list reveal" data-delay="2">
+          <div class="area">Central</div>
+          <div class="area">Bukit Timah</div>
+          <div class="area">Orchard</div>
+          <div class="area">Bishan</div>
+          <div class="area">Toa Payoh</div>
+          <div class="area">Novena</div>
+          <div class="area">Queenstown</div>
+          <div class="area">Bukit Merah</div>
+          <div class="area">Clementi</div>
+          <div class="area">Jurong East</div>
+          <div class="area">Bukit Batok</div>
+          <div class="area">Choa Chu Kang</div>
+          <div class="area">Woodlands</div>
+          <div class="area">Yishun</div>
+          <div class="area">Ang Mo Kio</div>
+          <div class="area">Sengkang</div>
+          <div class="area">Punggol</div>
+          <div class="area">Hougang</div>
+          <div class="area">Serangoon</div>
+          <div class="area">Bedok</div>
+          <div class="area">Tampines</div>
+          <div class="area">Pasir Ris</div>
+          <div class="area">Geylang</div>
+          <div class="area">Joo Chiat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section id="visit" class="block visit">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 05 / Get in touch</span>
+      <h2 class="display">Or just <span class="accent">talk to us.</span></h2>
+    </div>
+
+    <div class="visit-grid">
+
+      <div class="visit-card reveal" data-delay="1">
+        <div class="label">Hours</div>
+        <h3>Open most days, all hours that matter.</h3>
+        <ul>
+          <li><b>Mon – Fri</b><span>8am – 9pm</span></li>
+          <li><b>Saturday</b><span>9am – 7pm</span></li>
+          <li><b>Sunday</b><span>10am – 5pm</span></li>
+          <li class="closed"><b>Public Hol</b><span>Emergency only</span></li>
+        </ul>
+      </div>
+
+      <div class="visit-card reveal" data-delay="2">
+        <div class="label">Workshop</div>
+        <h3>HQ &amp; parts store.</h3>
+        <div class="lines">
+          <p><b>15 Kallang Pudding Road</b></p>
+          <p>#03-12, Singapore 349324</p>
+          <p class="muted">Visit by appointment only — we're usually on jobs.</p>
+        </div>
+      </div>
+
+      <div class="visit-card reveal" data-delay="3">
+        <div class="label">Reach us</div>
+        <h3>Fastest is the quote form.</h3>
+        <div class="lines">
+          <p>+65 6789 4321</p>
+          <p>hello@northwindaircon.sg</p>
+          <p class="muted">Email is fastest during business hours. After-hours emergencies, leave a voicemail.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div>
+        <div class="footer-brand-group">
+          <span class="footer-brand-mark"></span>
+          Northwind <span style="color:var(--teal);">Aircon</span>
+        </div>
+        <p class="footer-tag">Cool. Quiet. Fixed. Quote in 2 minutes.</p>
+      </div>
+      <div style="text-align:right; font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.5); line-height:1.7;">
+        15 Kallang Pudding Road #03-12<br>
+        Singapore 349324<br>
+        +65 6789 4321
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Northwind Aircon Services · A fictional company</span>
+      <span>BCA-Licensed · NEA-Compliant</span>
+    </div>
+
+    <div class="demo-badge">
+      <span>This is a demo built by <a href="https://web.yqservices.org/">YQ Web</a></span>
+      <span style="opacity:.6;">·</span>
+      <span>Want one like it? <a href="https://web.yqservices.org/#brief">Start a brief →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* nav hide on scroll */
+let lastScroll = 0;
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const s = window.pageYOffset;
+  if (s > 200 && s > lastScroll) navEl.style.transform = 'translateY(-100%)';
+  else navEl.style.transform = 'translateY(0)';
+  lastScroll = s;
+}, { passive: true });
+
+/* reveal */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* service tile selection */
+const tiles = document.querySelectorAll('.svc-tile');
+const svcInput = document.querySelector('input[name="service_type"]');
+let currentSvc = { svc: '', base: 0 };
+tiles.forEach(t => {
+  t.addEventListener('click', () => {
+    tiles.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentSvc = { svc: t.dataset.svc, base: +t.dataset.base };
+    svcInput.value = currentSvc.svc;
+    updateEstimate();
+  });
+});
+
+/* units stepper */
+const unitsCount = document.getElementById('unitsCount');
+const unitsHidden = document.querySelector('input[name="units"]');
+let units = 2;
+function setUnits(n) {
+  units = Math.max(1, Math.min(10, n));
+  unitsCount.textContent = units;
+  unitsHidden.value = units;
+  updateEstimate();
+}
+document.getElementById('unitsMinus').onclick = () => setUnits(units - 1);
+document.getElementById('unitsPlus').onclick = () => setUnits(units + 1);
+
+/* live estimate */
+const estBox = document.getElementById('estimateBox');
+const estValue = document.getElementById('estValue');
+const estNote = document.getElementById('estNote');
+const estIncludes = document.getElementById('estIncludes');
+
+function updateEstimate() {
+  if (!currentSvc.svc) { estBox.style.display = 'none'; return; }
+  if (currentSvc.base === 0) {
+    estBox.style.display = 'flex';
+    estValue.textContent = 'Let us help';
+    estNote.textContent = 'No worries — describe the issue below and we\'ll recommend the right service.';
+    estIncludes.textContent = 'Free advice';
+    return;
+  }
+  const low = currentSvc.base * units;
+  const high = Math.round(low * 1.25);
+  estBox.style.display = 'flex';
+  estValue.textContent = `S$${low}–${high}`;
+  estNote.textContent = 'Estimate. Final quote within 1 hour by email.';
+  estIncludes.textContent = `${units} unit${units>1?'s':''} · labor + materials`;
+}
+
+/* postal — min date today */
+const dateInput = document.querySelector('input[name="preferred_date"]');
+const today = new Date();
+dateInput.min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+/* photo upload to Supabase Storage */
+const SUPABASE_URL = 'https://sslkappqxwgonzlumkbo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzbGthcHBxeHdnb256bHVta2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNzE5MzIsImV4cCI6MjA5NDg0NzkzMn0._XNwW1gmjkxiD4dgY-k6JFajvfe2egFwl7H696HBfv8';
+
+const photoInput = document.getElementById('photoInput');
+const photoDrop = document.getElementById('photoDrop');
+const photoText = document.getElementById('photoText');
+let uploadedPhotoUrl = '';
+let uploadingPhoto = false;
+
+photoInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Photo too large — max 5MB.');
+    photoInput.value = '';
+    return;
+  }
+  uploadingPhoto = true;
+  photoText.textContent = 'Uploading...';
+  try {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const filename = `quote-${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const path = `northwind/${filename}`;
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/aircon-uploads/${path}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': file.type || 'image/jpeg',
+        'x-upsert': 'true'
+      },
+      body: file
+    });
+    if (!res.ok) {
+      const errBody = await res.text();
+      throw new Error(`Upload failed ${res.status}: ${errBody}`);
+    }
+    uploadedPhotoUrl = `${SUPABASE_URL}/storage/v1/object/public/aircon-uploads/${path}`;
+    photoDrop.classList.add('has-file');
+    photoText.textContent = `✓ ${file.name}`;
+  } catch (err) {
+    console.error('Photo upload error:', err);
+    photoText.textContent = 'Click or drop a photo here';
+    alert('Photo upload failed. You can still submit the quote without a photo.');
+    photoInput.value = '';
+    uploadedPhotoUrl = '';
+  } finally {
+    uploadingPhoto = false;
+  }
+});
+
+/* form submit */
+const quoteForm = document.getElementById('quoteForm');
+const quoteSuccess = document.getElementById('quoteSuccess');
+
+quoteForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (uploadingPhoto) { alert('Photo still uploading, hold on a sec...'); return; }
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type=submit]');
+  const fd = new FormData(form);
+
+  const payload = {
+    source: 'northwind',
+    service_type: fd.get('service_type') || '',
+    units: parseInt(fd.get('units')) || 1,
+    postal: (fd.get('postal') || '').trim(),
+    name: (fd.get('name') || '').trim(),
+    email: (fd.get('email') || '').trim(),
+    mobile: (fd.get('mobile') || '').trim(),
+    preferred_date: fd.get('preferred_date') || '',
+    notes: (fd.get('notes') || '').trim(),
+    photo_url: uploadedPhotoUrl
+  };
+
+  if (!payload.service_type) { alert('Please pick a service type.'); return; }
+  if (!payload.postal || payload.postal.length !== 6) { alert('Please enter a 6-digit Singapore postal code.'); return; }
+  if (!payload.name || !payload.email || !payload.mobile) { alert('Name, email, and mobile are required.'); return; }
+
+  const originalHTML = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = '0.6';
+  submitBtn.innerHTML = 'Sending… <span class="arrow">↗</span>';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_aircon_quote`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify({ payload })
+    });
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.error('Quote failed:', res.status, errBody);
+      throw new Error(`Server ${res.status}`);
+    }
+    try { console.log('Quote OK:', await res.clone().text()); } catch {}
+    form.style.display = 'none';
+    quoteSuccess.classList.add('active');
+    quoteSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (err) {
+    console.error('Quote submission error:', err);
+    alert('Sorry — could not send your quote request. Please try again or call +65 6789 4321.');
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    submitBtn.innerHTML = originalHTML;
+  }
+});
+</script>
+
+</body>
+</html>
