@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Brightside Tuition Centre — Singapore. Small classes, weekly progress reports, results-focused teaching. P1-JC. Book a free trial." />
+<meta property="og:title" content="Brightside Tuition Centre — Singapore" />
+<meta property="og:description" content="Better grades. Without the stress. Small classes, weekly reports, real results." />
+<meta name="robots" content="noindex,nofollow">
+<title>Brightside Tuition Centre — Better grades, no stress</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; }
+input, textarea, select { font: inherit; color: inherit; }
+
+:root {
+  --cream: #FBFAF7;
+  --parchment: #F5F0E1;
+  --paper: #F0EBD9;
+  --ink: #1F2D27;
+  --ink-2: #2A3A33;
+  --muted: #5A6962;
+  --mute-2: #8C9A93;
+  --emerald: #2D6A4F;
+  --emerald-deep: #1B4332;
+  --gold: #E9C46A;
+  --gold-deep: #C99A3F;
+  --line: rgba(31, 45, 39, 0.10);
+  --line-2: rgba(31, 45, 39, 0.18);
+
+  --display: 'Newsreader', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+::selection { background: var(--emerald); color: white; }
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+.display {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.display i, .display em {
+  font-style: italic;
+  font-variation-settings: "opsz" 72;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--emerald);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.eyebrow.on-dark { color: var(--gold); }
+.eyebrow.on-dark::before { background: var(--gold); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: transform .25s, background .25s, box-shadow .25s, color .25s;
+  white-space: nowrap;
+  font-family: var(--sans);
+}
+.btn-primary {
+  background: var(--emerald);
+  color: white;
+  box-shadow: 0 4px 14px rgba(45, 106, 79, 0.22);
+}
+.btn-primary:hover {
+  background: var(--emerald-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(45, 106, 79, 0.32);
+}
+.btn-ghost {
+  color: var(--ink);
+  border: 1px solid var(--line-2);
+  background: transparent;
+}
+.btn-ghost:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); transform: translateY(-1px); }
+.btn .arrow { transition: transform .25s ease; }
+.btn:hover .arrow { transform: translate(2px, -2px); }
+
+/* =========================
+   NAV
+   ========================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(251, 250, 247, 0.88);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  transition: transform .35s ease;
+}
+.nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 14px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.nav-brand-mark {
+  width: 32px; height: 32px;
+  background: var(--emerald);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.nav-brand-mark::before {
+  content: '';
+  width: 14px; height: 14px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translate(2px, -2px);
+}
+.nav-brand i { font-style: italic; color: var(--emerald); }
+.nav-links {
+  display: flex; gap: 28px;
+  font-size: 14px; font-weight: 500;
+  color: var(--muted);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--emerald);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background .25s;
+}
+.nav-cta:hover { background: var(--emerald-deep); }
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 72px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--cream);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%; left: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(45, 106, 79, 0.08), transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10%; right: -15%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(233, 196, 106, 0.18), transparent 60%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 60px 0 80px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+@media (min-width: 980px) {
+  .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 80px; }
+}
+
+.hero-content { max-width: 620px; }
+.hero h1 {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 500;
+  font-size: clamp(54px, 8vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin: 24px 0 28px;
+  color: var(--ink);
+}
+.hero h1 i {
+  font-style: italic;
+  color: var(--emerald);
+}
+.hero h1 .gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.hero h1 .gold-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 4px;
+  height: 12px;
+  background: var(--gold);
+  z-index: -1;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.hero-sub {
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+.hero-cta-row {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px;
+}
+
+.hero-quick {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.hero-quick-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-quick-n {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--emerald);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.hero-quick-l {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Hero image */
+.hero-image-wrap {
+  position: relative;
+}
+.hero-image {
+  aspect-ratio: 4/5;
+  border-radius: 18px;
+  background-image: url('https://images.pexels.com/photos/8617763/pexels-photo-8617763.jpeg?auto=compress&cs=tinysrgb&w=1000');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 30px 70px -20px rgba(31, 45, 39, 0.35);
+  position: relative;
+}
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(31,45,39,0.18));
+  border-radius: 18px;
+}
+
+/* floating card on hero image */
+.hero-badge {
+  position: absolute;
+  bottom: 32px;
+  left: -24px;
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 20px 40px -10px rgba(31,45,39,0.25);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 3;
+}
+.hero-badge-icon {
+  width: 44px; height: 44px;
+  background: var(--gold);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.hero-badge-text {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.hero-badge-text small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* sticker top-right */
+.hero-sticker {
+  position: absolute;
+  top: 32px;
+  right: -16px;
+  background: var(--emerald);
+  color: white;
+  border-radius: 50%;
+  width: 110px; height: 110px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  z-index: 3;
+  box-shadow: 0 16px 32px -8px rgba(45, 106, 79, 0.45);
+  transform: rotate(-8deg);
+  animation: wiggle 4s ease-in-out infinite;
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(-4deg); }
+}
+.hero-sticker-text {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+.hero-sticker-text b {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+/* hero animations */
+.hero .eyebrow, .hero h1, .hero-sub, .hero-cta-row, .hero-quick, .hero-image-wrap {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: rise 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero .eyebrow { animation-delay: .1s; }
+.hero h1 { animation-delay: .25s; }
+.hero-sub { animation-delay: .4s; }
+.hero-cta-row { animation-delay: .55s; }
+.hero-quick { animation-delay: .65s; }
+.hero-image-wrap { animation-delay: .35s; }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+/* =========================
+   TRUST STRIP
+   ========================= */
+.trust {
+  background: var(--parchment);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 40px 0;
+}
+.trust-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  text-align: center;
+}
+@media (min-width: 760px) {
+  .trust-row { grid-template-columns: repeat(4, 1fr); }
+}
+.trust-item b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 38px;
+  color: var(--emerald);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.trust-item b i { font-style: italic; color: var(--gold-deep); }
+.trust-item span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =========================
+   SECTION BASE
+   ========================= */
+section.block { padding: clamp(80px, 12vw, 140px) 0; position: relative; }
+.section-head {
+  margin-bottom: clamp(48px, 6vw, 80px);
+  max-width: 720px;
+}
+.section-head h2 {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 500;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-top: 22px;
+}
+.section-head h2 i {
+  font-style: italic;
+  color: var(--emerald);
+}
+.section-head p {
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 56ch;
+  margin-top: 18px;
+}
+
+/* =========================
+   SUBJECTS
+   ========================= */
+.subjects { background: var(--cream); }
+.subjects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) { .subjects-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+@media (min-width: 1024px) { .subjects-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+.subject-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .35s, box-shadow .35s, border-color .35s;
+  position: relative;
+  overflow: hidden;
+}
+.subject-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(233, 196, 106, 0.18), transparent 70%);
+  pointer-events: none;
+}
+.subject-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -16px rgba(31,45,39,0.15);
+  border-color: var(--emerald);
+}
+.subject-emoji {
+  font-size: 44px;
+  margin-bottom: 16px;
+  display: inline-block;
+  filter: grayscale(0);
+}
+.subject-card h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.subject-card h3 i { font-style: italic; color: var(--emerald); }
+.subject-levels {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold-deep);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.subject-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  flex: 1;
+  margin-bottom: 18px;
+}
+.subject-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.subject-price {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.subject-price small {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.subject-link {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--emerald);
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  gap: 4px;
+  transition: gap .25s;
+  font-weight: 600;
+}
+.subject-card:hover .subject-link { gap: 8px; }
+
+/* =========================
+   APPROACH
+   ========================= */
+.approach { background: var(--parchment); }
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .approach-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+}
+.approach-image {
+  position: relative;
+}
+.approach-image .big {
+  aspect-ratio: 4/5;
+  border-radius: 18px;
+  background-image: url('https://images.pexels.com/photos/8617758/pexels-photo-8617758.jpeg?auto=compress&cs=tinysrgb&w=900');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 30px 60px -20px rgba(31,45,39,0.3);
+}
+.approach-image .quote-pop {
+  position: absolute;
+  bottom: -24px;
+  right: -16px;
+  background: var(--emerald);
+  color: white;
+  padding: 20px 24px;
+  border-radius: 14px;
+  max-width: 260px;
+  box-shadow: 0 16px 32px -8px rgba(45,106,79,0.4);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.approach-image .quote-pop small {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.approach-text { max-width: 520px; }
+.approach-text h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 18px 0 24px;
+}
+.approach-text h2 i { font-style: italic; color: var(--emerald); }
+
+.approach-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 28px;
+}
+.approach-list li {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.approach-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.approach-list-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.approach-list-text strong {
+  display: block;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+.approach-list-text p {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* =========================
+   SCHEDULE (PRO FEATURE)
+   ========================= */
+.schedule {
+  background: var(--ink);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.schedule::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -10%;
+  width: 50%; height: 80%;
+  background: radial-gradient(circle, rgba(45,106,79,0.25), transparent 60%);
+  pointer-events: none;
+}
+.schedule::after {
+  content: '';
+  position: absolute;
+  bottom: -20%; left: -10%;
+  width: 50%; height: 80%;
+  background: radial-gradient(circle, rgba(233,196,106,0.12), transparent 60%);
+  pointer-events: none;
+}
+.schedule .section-head { position: relative; z-index: 2; }
+.schedule .section-head h2 { color: var(--cream); }
+.schedule .section-head h2 i { color: var(--gold); }
+.schedule .section-head p { color: rgba(251,250,247,0.65); }
+
+.schedule-inner {
+  position: relative; z-index: 2;
+}
+
+/* filters */
+.sched-filters {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 28px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 18px;
+}
+.filter-group {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  align-items: center;
+}
+.filter-group .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(251,250,247,0.55);
+  margin-right: 8px;
+  font-weight: 600;
+}
+.filter-btn {
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.16);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(251,250,247,0.7);
+  transition: all .2s;
+}
+.filter-btn:hover { color: var(--cream); border-color: rgba(255,255,255,0.4); }
+.filter-btn.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* schedule grid */
+.sched-grid-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 28px;
+}
+.sched-grid {
+  min-width: 880px;
+  display: grid;
+  grid-template-columns: 90px repeat(6, 1fr);
+}
+.sched-head {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(251,250,247,0.55);
+  padding: 14px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  font-weight: 600;
+}
+.sched-head.day-today {
+  color: var(--gold);
+}
+.sched-time {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(251,250,247,0.5);
+  padding: 18px 12px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+}
+.sched-cell {
+  padding: 8px;
+  border-right: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  min-height: 84px;
+}
+.sched-cell:last-child { border-right: none; }
+.sched-class {
+  background: rgba(45,106,79,0.18);
+  border: 1px solid rgba(45,106,79,0.5);
+  border-radius: 8px;
+  padding: 10px 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.sched-class:hover {
+  background: rgba(45,106,79,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(45,106,79,0.3);
+}
+.sched-class.full {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.sched-class.full:hover { transform: none; box-shadow: none; }
+.sched-subj {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+}
+.sched-level {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.sched-slots {
+  margin-top: auto;
+  font-size: 11px;
+  color: rgba(251,250,247,0.55);
+  font-family: var(--mono);
+}
+.sched-class.full .sched-subj,
+.sched-class.full .sched-level,
+.sched-class.full .sched-slots { color: rgba(251,250,247,0.4); }
+
+.sched-legend {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(251,250,247,0.5);
+  margin-bottom: 36px;
+}
+.sched-legend-dot {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.sched-legend-dot::before {
+  content: '';
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.sched-legend-dot.avail::before { background: var(--emerald); }
+.sched-legend-dot.full::before { background: rgba(255,255,255,0.25); }
+.sched-legend-dot.click::before { background: var(--gold); }
+
+/* book trial form */
+.trial-form-wrap {
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: 0 30px 80px -10px rgba(0,0,0,0.45);
+  position: relative;
+}
+.trial-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.trial-form-header h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+.trial-form-header h3 i { font-style: italic; color: var(--emerald); }
+.trial-form-header p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 8px;
+  max-width: 38ch;
+}
+.trial-form-badge {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.t-field { margin-bottom: 20px; }
+.t-row {
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+@media (min-width: 560px) { .t-row { grid-template-columns: 1fr 1fr; } }
+
+.t-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.t-field label .req { color: var(--emerald); }
+.t-field input, .t-field select, .t-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: white;
+  font-size: 15px;
+  color: var(--ink);
+  font-family: var(--sans);
+  transition: border-color .2s, box-shadow .2s;
+}
+.t-field textarea { resize: vertical; min-height: 84px; }
+.t-field input:focus, .t-field select:focus, .t-field textarea:focus {
+  outline: none;
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 4px rgba(45,106,79,0.12);
+}
+
+.selected-slot {
+  background: var(--parchment);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.selected-slot.empty {
+  border-color: var(--line-2);
+  background: var(--cream);
+  color: var(--mute-2);
+}
+.selected-slot-icon {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.selected-slot.empty .selected-slot-icon {
+  background: var(--paper);
+}
+.selected-slot-text {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.selected-slot-text .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.selected-slot-text .val {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+
+.t-submit-row {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.t-note {
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 38ch;
+}
+
+.t-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.t-success.active { display: block; }
+.t-success-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 18px;
+  background: var(--emerald);
+  color: white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.t-success h3 {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.t-success p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 44ch;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* =========================
+   TESTIMONIALS
+   ========================= */
+.testi { background: var(--cream); }
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 760px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.testi-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s, box-shadow .3s;
+}
+.testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -16px rgba(31,45,39,0.15);
+}
+.testi-stars {
+  color: var(--gold);
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.testi-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--ink);
+  margin-bottom: 24px;
+  flex: 1;
+  letter-spacing: -0.005em;
+}
+.testi-by {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.testi-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+.testi-by-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.testi-by-text span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* =========================
+   VISIT
+   ========================= */
+.visit { background: var(--parchment); }
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+@media (min-width: 900px) {
+  .visit-grid { grid-template-columns: 1fr 1fr; gap: 60px; }
+}
+.visit-image {
+  aspect-ratio: 4/3;
+  border-radius: 18px;
+  background-image: url('https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=1200&q=85');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 24px 50px -16px rgba(31,45,39,0.25);
+  min-height: 400px;
+}
+.visit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.visit-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 26px;
+}
+.visit-card .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.visit-card h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+.visit-card h3 i { font-style: italic; color: var(--emerald); }
+.visit-card p {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.visit-card ul {
+  list-style: none; display: flex; flex-direction: column; gap: 6px;
+}
+.visit-card li {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  display: flex; justify-content: space-between;
+}
+.visit-card li.closed { color: var(--mute-2); }
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  background: var(--ink);
+  color: rgba(251,250,247,0.65);
+  padding: 56px 0 28px;
+}
+.footer-row {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 24px; margin-bottom: 32px;
+}
+.footer-brand-group {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--cream);
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.footer-brand-mark {
+  width: 38px; height: 38px;
+  background: var(--emerald);
+  border-radius: 10px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-brand-mark::before {
+  content: '';
+  width: 16px; height: 16px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translate(2px, -2px);
+}
+.footer-brand-group i { font-style: italic; color: var(--emerald); }
+.footer-tag {
+  color: rgba(251,250,247,0.7);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 19px;
+  max-width: 30ch;
+  margin-top: 12px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(251,250,247,0.08);
+  padding-top: 22px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(251,250,247,0.45);
+}
+.demo-badge {
+  background: rgba(233,196,106,0.14);
+  border: 1px solid rgba(233,196,106,0.35);
+  color: var(--gold);
+  padding: 14px 22px;
+  border-radius: 12px;
+  margin: 28px auto 0;
+  max-width: max-content;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.demo-badge a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* =========================
+   SCROLL REVEAL
+   ========================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal[data-delay="1"] { transition-delay: .1s; }
+.reveal[data-delay="2"] { transition-delay: .2s; }
+.reveal[data-delay="3"] { transition-delay: .3s; }
+.reveal[data-delay="4"] { transition-delay: .4s; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <span class="nav-brand-mark"></span>
+      Bright<i>side</i>
+    </a>
+    <div class="nav-links">
+      <a href="#subjects">Subjects</a>
+      <a href="#approach">Our approach</a>
+      <a href="#schedule">Schedule &amp; trial</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a href="#trial" class="nav-cta">Book free trial</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">Singapore tuition centre · Since 2011</span>
+        <h1 class="display"><i>Better</i> grades.<br>Without the <span class="gold-underline">stress.</span></h1>
+        <p class="hero-sub">Small classes. Familiar teachers your child sees every week. Weekly progress reports so you actually know how things are going. P1 to JC, all four subjects.</p>
+        <div class="hero-cta-row">
+          <a href="#trial" class="btn btn-primary">Book a free trial <span class="arrow">↗</span></a>
+          <a href="#schedule" class="btn btn-ghost">See this week's classes</a>
+        </div>
+        <div class="hero-quick">
+          <div class="hero-quick-item">
+            <div class="hero-quick-n">2,400+</div>
+            <div class="hero-quick-l">students taught</div>
+          </div>
+          <div class="hero-quick-item">
+            <div class="hero-quick-n">93%</div>
+            <div class="hero-quick-l">A or B at PSLE</div>
+          </div>
+          <div class="hero-quick-item">
+            <div class="hero-quick-n">1:6</div>
+            <div class="hero-quick-l">max class size</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-image"></div>
+        <div class="hero-sticker">
+          <div class="hero-sticker-text">
+            <b>FREE</b>trial class
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">★</div>
+          <div class="hero-badge-text">
+            4.9 / 5 on Google
+            <small>from 187 parents</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== TRUST ===== -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-item"><b>15<i> yrs</i></b><span>Teaching Singapore students</span></div>
+      <div class="trust-item"><b>93%</b><span>PSLE A or B (2024)</span></div>
+      <div class="trust-item"><b>1:6</b><span>Teacher to student ratio</span></div>
+      <div class="trust-item"><b>187</b><span>Five-star reviews</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUBJECTS ===== -->
+<section id="subjects" class="block subjects">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 01 / What we teach</span>
+      <h2 class="display">Four core subjects. <i>P1 to JC.</i></h2>
+      <p>Aligned with the latest MOE syllabus. Strong on fundamentals, ready for exams. We don't teach extras you don't need.</p>
+    </div>
+
+    <div class="subjects-grid">
+
+      <article class="subject-card reveal" data-delay="1">
+        <div class="subject-emoji">📐</div>
+        <h3 class="display"><i>Math</i></h3>
+        <div class="subject-levels">P1 · P2 · P3 · P4 · P5 · P6 · SEC · JC</div>
+        <p class="subject-desc">PSLE, O-Level &amp; A-Level prep. Strong on bar models, problem sums, geometry, A-Math, H2 Math.</p>
+        <div class="subject-foot">
+          <div class="subject-price">S$240<small> /month</small></div>
+          <a href="#trial" class="subject-link">Try free →</a>
+        </div>
+      </article>
+
+      <article class="subject-card reveal" data-delay="2">
+        <div class="subject-emoji">🔬</div>
+        <h3 class="display"><i>Science</i></h3>
+        <div class="subject-levels">P3 · P4 · P5 · P6 · SEC · JC</div>
+        <p class="subject-desc">Concepts taught through hands-on experiments. PSLE Science, O-Level Pure &amp; Combined, H2 Bio/Chem/Phy.</p>
+        <div class="subject-foot">
+          <div class="subject-price">S$260<small> /month</small></div>
+          <a href="#trial" class="subject-link">Try free →</a>
+        </div>
+      </article>
+
+      <article class="subject-card reveal" data-delay="3">
+        <div class="subject-emoji">📖</div>
+        <h3 class="display"><i>English</i></h3>
+        <div class="subject-levels">P1 · P2 · P3 · P4 · P5 · P6 · SEC · JC</div>
+        <p class="subject-desc">Composition, comprehension, oral, situational writing. Focused on PSLE and O-Level expectations.</p>
+        <div class="subject-foot">
+          <div class="subject-price">S$240<small> /month</small></div>
+          <a href="#trial" class="subject-link">Try free →</a>
+        </div>
+      </article>
+
+      <article class="subject-card reveal" data-delay="4">
+        <div class="subject-emoji">🀄</div>
+        <h3 class="display"><i>华文</i> Chinese</h3>
+        <div class="subject-levels">P1 · P2 · P3 · P4 · P5 · P6 · SEC · JC</div>
+        <p class="subject-desc">华文 / 高级华文 for both Higher Chinese and standard. Composition, comprehension, oral, 口试 practice.</p>
+        <div class="subject-foot">
+          <div class="subject-price">S$240<small> /month</small></div>
+          <a href="#trial" class="subject-link">Try free →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== APPROACH ===== -->
+<section id="approach" class="block approach">
+  <div class="container">
+    <div class="approach-grid">
+
+      <div class="approach-image reveal">
+        <div class="big"></div>
+        <div class="quote-pop">
+          "Children who feel seen do better than children who feel pushed."
+          <small>— Ms Lim, founder</small>
+        </div>
+      </div>
+
+      <div class="approach-text reveal" data-delay="2">
+        <span class="eyebrow">— 02 / Our approach</span>
+        <h2 class="display">Small classes. <i>Real teaching.</i></h2>
+
+        <ol class="approach-list">
+          <li>
+            <span class="approach-list-num">01</span>
+            <div class="approach-list-text">
+              <strong>Same teacher every week</strong>
+              <p>Your child sees the same MOE-trained teacher all term. No rotating tutors, no inconsistent grading.</p>
+            </div>
+          </li>
+          <li>
+            <span class="approach-list-num">02</span>
+            <div class="approach-list-text">
+              <strong>Max 6 students per class</strong>
+              <p>Every child gets called on. Every question gets answered. Big enough for discussion, small enough to be noticed.</p>
+            </div>
+          </li>
+          <li>
+            <span class="approach-list-num">03</span>
+            <div class="approach-list-text">
+              <strong>Weekly parent reports</strong>
+              <p>You get a one-paragraph email every Sunday: what we covered, how your child did, what to practise.</p>
+            </div>
+          </li>
+          <li>
+            <span class="approach-list-num">04</span>
+            <div class="approach-list-text">
+              <strong>No tedious homework dumps</strong>
+              <p>Targeted practice. Quality over quantity. We don't fill the week with worksheets that don't change anything.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SCHEDULE + TRIAL (PRO FEATURE) ===== -->
+<section id="schedule" class="block schedule">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow on-dark">— 03 / This week's classes</span>
+      <h2 class="display">Pick a slot. <i>Try it free.</i></h2>
+      <p>Live schedule below. Click any open class to book a free trial — no commitment, just one lesson on us.</p>
+    </div>
+
+    <div class="schedule-inner">
+
+      <!-- filters -->
+      <div class="sched-filters reveal">
+        <div class="filter-group">
+          <span class="label">Subject</span>
+          <button class="filter-btn active" data-subj="all">All</button>
+          <button class="filter-btn" data-subj="math">Math</button>
+          <button class="filter-btn" data-subj="science">Science</button>
+          <button class="filter-btn" data-subj="english">English</button>
+          <button class="filter-btn" data-subj="chinese">华文</button>
+        </div>
+        <div class="filter-group">
+          <span class="label">Level</span>
+          <button class="filter-btn active" data-level="all">All</button>
+          <button class="filter-btn" data-level="primary">Primary</button>
+          <button class="filter-btn" data-level="secondary">Secondary</button>
+          <button class="filter-btn" data-level="jc">JC</button>
+        </div>
+      </div>
+
+      <!-- schedule grid -->
+      <div class="sched-grid-wrap reveal" data-delay="1">
+        <div class="sched-grid" id="schedGrid">
+          <div class="sched-head"></div>
+          <div class="sched-head">Mon</div>
+          <div class="sched-head day-today">Tue</div>
+          <div class="sched-head">Wed</div>
+          <div class="sched-head">Thu</div>
+          <div class="sched-head">Fri</div>
+          <div class="sched-head">Sat</div>
+
+          <!-- 3:30 PM -->
+          <div class="sched-time">3:30 PM</div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="primary" data-day="Mon" data-time="3:30 PM" data-class="P4 Math · Mon 3:30 PM"><div class="sched-subj">P4 Math</div><div class="sched-level">Primary</div><div class="sched-slots">3 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="english" data-level="primary" data-day="Tue" data-time="3:30 PM" data-class="P3 English · Tue 3:30 PM"><div class="sched-subj">P3 English</div><div class="sched-level">Primary</div><div class="sched-slots">2 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class full" data-subj="math" data-level="primary"><div class="sched-subj">P5 Math</div><div class="sched-level">Primary</div><div class="sched-slots">Full · waitlist</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="chinese" data-level="primary" data-day="Thu" data-time="3:30 PM" data-class="P5 华文 · Thu 3:30 PM"><div class="sched-subj">P5 华文</div><div class="sched-level">Primary</div><div class="sched-slots">4 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="primary" data-day="Fri" data-time="3:30 PM" data-class="P4 Science · Fri 3:30 PM"><div class="sched-subj">P4 Science</div><div class="sched-level">Primary</div><div class="sched-slots">5 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="primary" data-day="Sat" data-time="3:30 PM" data-class="P6 Math · Sat 3:30 PM"><div class="sched-subj">P6 Math</div><div class="sched-level">Primary</div><div class="sched-slots">2 of 6 slots</div></div></div>
+
+          <!-- 4:30 PM -->
+          <div class="sched-time">4:30 PM</div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="primary" data-day="Mon" data-time="4:30 PM" data-class="P5 Science · Mon 4:30 PM"><div class="sched-subj">P5 Science</div><div class="sched-level">Primary</div><div class="sched-slots">3 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="chinese" data-level="primary" data-day="Tue" data-time="4:30 PM" data-class="P6 高级华文 · Tue 4:30 PM"><div class="sched-subj">P6 高华</div><div class="sched-level">Primary</div><div class="sched-slots">4 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="primary" data-day="Wed" data-time="4:30 PM" data-class="P6 Math · Wed 4:30 PM"><div class="sched-subj">P6 Math</div><div class="sched-level">Primary</div><div class="sched-slots">2 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class full" data-subj="english" data-level="primary"><div class="sched-subj">P6 English</div><div class="sched-level">Primary</div><div class="sched-slots">Full · waitlist</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="english" data-level="primary" data-day="Fri" data-time="4:30 PM" data-class="P5 English · Fri 4:30 PM"><div class="sched-subj">P5 English</div><div class="sched-level">Primary</div><div class="sched-slots">3 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="primary" data-day="Sat" data-time="4:30 PM" data-class="P6 Science · Sat 4:30 PM"><div class="sched-subj">P6 Science</div><div class="sched-level">Primary</div><div class="sched-slots">1 of 6 slots</div></div></div>
+
+          <!-- 5:30 PM -->
+          <div class="sched-time">5:30 PM</div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="secondary" data-day="Mon" data-time="5:30 PM" data-class="Sec 2 Math · Mon 5:30 PM"><div class="sched-subj">Sec 2 Math</div><div class="sched-level">Secondary</div><div class="sched-slots">5 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="secondary" data-day="Tue" data-time="5:30 PM" data-class="Sec 3 Chem · Tue 5:30 PM"><div class="sched-subj">Sec 3 Chem</div><div class="sched-level">Secondary</div><div class="sched-slots">3 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="chinese" data-level="secondary" data-day="Wed" data-time="5:30 PM" data-class="Sec 2 华文 · Wed 5:30 PM"><div class="sched-subj">Sec 2 华文</div><div class="sched-level">Secondary</div><div class="sched-slots">4 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="secondary" data-day="Thu" data-time="5:30 PM" data-class="Sec 3 A-Math · Thu 5:30 PM"><div class="sched-subj">Sec 3 A-Math</div><div class="sched-level">Secondary</div><div class="sched-slots">2 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class full" data-subj="english" data-level="secondary"><div class="sched-subj">Sec 4 Eng</div><div class="sched-level">Secondary</div><div class="sched-slots">Full · waitlist</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="secondary" data-day="Sat" data-time="5:30 PM" data-class="Sec 4 Phy · Sat 5:30 PM"><div class="sched-subj">Sec 4 Phy</div><div class="sched-level">Secondary</div><div class="sched-slots">3 of 6 slots</div></div></div>
+
+          <!-- 6:30 PM -->
+          <div class="sched-time">6:30 PM</div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="secondary" data-day="Mon" data-time="6:30 PM" data-class="Sec 4 E-Math · Mon 6:30 PM"><div class="sched-subj">Sec 4 E-Math</div><div class="sched-level">Secondary</div><div class="sched-slots">2 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="jc" data-day="Tue" data-time="6:30 PM" data-class="JC1 H2 Math · Tue 6:30 PM"><div class="sched-subj">JC1 H2 Math</div><div class="sched-level">JC</div><div class="sched-slots">4 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="jc" data-day="Wed" data-time="6:30 PM" data-class="JC1 H2 Chem · Wed 6:30 PM"><div class="sched-subj">JC1 H2 Chem</div><div class="sched-level">JC</div><div class="sched-slots">3 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="english" data-level="jc" data-day="Thu" data-time="6:30 PM" data-class="JC1 GP · Thu 6:30 PM"><div class="sched-subj">JC1 GP</div><div class="sched-level">JC</div><div class="sched-slots">5 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="math" data-level="jc" data-day="Fri" data-time="6:30 PM" data-class="JC2 H2 Math · Fri 6:30 PM"><div class="sched-subj">JC2 H2 Math</div><div class="sched-level">JC</div><div class="sched-slots">1 of 6 slots</div></div></div>
+          <div class="sched-cell"><div class="sched-class" data-subj="science" data-level="jc" data-day="Sat" data-time="6:30 PM" data-class="JC2 H2 Phy · Sat 6:30 PM"><div class="sched-subj">JC2 H2 Phy</div><div class="sched-level">JC</div><div class="sched-slots">2 of 6 slots</div></div></div>
+
+        </div>
+      </div>
+
+      <div class="sched-legend">
+        <span class="sched-legend-dot avail">Available</span>
+        <span class="sched-legend-dot full">Full / waitlist</span>
+        <span class="sched-legend-dot click">Tap a slot to book free trial →</span>
+      </div>
+
+      <!-- trial form -->
+      <div id="trial" class="trial-form-wrap reveal" data-delay="2">
+        <div class="trial-form-header">
+          <div>
+            <h3 class="display">Book a <i>free trial.</i></h3>
+            <p>One full class on us. No payment, no commitment. We'll confirm your slot by email.</p>
+          </div>
+          <span class="trial-form-badge">100% Free</span>
+        </div>
+
+        <div class="selected-slot empty" id="selectedSlot">
+          <div class="selected-slot-icon">📅</div>
+          <div class="selected-slot-text">
+            <span class="label">Selected class</span>
+            <span class="val" id="selectedSlotText">Tap any open class above to pick one</span>
+          </div>
+        </div>
+
+        <form id="trialForm" novalidate>
+          <input type="hidden" name="class_selected" id="classHidden">
+
+          <div class="t-row">
+            <div class="t-field">
+              <label>Child's name <span class="req">*</span></label>
+              <input type="text" name="child_name" required placeholder="e.g. Nicholas">
+            </div>
+            <div class="t-field">
+              <label>Child's level / class <span class="req">*</span></label>
+              <input type="text" name="child_level" required placeholder="e.g. Primary 5">
+            </div>
+          </div>
+
+          <div class="t-row">
+            <div class="t-field">
+              <label>Parent name <span class="req">*</span></label>
+              <input type="text" name="parent_name" required placeholder="e.g. Mr Tan">
+            </div>
+            <div class="t-field">
+              <label>Mobile <span class="req">*</span></label>
+              <input type="tel" name="parent_mobile" required placeholder="9123 4567">
+            </div>
+          </div>
+
+          <div class="t-field">
+            <label>Parent email <span class="req">*</span></label>
+            <input type="email" name="parent_email" required placeholder="you@email.com">
+          </div>
+
+          <div class="t-field">
+            <label>Anything we should know? (current school, struggles, goals)</label>
+            <textarea name="notes" placeholder="e.g. PSLE in 6 months, weak on fractions, prefers afternoon classes..."></textarea>
+          </div>
+
+          <div class="t-submit-row">
+            <p class="t-note">We'll confirm your trial slot within an hour. Your child can drop in once with no payment.</p>
+            <button type="submit" class="btn btn-primary">Book free trial <span class="arrow">↗</span></button>
+          </div>
+        </form>
+
+        <div class="t-success" id="trialSuccess">
+          <div class="t-success-icon">✓</div>
+          <h3 class="display"><i>See you soon.</i></h3>
+          <p>Your trial slot is held. We'll confirm by email within the hour with the room number and what to bring. After the lesson, we'll have a quick chat with you — no pressure to sign up.</p>
+          <div style="margin-top:18px;padding:12px 16px;background:var(--parchment);border:1px solid var(--gold);border-radius:8px;font-size:13px;color:var(--ink-2);line-height:1.5;text-align:left;">
+            <b>📧 Check your junk folder too.</b> Some inboxes route first-time senders there. Mark "Not spam" so future updates land properly.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials" class="block testi">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 04 / What parents say</span>
+      <h2 class="display">187 reviews. <i>A few of them.</i></h2>
+      <p>We don't ask for reviews. Parents leave them when their child does well. These are real except for the names.</p>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card reveal" data-delay="1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"My son went from C5 to A2 in P5 Math in two terms. But more than the grade — he stopped crying before tuition. Now he asks when his next class is."</p>
+        <div class="testi-by">
+          <div class="testi-avatar" style="background-image:url('https://images.pexels.com/photos/8617743/pexels-photo-8617743.jpeg?auto=compress&cs=tinysrgb&w=200');"></div>
+          <div class="testi-by-text">
+            <strong>Mrs Lim Wei Ling</strong>
+            <span>Parent · P5 Math</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal" data-delay="2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Six students max means my daughter actually gets called on. She used to hide at the back at her old centre. Here she puts up her hand."</p>
+        <div class="testi-by">
+          <div class="testi-avatar" style="background-image:url('https://images.pexels.com/photos/8617758/pexels-photo-8617758.jpeg?auto=compress&cs=tinysrgb&w=200');"></div>
+          <div class="testi-by-text">
+            <strong>Mr Adrian Tan</strong>
+            <span>Parent · Sec 2 Science</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal" data-delay="3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The weekly emails are gold. I know exactly what's been covered and what to practice over the weekend. No guessing, no nagging."</p>
+        <div class="testi-by">
+          <div class="testi-avatar" style="background-image:url('https://images.pexels.com/photos/8617771/pexels-photo-8617771.jpeg?auto=compress&cs=tinysrgb&w=200');"></div>
+          <div class="testi-by-text">
+            <strong>Mrs Chen Mei Hua</strong>
+            <span>Parent · P3 English &amp; 华文</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section id="visit" class="block visit">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— 05 / Visit us</span>
+      <h2 class="display">Come by <i>before you book.</i></h2>
+      <p>Drop in any opening day. See the classroom, meet the teachers, ask anything. No appointment needed.</p>
+    </div>
+
+    <div class="visit-grid">
+      <div class="visit-image reveal"></div>
+
+      <div class="visit-info">
+        <div class="visit-card reveal" data-delay="1">
+          <div class="label">Where</div>
+          <h3 class="display">Bishan <i>Junction 8</i> area.</h3>
+          <p><b>Block 510 Bishan Street 11, #03-12, Singapore 570510</b><br>2 min walk from Bishan MRT, above the kopitiam.</p>
+        </div>
+
+        <div class="visit-card reveal" data-delay="2">
+          <div class="label">Opening hours</div>
+          <h3 class="display">Open <i>most afternoons.</i></h3>
+          <ul>
+            <li><b>Mon – Fri</b><span>2pm – 9pm</span></li>
+            <li><b>Saturday</b><span>9am – 6pm</span></li>
+            <li><b>Sunday</b><span>9am – 1pm</span></li>
+            <li class="closed"><b>Public hol</b><span>Closed</span></li>
+          </ul>
+        </div>
+
+        <div class="visit-card reveal" data-delay="3">
+          <div class="label">Talk to us</div>
+          <h3 class="display">Or just <i>WhatsApp first.</i></h3>
+          <p>+65 6789 1234 · hello@brightside.sg<br>Quickest reply is during opening hours. We do email evenings too.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div>
+        <div class="footer-brand-group">
+          <span class="footer-brand-mark"></span>
+          Bright<i>side</i>
+        </div>
+        <p class="footer-tag">Better grades. Without the stress.</p>
+      </div>
+      <div style="text-align:right; font-family:var(--mono); font-size:12px; color:rgba(251,250,247,0.5); line-height:1.7;">
+        Block 510 Bishan Street 11<br>
+        #03-12, Singapore 570510<br>
+        +65 6789 1234
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Brightside Tuition Centre · A fictional company</span>
+      <span>Singapore · Est. 2011</span>
+    </div>
+
+    <div class="demo-badge">
+      <span>This is a demo built by <a href="https://web.yqservices.org/">YQ Web</a></span>
+      <span style="opacity:.6;">·</span>
+      <span>Want one like it? <a href="https://web.yqservices.org/#brief">Start a brief →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* nav hide on scroll */
+let lastScroll = 0;
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const s = window.pageYOffset;
+  if (s > 200 && s > lastScroll) navEl.style.transform = 'translateY(-100%)';
+  else navEl.style.transform = 'translateY(0)';
+  lastScroll = s;
+}, { passive: true });
+
+/* reveal */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* schedule filter */
+let activeSubj = 'all', activeLevel = 'all';
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const subj = btn.dataset.subj;
+    const level = btn.dataset.level;
+    // toggle within group
+    if (subj !== undefined) {
+      document.querySelectorAll('.filter-btn[data-subj]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSubj = subj;
+    }
+    if (level !== undefined) {
+      document.querySelectorAll('.filter-btn[data-level]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeLevel = level;
+    }
+    applyFilter();
+  });
+});
+function applyFilter() {
+  document.querySelectorAll('.sched-class').forEach(cls => {
+    const s = cls.dataset.subj;
+    const l = cls.dataset.level;
+    const subjOk = (activeSubj === 'all' || s === activeSubj);
+    const levelOk = (activeLevel === 'all' || l === activeLevel);
+    cls.style.opacity = (subjOk && levelOk) ? '1' : '0.18';
+    cls.style.pointerEvents = (subjOk && levelOk) ? '' : 'none';
+  });
+}
+
+/* click schedule class -> pre-fill */
+const selectedSlot = document.getElementById('selectedSlot');
+const selectedSlotText = document.getElementById('selectedSlotText');
+const classHidden = document.getElementById('classHidden');
+document.querySelectorAll('.sched-class').forEach(cls => {
+  if (cls.classList.contains('full')) return;
+  cls.addEventListener('click', () => {
+    const txt = cls.dataset.class || '';
+    if (!txt) return;
+    selectedSlotText.textContent = txt;
+    selectedSlot.classList.remove('empty');
+    classHidden.value = txt;
+    document.getElementById('trial').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
+
+/* form submit */
+const SUPABASE_URL = 'https://sslkappqxwgonzlumkbo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzbGthcHBxeHdnb256bHVta2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNzE5MzIsImV4cCI6MjA5NDg0NzkzMn0._XNwW1gmjkxiD4dgY-k6JFajvfe2egFwl7H696HBfv8';
+
+const trialForm = document.getElementById('trialForm');
+const trialSuccess = document.getElementById('trialSuccess');
+
+trialForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type=submit]');
+  const fd = new FormData(form);
+
+  const payload = {
+    source: 'brightside',
+    class_selected: (fd.get('class_selected') || '').trim(),
+    child_name: (fd.get('child_name') || '').trim(),
+    child_level: (fd.get('child_level') || '').trim(),
+    parent_name: (fd.get('parent_name') || '').trim(),
+    parent_email: (fd.get('parent_email') || '').trim(),
+    parent_mobile: (fd.get('parent_mobile') || '').trim(),
+    notes: (fd.get('notes') || '').trim()
+  };
+
+  if (!payload.child_name || !payload.parent_name || !payload.parent_email || !payload.parent_mobile) {
+    alert('Please complete child name, parent name, email and mobile.');
+    return;
+  }
+  if (!payload.class_selected) {
+    alert('Please pick a class from the schedule above first.');
+    document.getElementById('schedule').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  const originalHTML = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = '0.65';
+  submitBtn.innerHTML = 'Booking… <span class="arrow">↗</span>';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_trial_booking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify({ payload })
+    });
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.error('Trial booking failed:', res.status, errBody);
+      throw new Error(`Server ${res.status}`);
+    }
+    try { console.log('Trial OK:', await res.clone().text()); } catch {}
+    form.style.display = 'none';
+    document.querySelector('.trial-form-header').style.display = 'none';
+    document.getElementById('selectedSlot').style.display = 'none';
+    trialSuccess.classList.add('active');
+    trialSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (err) {
+    console.error('Trial submission error:', err);
+    alert('Sorry — could not book your trial. Please call +65 6789 1234.');
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    submitBtn.innerHTML = originalHTML;
+  }
+});
+</script>
+
+</body>
+</html>
