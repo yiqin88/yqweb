@@ -1159,6 +1159,131 @@ footer {
   text-underline-offset: 3px;
 }
 
+
+
+/* Service card thumbnail strip */
+.svc-thumb {
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  margin: -8px -8px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.svc-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,22,40,0.15), transparent 50%);
+}
+
+/* =========================
+   SHOWCASE — real work photos
+   ========================= */
+.showcase { background: var(--bg); padding-top: 0; }
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) { .showcase-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+@media (min-width: 1024px) { .showcase-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+.showcase-item {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--paper);
+  cursor: default;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
+  box-shadow: 0 12px 28px -12px rgba(10,22,40,0.18);
+}
+.showcase-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 50px -16px rgba(10,22,40,0.28);
+}
+.showcase-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.showcase-item:hover .showcase-bg { transform: scale(1.06); }
+.showcase-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(10,22,40,0) 0%,
+    rgba(10,22,40,0) 45%,
+    rgba(10,22,40,0.45) 70%,
+    rgba(10,22,40,0.9) 100%);
+}
+.showcase-tag {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: rgba(255,255,255,0.92);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 100px;
+  font-weight: 600;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+}
+.showcase-meta {
+  position: absolute;
+  bottom: 22px; left: 22px; right: 22px;
+  z-index: 2;
+  color: white;
+}
+.showcase-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.showcase-cap {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: white;
+}
+
+/* showcase footer strip */
+.showcase-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 22px 28px;
+  background: var(--paper);
+  border-radius: 12px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.showcase-footer b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.showcase-footer .accent { color: var(--blue); font-weight: 600; }
+
 /* =========================
    SCROLL REVEAL
    ========================= */
@@ -1261,6 +1386,7 @@ footer {
     <div class="services-grid">
 
       <div class="service-card reveal" data-delay="1">
+        <div class="svc-thumb" style="background-image:url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&q=85&auto=format&fit=crop');"></div>
         <div class="svc-icon">
           <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/><circle cx="6" cy="7" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="14" cy="17" r="1.5"/></svg>
         </div>
@@ -1276,6 +1402,7 @@ footer {
       </div>
 
       <div class="service-card reveal" data-delay="2">
+        <div class="svc-thumb" style="background-image:url('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&q=85&auto=format&fit=crop');"></div>
         <div class="svc-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2v6m0 0L9 5m3 3 3-3"/><path d="M5 13a7 7 0 1 0 14 0M5 13c0-2 1-4 3-5m11 5c0-2-1-4-3-5"/></svg>
         </div>
@@ -1291,6 +1418,7 @@ footer {
       </div>
 
       <div class="service-card reveal" data-delay="3">
+        <div class="svc-thumb" style="background-image:url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&q=85&auto=format&fit=crop');"></div>
         <div class="svc-icon">
           <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 1 1-6.4 6.4l-5.6 5.6a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l5.6-5.6a4.5 4.5 0 0 0 6.4-6.4l-3.6 3.6-1.4-1.4 3.6-3.6Z"/></svg>
         </div>
@@ -1306,6 +1434,7 @@ footer {
       </div>
 
       <div class="service-card reveal" data-delay="4">
+        <div class="svc-thumb" style="background-image:url('https://images.unsplash.com/photo-1581092446327-9b52bd1570c2?w=600&q=85&auto=format&fit=crop');"></div>
         <div class="svc-icon">
           <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
         </div>
@@ -1321,6 +1450,64 @@ footer {
       </div>
 
     </div>
+  </div>
+</section>
+
+
+<!-- ===== SHOWCASE — real work ===== -->
+<section id="work" class="block showcase">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">— Real work · Real homes</span>
+      <h2 class="display">Every day across <span class="accent">Singapore.</span></h2>
+      <p>Every job documented. Every technician trained. Every customer messaged before, during, and after.</p>
+    </div>
+
+    <div class="showcase-grid">
+
+      <div class="showcase-item reveal" data-delay="1">
+        <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=900&q=85&auto=format&fit=crop');"></div>
+        <div class="showcase-tag">Servicing</div>
+        <div class="showcase-meta">
+          <div class="showcase-num">01 / On the job</div>
+          <div class="showcase-cap">Trained hands on every call.</div>
+        </div>
+      </div>
+
+      <div class="showcase-item reveal" data-delay="2">
+        <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=900&q=85&auto=format&fit=crop');"></div>
+        <div class="showcase-tag">Workshop</div>
+        <div class="showcase-meta">
+          <div class="showcase-num">02 / Equipment</div>
+          <div class="showcase-cap">The right tool for every job.</div>
+        </div>
+      </div>
+
+      <div class="showcase-item reveal" data-delay="3">
+        <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1581092446327-9b52bd1570c2?w=900&q=85&auto=format&fit=crop');"></div>
+        <div class="showcase-tag">Assessment</div>
+        <div class="showcase-meta">
+          <div class="showcase-num">03 / Consultation</div>
+          <div class="showcase-cap">Quoted before we start.</div>
+        </div>
+      </div>
+
+      <div class="showcase-item reveal" data-delay="4">
+        <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=900&q=85&auto=format&fit=crop');"></div>
+        <div class="showcase-tag">Result</div>
+        <div class="showcase-meta">
+          <div class="showcase-num">04 / Comfort</div>
+          <div class="showcase-cap">Cool, quiet, exactly right.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="showcase-footer reveal">
+      <span><b>1,840+</b> homes &nbsp;·&nbsp; <b>4.9★</b> rating &nbsp;·&nbsp; <b>24</b> districts</span>
+      <span class="accent">→ Get a quote in 2 minutes</span>
+    </div>
+
   </div>
 </section>
 
