@@ -1,4 +1,11 @@
+# YQ Web — Singapore websites that actually do something
+# https://web.yqservices.org
+
 User-agent: *
 Allow: /
+Disallow: /demos/
+
+# Demos are fictional businesses used as portfolio pieces.
+# They should not appear in search results.
 
 Sitemap: https://web.yqservices.org/sitemap.xml
