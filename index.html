@@ -467,8 +467,7 @@ section.block {
   .demo-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1100px) {
-  .demo-grid { grid-template-columns: repeat(2, 1fr); }
-  .demo-grid .demo:first-child { grid-row: span 2; }
+  .demo-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; }
 }
 .demo {
   border: 1px solid var(--line);
@@ -540,6 +539,95 @@ section.block {
 }
 .demo-link .arrow { transition: transform .2s ease; }
 .demo:hover .demo-link .arrow { transform: translate(3px, -3px); }
+
+
+/* ---------- Demo card excitement ---------- */
+.demo {
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .3s;
+  position: relative;
+}
+.demo:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 60px -18px rgba(21,19,15,0.22), 0 4px 12px rgba(21,19,15,0.06);
+  border-color: rgba(21,19,15,0.20);
+}
+.demo-visual { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.demo:hover .demo-visual { transform: scale(1.02); }
+
+/* Animated diagonal sheen across the visual */
+.demo-visual {
+  position: relative;
+}
+.demo-visual .demo-sheen {
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 70%; height: 200%;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.10) 50%, transparent 70%);
+  transform: translateX(-20%) skewX(-12deg);
+  transition: transform 1s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  z-index: 1;
+}
+.demo:hover .demo-visual .demo-sheen {
+  transform: translateX(280%) skewX(-12deg);
+}
+
+/* Live indicator pill — pulses in top-right of every demo-visual */
+.demo-live {
+  position: absolute;
+  top: 18px; right: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 9px;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 100px;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+}
+.demo-live::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: #4ADE80;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.30);
+  animation: livePulse 2.2s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.30); }
+  50%      { box-shadow: 0 0 0 7px rgba(74,222,128,0.04); }
+}
+
+/* Floating decorative orb in each visual for depth */
+.demo-visual .demo-orb {
+  position: absolute;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-40px, 30px); }
+}
+
+/* Demo-mark gets a subtle inner glow */
+.demo-mark {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 60px rgba(255,255,255,0.10);
+}
 
 /* ---------- Process ---------- */
 .process { background: var(--cream); }
@@ -1012,7 +1100,10 @@ footer h4 {
     <div class="demo-grid">
       <article class="demo">
         <div class="demo-visual real">
-          <div class="demo-mark">order<i>.</i></div>
+          <div class="demo-sheen"></div>
+          <div class="demo-orb" style="background:#FF6A3D; top:-30px; right:-30px;"></div>
+          <div class="demo-live">Live · 600+ orders</div>
+          <div class="demo-mark">Photos<i> Order</i></div>
         </div>
         <div class="demo-body">
           <div class="demo-meta">Live case study <span class="status live">In production</span></div>
@@ -1025,6 +1116,9 @@ footer h4 {
 
       <a href="/demos/sundry/" class="demo" style="text-decoration:none;">
         <div class="demo-visual" style="background:linear-gradient(135deg,#3D2B1F,#271B14); color:#F4ECDE;">
+          <div class="demo-sheen"></div>
+          <div class="demo-orb" style="background:#C76443; top:-40px; left:-20px;"></div>
+          <div class="demo-live">Demo · Live booking</div>
           <div class="demo-mark display" style="color:#C76443;">Slow<i> Hours</i></div>
         </div>
         <div class="demo-body">
@@ -1038,6 +1132,9 @@ footer h4 {
 
       <a href="/demos/northwind/" class="demo" style="text-decoration:none;">
         <div class="demo-visual" style="background:linear-gradient(135deg,#0A1628,#1E2A3F); color:#E8F1FB;">
+          <div class="demo-sheen"></div>
+          <div class="demo-orb" style="background:#00A8C8; bottom:-30px; right:-30px;"></div>
+          <div class="demo-live">Demo · Photo quote</div>
           <div class="demo-mark display" style="color:#00A8C8;">North<i>wind</i></div>
         </div>
         <div class="demo-body">
@@ -1051,6 +1148,9 @@ footer h4 {
 
       <a href="/demos/brightside/" class="demo" style="text-decoration:none;">
         <div class="demo-visual" style="background:linear-gradient(135deg,#1F2D27,#2D6A4F); color:#F5F0E1;">
+          <div class="demo-sheen"></div>
+          <div class="demo-orb" style="background:#E9C46A; top:-20px; right:-40px;"></div>
+          <div class="demo-live">Demo · Trial booking</div>
           <div class="demo-mark display" style="color:#E9C46A;">Bright<i>side</i></div>
         </div>
         <div class="demo-body">
