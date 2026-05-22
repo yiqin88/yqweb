@@ -1005,6 +1005,53 @@ footer small {
 }
 .qr-upload-label input { display: none; }
 
+/* "Not yet booked" reminder */
+.place-tobook {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(217,167,65,0.14);
+  border-radius: 10px;
+  border-left: 3px solid var(--gold);
+}
+.place-tobook-pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sunset-deep);
+  background: white;
+  padding: 4px 9px;
+  border-radius: 100px;
+  margin-bottom: 6px;
+}
+.place-tobook-text {
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.place-book-btn {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 100px;
+  background: var(--gold);
+  color: var(--ink);
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .2s;
+}
+.place-book-btn:hover {
+  background: var(--sunset);
+  color: var(--cream);
+  border-color: var(--sunset);
+}
+
 /* Fullscreen QR modal */
 .qr-modal {
   position: fixed;
@@ -2577,11 +2624,11 @@ footer small {
    ========================= */
 (function() {
   const days = [
-    { date: '2026-06-23', day: 1, title: 'The drive up', desc: 'Singapore → KL. 5:30 AM Woodlands departure, A\\'Famosa charge, Hilton check-in by 3 PM, KLCC sunset.', anchor: '#day1' },
-    { date: '2026-06-24', day: 2, title: 'KL morning, Genting afternoon', desc: 'Aquaria KLCC, lunch at Yut Kee, drive up to cool 20°C Awana. Cable car + SkyAvenue dinner.', anchor: '#day2' },
-    { date: '2026-06-25', day: 3, title: 'SkyWorlds theme park', desc: 'Check weather. If clear: full day at the outdoor park. Parents rest mid-afternoon. Dinner at The Olive.', anchor: '#day3' },
-    { date: '2026-06-26', day: 4, title: 'Chin Swee &amp; treat dinner', desc: 'Cable car to the temple, optional Skytropolis or strawberry farm, then Genting Palace dinner.', anchor: '#day4' },
-    { date: '2026-06-27', day: 5, title: 'The long road home', desc: 'Depart 9:30 AM. A\\'Famosa for lunch + charge. Causeway crossing afternoon. Home by sunset.', anchor: '#day5' }
+    { date: "2026-06-23", day: 1, title: "The drive up", desc: "Singapore to KL. 5:30 AM Woodlands departure, A\u0027Famosa charge, Hilton check-in by 3 PM, KLCC sunset.", anchor: "#day1" },
+    { date: "2026-06-24", day: 2, title: "Light arrival at Awana", desc: "Aquaria KLCC, Yut Kee lunch, drive up to cool Awana. Pool, walk, Loong Kee dinner at Gohtong Jaya.", anchor: "#day2" },
+    { date: "2026-06-25", day: 3, title: "SkyWorlds theme park", desc: "Cable car UP 9:30 AM, full day at SkyWorlds. First World room as rest base 2-4 PM. SkyAvenue dinner. Cable car DOWN.", anchor: "#day3" },
+    { date: "2026-06-26", day: 4, title: "Drive up and treat dinner", desc: "Chin Swee Temple, Sangong hot pot lunch, drive UP (Tesla charges), Skytropolis, Genting Palace dinner.", anchor: "#day4" },
+    { date: "2026-06-27", day: 5, title: "The long road home", desc: "Depart 9:30 AM. Yong Peng breakfast en route. A\u0027Famosa charge stop. Causeway afternoon. Home by sunset.", anchor: "#day5" }
   ];
 
   const today = new Date();
@@ -2692,6 +2739,8 @@ footer small {
       ref: 'Tickets ~RM 75 adult / RM 65 child',
       refExtra: 'Book online for 10% off',
       mapsUrl: 'https://maps.google.com/?q=Aquaria+KLCC',
+      bookUrl: 'https://www.klook.com/en-SG/activity/798-aquaria-klcc-kuala-lumpur/',
+      toBook: 'Klook / Aquaria website — 10% off advance booking',
       notes: 'Opens 10 AM. 90 min visit enough. Underground, air-conditioned, low-walking.'
     },
     { id: 'cable-car', cat: 'attraction', icon: '🚠', day: 3, name: 'Awana <i>SkyWay</i> cable car',
@@ -2699,6 +2748,8 @@ footer small {
       phone: '+60 3 2718 1118', email: '',
       ref: 'Round-trip ~RM 10-15/pax', refExtra: 'Used Day 3 — UP 9:30 AM, DOWN 8:30 PM',
       mapsUrl: 'https://maps.google.com/?q=Awana+SkyWay+Genting',
+      bookUrl: 'https://www.rwgenting.com/en/things-to-do/awana-skyway.html',
+      toBook: 'Buy at station OR rwgenting.com · 6 round-trip tickets for the family',
       notes: 'One round-trip ticket used Day 3. Glass-bottom gondolas +RM 5/pax optional.'
     },
     { id: 'skyworlds', cat: 'attraction', icon: '🎢', day: 3, name: 'Genting <i>SkyWorlds</i>',
@@ -2706,6 +2757,8 @@ footer small {
       phone: '', email: '',
       ref: '~RM 200 adult / RM 170 child', refExtra: 'Check Klook for promos (often 20% off)',
       mapsUrl: 'https://maps.google.com/?q=Genting+SkyWorlds',
+      bookUrl: 'https://www.klook.com/en-SG/activity/119943-genting-skyworlds-theme-park-tickets/',
+      toBook: 'Klook — Non-Malaysian 1 Day Ticket S$20.95 OR SkyWorlds + Skytropolis bundle S$49.09',
       notes: 'Charlotte may be under 130 cm for wildest rides. Park typically opens 11 AM weekday.'
     },
     { id: 'chinswee', cat: 'attraction', icon: '🛕', day: 4, name: 'Chin Swee <i>Caves Temple</i>',
@@ -2720,6 +2773,8 @@ footer small {
       phone: '', email: '',
       ref: '~RM 60-80 each', refExtra: 'Day pass cheaper than per-ride',
       mapsUrl: 'https://maps.google.com/?q=Skytropolis+Genting',
+      bookUrl: 'https://www.rwgenting.com/en/things-to-do/skytropolis-indoor-theme-park.html',
+      toBook: 'Buy day pass at counter — covered if you bought the SkyWorlds + Skytropolis Klook bundle',
       notes: 'Gentle indoor rides. Carousel, mini drop tower, kiddie coaster, bumper cars.'
     },
     { id: 'hilltop-ev', cat: 'transport', icon: '⚡', day: 4, name: 'Genting Hilltop <i>EV chargers</i>',
@@ -2835,6 +2890,9 @@ footer small {
       const refExtraHTML = p.refExtra ? `<div class="place-detail"><span class="label"></span><span style="font-size:12px;color:var(--mute-2);">${p.refExtra}</span></div>` : '';
       const notesHTML = p.notes ? `<div class="place-detail" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);"><span style="font-size:12px;color:var(--ink-2);font-style:italic;">${p.notes}</span></div>` : '';
 
+      const toBookHTML = (p.toBook && !qr) ? `<div class="place-tobook"><div class="place-tobook-pill">📋 Not yet booked</div><div class="place-tobook-text">${p.toBook}</div></div>` : '';
+      const bookBtnHTML = (p.bookUrl && !qr) ? `<a href="${p.bookUrl}" target="_blank" class="place-book-btn">🔗 Book now</a>` : '';
+
       const qrHTML = qr
         ? `<div class="place-qr-area">
             <div class="place-qr-label">QR code / ticket</div>
@@ -2856,8 +2914,10 @@ footer small {
           ${refHTML}
           ${refExtraHTML}
           ${notesHTML}
+          ${toBookHTML}
           <div class="place-actions">
             <a href="${p.mapsUrl}" target="_blank">📍 Maps</a>
+            ${bookBtnHTML}
             ${p.phone ? `<a href="tel:${p.phone.replace(/\s/g,'')}">📞 Call</a>` : ''}
             <label class="qr-upload-label">
               📷 ${qr ? 'Replace' : 'Add'} QR / ticket
@@ -2933,6 +2993,23 @@ footer small {
 
   let expenses = [];
   try { expenses = JSON.parse(localStorage.getItem(STORAGE_EXP) || '[]'); } catch(e) {}
+
+  // Seed with known prepaid items on first load
+  const SEED_KEY = 'kl-trip-exp-seeded-2026';
+  if (expenses.length === 0 && !localStorage.getItem(SEED_KEY)) {
+    expenses = [
+      { id: 'seed-awana', amount: 497.64, currency: 'SGD', day: 0, category: 'hotel',
+        note: 'RW Awana — 3 nights (Mid-Year Hotel Escape, paid)', ts: '2026-05-12T00:00:00Z' },
+      { id: 'seed-firstworld', amount: 32.87, currency: 'SGD', day: 0, category: 'hotel',
+        note: 'First World — Day 3 rest base, booking 10693538AL (paid)', ts: '2026-05-22T00:00:00Z' },
+      { id: 'seed-hilton', amount: 2000.00, currency: 'MYR', day: 1, category: 'hotel',
+        note: 'Hilton KL — 1 night (Conf 3471664730, paid on arrival)', ts: '2026-06-23T00:00:00Z' }
+    ];
+    try {
+      localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses));
+      localStorage.setItem(SEED_KEY, '1');
+    } catch(e) {}
+  }
 
   let fxRate = 3.50;
   try { fxRate = parseFloat(localStorage.getItem(STORAGE_FX) || '3.50'); } catch(e) {}
