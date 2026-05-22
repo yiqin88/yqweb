@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#2D5A3D" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="KL Trip" />
+<title>KL &amp; Genting · 23–27 June 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input[type=checkbox] { cursor: pointer; }
+
+:root {
+  --cream: #FAF6EE;
+  --paper: #F2EDDF;
+  --paper-2: #E8E0CC;
+  --ink: #1F2A22;
+  --ink-2: #2E3A32;
+  --muted: #5B6661;
+  --mute-2: #8B968F;
+  --moss: #2D5A3D;
+  --moss-deep: #1B3F2A;
+  --leaf: #4A7C5C;
+  --sunset: #C66A3C;
+  --sunset-deep: #A14F26;
+  --gold: #D9A741;
+  --sky: #5C8AA8;
+  --line: rgba(31, 42, 34, 0.10);
+  --line-2: rgba(31, 42, 34, 0.18);
+
+  --display: 'Newsreader', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --container: 880px;
+  --gutter: clamp(18px, 4.5vw, 40px);
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+::selection { background: var(--moss); color: var(--cream); }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+.display {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 60;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.display i, .display em { font-style: italic; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--moss);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero {
+  position: relative;
+  padding: 60px 0 50px;
+  background:
+    radial-gradient(ellipse at 80% 10%, rgba(217,167,65,0.22), transparent 55%),
+    radial-gradient(ellipse at 20% 90%, rgba(45,90,61,0.12), transparent 50%),
+    linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sunset);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 500;
+  font-size: clamp(44px, 8vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.hero h1 i { font-style: italic; color: var(--moss); }
+.hero-meta {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.hero-meta b { color: var(--ink); font-weight: 600; }
+
+.hero-decor {
+  position: absolute;
+  top: 30px;
+  right: -30px;
+  opacity: 0.4;
+  pointer-events: none;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 220px;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 500;
+  transform: rotate(-6deg);
+}
+@media (max-width: 640px) { .hero-decor { font-size: 140px; top: 15px; right: -20px; } }
+
+/* =========================
+   NOW CARD
+   ========================= */
+.now-card {
+  background: var(--moss);
+  color: var(--cream);
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin: -30px 0 0;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 20px 40px -16px rgba(31,42,34,0.25);
+}
+.now-card-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.now-card-tag::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(217,167,65,0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(217,167,65,0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(217,167,65,0.05); }
+}
+.now-card h2 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.now-card p {
+  font-size: 15px;
+  color: rgba(250,246,238,0.85);
+  line-height: 1.55;
+  max-width: 60ch;
+}
+.now-card .countdown {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(250,246,238,0.15);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(250,246,238,0.7);
+  letter-spacing: 0.04em;
+}
+.now-card .countdown b { color: var(--gold); font-weight: 600; }
+
+/* =========================
+   SECTIONS
+   ========================= */
+section.block {
+  padding: 60px 0 30px;
+}
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--sunset);
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.section-h2 {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 60;
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.section-h2 i { font-style: italic; color: var(--moss); }
+.section-lead {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  max-width: 60ch;
+  line-height: 1.55;
+}
+
+/* =========================
+   DAY CARDS
+   ========================= */
+.day {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.day::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--moss);
+}
+.day.day-arrival::before { background: var(--sunset); }
+.day.day-genting::before { background: var(--leaf); }
+.day.day-return::before { background: var(--gold); }
+
+.day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.day-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.day-num .date {
+  color: var(--moss);
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 8px;
+}
+.day-title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(24px, 3.5vw, 32px);
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.day-title i { font-style: italic; color: var(--moss); }
+.day-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--moss);
+  padding: 5px 10px;
+  border-radius: 100px;
+  font-weight: 600;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.timeline {
+  list-style: none;
+  position: relative;
+  padding-left: 0;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: flex-start;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-time {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--moss);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+.timeline-time .meridiem { font-size: 10px; color: var(--mute-2); margin-left: 1px; }
+.timeline-body strong {
+  display: block;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.timeline-body strong i { font-style: italic; color: var(--moss); }
+.timeline-body p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.timeline-body .meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute-2);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+}
+.timeline-body .meta span {
+  display: inline-flex;
+  gap: 4px;
+}
+.timeline-body .meta b { color: var(--ink); font-weight: 600; }
+.timeline-body a.maplink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--sunset);
+  text-decoration: underline;
+  text-decoration-color: rgba(198,106,60,0.4);
+  text-underline-offset: 3px;
+  font-weight: 600;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.timeline-body a.maplink:hover { color: var(--sunset-deep); text-decoration-color: var(--sunset-deep); }
+
+.timeline-pin {
+  display: inline-block;
+  font-size: 10px;
+  background: var(--paper);
+  color: var(--moss);
+  padding: 2px 7px;
+  border-radius: 100px;
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+.timeline-pin.kid { background: rgba(217,167,65,0.18); color: var(--sunset-deep); }
+.timeline-pin.parents { background: rgba(45,90,61,0.12); color: var(--moss-deep); }
+.timeline-pin.warn { background: rgba(198,106,60,0.16); color: var(--sunset-deep); }
+.timeline-pin.charge { background: rgba(92,138,168,0.16); color: var(--sky); }
+
+.day-aside {
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 18px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.day-aside strong {
+  display: block;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--moss);
+  margin-bottom: 4px;
+}
+
+/* =========================
+   INFO CARDS GRID
+   ========================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 720px) { .cards-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+
+.info-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform .3s, box-shadow .3s;
+}
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -12px rgba(31,42,34,0.1);
+}
+.info-card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--moss);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.info-card h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.info-card h3 i { font-style: italic; color: var(--moss); }
+.info-card .rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.info-card .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13.5px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.info-card .row:last-child { border-bottom: none; }
+.info-card .row span { color: var(--mute-2); font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600; padding-top: 2px; }
+.info-card .row b { color: var(--ink); font-weight: 600; text-align: right; font-family: var(--sans); }
+.info-card .row b.mono { font-family: var(--mono); font-size: 13px; }
+.info-card .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.info-card .actions a {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: var(--paper);
+  color: var(--moss);
+  border: 1px solid var(--line);
+  transition: all .2s;
+}
+.info-card .actions a:hover {
+  background: var(--moss);
+  color: var(--cream);
+  border-color: var(--moss);
+}
+
+/* charging */
+.charge-list {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.charge-item {
+  background: white;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--sky);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.charge-item h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+}
+.charge-item h4 .km {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute-2);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+}
+.charge-item p {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.charge-item .meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute-2);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+}
+.charge-item .meta b { color: var(--moss); font-weight: 600; }
+
+/* food */
+.food-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 720px) { .food-list { grid-template-columns: 1fr 1fr; } }
+
+.food-item {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform .25s, box-shadow .25s;
+}
+.food-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -10px rgba(31,42,34,0.1);
+}
+.food-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.food-item h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.food-item h4 i { font-style: italic; color: var(--moss); }
+.food-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--moss);
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.food-tag.must { background: var(--moss); color: var(--cream); }
+.food-tag.kid { background: rgba(217,167,65,0.2); color: var(--sunset-deep); }
+.food-tag.special { background: rgba(198,106,60,0.16); color: var(--sunset-deep); }
+.food-item p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.food-item .where {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute-2);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.food-item .where b { color: var(--ink); font-weight: 600; font-family: var(--sans); }
+
+/* practical grid */
+.practical-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 720px) { .practical-grid { grid-template-columns: 1fr 1fr; } }
+.practical-card {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+.practical-card h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.practical-card h4 .icon {
+  font-size: 20px;
+}
+.practical-card p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.practical-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.practical-card li {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+}
+.practical-card li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--moss);
+  font-weight: 600;
+}
+
+/* packing checklist */
+.pack-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 720px) { .pack-grid { grid-template-columns: 1fr 1fr; gap: 22px; } }
+.pack-col {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+}
+.pack-col h4 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--moss);
+  letter-spacing: -0.005em;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.pack-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pack-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--ink-2);
+  transition: color .2s;
+}
+.pack-list li.done { color: var(--mute-2); text-decoration: line-through; }
+.pack-list input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--line-2);
+  border-radius: 5px;
+  background: white;
+  position: relative;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.pack-list input[type=checkbox]:checked {
+  background: var(--moss);
+  border-color: var(--moss);
+}
+.pack-list input[type=checkbox]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reset-pack {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute-2);
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .2s;
+}
+.reset-pack:hover { color: var(--sunset); }
+
+/* footer */
+footer {
+  background: var(--moss-deep);
+  color: rgba(250,246,238,0.7);
+  padding: 40px 0 32px;
+  margin-top: 60px;
+  text-align: center;
+}
+footer p {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+footer small {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(250,246,238,0.4);
+}
+
+/* print */
+@media print {
+  body { background: white; color: black; font-size: 11pt; padding: 0; }
+  .now-card, .hero-decor { display: none; }
+  section.block { padding: 20px 0; page-break-inside: avoid; }
+  .day { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+  .info-card, .food-item, .charge-item, .practical-card, .pack-col { box-shadow: none; border: 1px solid #ddd; }
+  .day::before { display: none; }
+  .timeline-item { page-break-inside: avoid; }
+  a { color: black; text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<header class="hero">
+  <div class="hero-decor">飛</div>
+  <div class="container hero-inner">
+    <div class="hero-tag">Family Road Trip · 2026</div>
+    <h1 class="display">KL &amp; <i>Genting</i><br>Highlands.</h1>
+    <div class="hero-meta">
+      <span><b>5</b> days, <b>4</b> nights</span>
+      <span><b>23–27</b> June 2026</span>
+      <span><b>6</b> of us</span>
+      <span>≈ <b>1,100 km</b> round trip</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================
+     NOW CARD (auto-updates by date)
+     ============================================ -->
+<div class="container">
+  <div class="now-card" id="nowCard">
+    <div class="now-card-tag">Today</div>
+    <h2 class="display" id="nowTitle">Loading…</h2>
+    <p id="nowDesc">Checking the date…</p>
+    <div class="countdown" id="nowCountdown"></div>
+  </div>
+</div>
+
+<!-- ============================================
+     DAY 1 — Tue 23 Jun
+     ============================================ -->
+<section class="block">
+  <div class="container">
+    <span class="section-eyebrow">— Day 01 / The drive up</span>
+    <h2 class="display section-h2">Singapore <i>to</i> KL.</h2>
+    <p class="section-lead">Early start to beat the Causeway. Two charging stops, family lunch at A'Famosa, into Hilton by mid-afternoon.</p>
+
+    <article class="day day-arrival">
+      <div class="day-head">
+        <div>
+          <div class="day-num">Day 1 <span class="date">Tue, 23 June</span></div>
+          <h3 class="day-title display">The <i>long drive</i></h3>
+        </div>
+        <span class="day-badge">≈ 360 km</span>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-time">5:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Depart Woodlands</strong>
+            <p>Everyone in the car, last toilet check, fuel/charge to 100% the night before. Snacks + water + passports + VEP ready.</p>
+            <div class="meta">
+              <span><b>Tip:</b></span>
+              <span>Weekday 5:30 AM = the best Causeway window. Aim to clear immigration by 6:15 AM.</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">7:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Yong Peng Lay-by <span class="timeline-pin">rest stop</span></strong>
+            <p>First proper break ~140 km in. Toilet, breakfast — roti canai, nasi lemak, kopi-O. Stretch legs, kids run around the open area.</p>
+            <div class="meta">
+              <span><b>Stay:</b> 30–45 min</span>
+              <span><b>Charging:</b> not Tesla-confirmed — verify on PlugShare before relying on it</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">10:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Freeport A'Famosa Outlet <span class="timeline-pin charge">Tesla Supercharger</span></strong>
+            <p>250 km mark. Tesla Supercharger (DC fast) — ~40 min to 80%. Mall is bright and quiet at this hour. Coffee, kids' shoes, ice cream. Light early-lunch options at the food court.</p>
+            <a href="https://maps.google.com/?q=Freeport+A'Famosa+Outlet+Alor+Gajah" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Charge:</b> 40 min</span>
+              <span><b>Shop/eat:</b> 60 min</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Continue to KL</strong>
+            <p>~130 km left, the easy part. North via PLUS Highway. Lunch already done; kids can nap in the car.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">3:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Check in: Hilton Kuala Lumpur <span class="timeline-pin parents">2 rooms</span></strong>
+            <p>Same-floor request was made. Drop bags, freshen up. Hilton has Tesla destination chargers in valet parking — get on one overnight.</p>
+            <a href="https://maps.google.com/?q=Hilton+Kuala+Lumpur,+3+Jalan+Stesen+Sentral" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Conf:</b> 3471664730</span>
+              <span><b>Tel:</b> +60 3 2264 2264</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">5:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>KLCC Park &amp; Petronas Twin Towers <span class="timeline-pin kid">kid favourite</span></strong>
+            <p>15-min Grab from Hilton (~RM 12). View the towers from the park (better than the skybridge for first-timers). Playground for Charlotte, gardens for parents to sit. Stay for the <b>8:00 PM Lake Symphony fountain show</b> — free, 15 min, gorgeous against the lit towers.</p>
+            <a href="https://maps.google.com/?q=KLCC+Park" class="maplink" target="_blank">Open in Maps ↗</a>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">8:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Dinner: <i>Madam Kwan's</i> at Pavilion KL</strong>
+            <p>Famous KL Malaysian — Nasi Lemak Tut Tut, Asam Laksa, Nasi Bojari. Broad menu, all kid-friendly, no beef issues. Reservation recommended for 6 pax (call +60 3 2148 2240).</p>
+            <a href="https://maps.google.com/?q=Madam+Kwan's+Pavilion+KL" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Budget:</b> ~RM 250–350 for 6 pax</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">10:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Back to Hilton, lights out</strong>
+            <p>Big day tomorrow. Parents will be tired from the drive — protect their sleep.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="day-aside">
+        <strong>If KLCC feels too far</strong>
+        Easier alternative: walk from Hilton to <b>NU Sentral mall</b> (covered walkway, 5 min). Dinner at Madam Kwan's NU Sentral branch instead. Less iconic but zero taxis, parents-friendly.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================
+     DAY 2 — Wed 24 Jun
+     ============================================ -->
+<section class="block">
+  <div class="container">
+    <span class="section-eyebrow">— Day 02 / Climb into cool air</span>
+    <h2 class="display section-h2">KL morning, <i>Genting</i> afternoon.</h2>
+    <p class="section-lead">One light KL highlight, lunch, then the 1-hour climb up to 1,700 m. Cooler weather, cable car, settle in.</p>
+
+    <article class="day">
+      <div class="day-head">
+        <div>
+          <div class="day-num">Day 2 <span class="date">Wed, 24 June</span></div>
+          <h3 class="day-title display">From hot KL to <i>cool hills</i></h3>
+        </div>
+        <span class="day-badge">≈ 50 km</span>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-time">8:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Hilton breakfast</strong>
+            <p>Honors breakfast may be included — confirm at check-in. Otherwise pay-as-you-go. Strong coffee for parents, pancakes for kids.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">9:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Aquaria KLCC <span class="timeline-pin kid">kid favourite</span></strong>
+            <p>Underground aquarium right under KLCC. 90 minutes is enough. Parents can sit while kids ogle stingrays in the tunnel. Air-conditioned, low-walking, perfect "soft" morning before the drive.</p>
+            <a href="https://maps.google.com/?q=Aquaria+KLCC" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Tickets:</b> ~RM 75 adult / RM 65 child (book online for 10% off)</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Check out of Hilton</strong>
+            <p>Cars loaded, bags in the boot, head to lunch.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Lunch: <i>Restoran Yut Kee</i></strong>
+            <p>Hainanese-Malaysian kopitiam since 1928. Roti babi, Hainanese chicken chop, kaya toast. Iconic. Cash preferred. Tight space — be quick.</p>
+            <a href="https://maps.google.com/?q=Restoran+Yut+Kee+Kuala+Lumpur" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Budget:</b> ~RM 150 for 6 pax</span>
+              <span><b>Beef-free:</b> yes</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">2:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Drive KL → Awana <span class="timeline-pin warn">winding road</span></strong>
+            <p>~50 km via Karak Highway. 1 hour at sensible pace. The climb is twisty — kids prone to carsickness should sit front-passenger or take Bonamine 30 min before. Tesla regen will recover charge on the way down later.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">3:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Check in: Resorts World Awana <span class="timeline-pin parents">2 rooms</span></strong>
+            <p>Mid-station. Cool 18–22°C. Both Superior Deluxe rooms, 2 Queen beds each. Adjacent + same floor + renovated wing requested.</p>
+            <a href="https://maps.google.com/?q=Resorts+World+Awana,+Genting+Highlands" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Ref:</b> EL0000100460</span>
+              <span><b>Pkg:</b> Mid-Year Hotel Escape</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">5:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Awana SkyWay cable car up <span class="timeline-pin kid">all ages</span></strong>
+            <p>10–15 min ride, glass-bottomed gondolas optional. Stops at Chin Swee temple (skip today) then SkyAvenue at the top. Stunning rainforest views. Parents will be amazed.</p>
+            <div class="meta">
+              <span><b>Fare:</b> ~RM 10–15 round trip</span>
+              <span><b>Last ride down:</b> usually 11 PM</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">6:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Dinner at SkyAvenue</strong>
+            <p>Easy choices: <b>Imperial Rama</b> (Thai, broad menu), <b>Sushi Zanmai</b> (Japanese, lots of non-beef), <b>Old Town White Coffee</b> (familiar Malaysian, fast). No reservations needed weekday off-peak.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">9:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Cable car down, sleep</strong>
+            <p>Rest up. Theme park tomorrow.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="day-aside">
+        <strong>EV charging note</strong>
+        Awana itself doesn't have public chargers. The <b>Hilltop EV chargers</b> (opposite RW Hotel, formerly Highlands Hotel) are accessible to all guests. Charge tomorrow morning while exploring SkyAvenue.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================
+     DAY 3 — Thu 25 Jun
+     ============================================ -->
+<section class="block">
+  <div class="container">
+    <span class="section-eyebrow">— Day 03 / Theme park day</span>
+    <h2 class="display section-h2">SkyWorlds, <i>full send.</i></h2>
+    <p class="section-lead">The big day at Genting SkyWorlds. Check weather the night before — outdoor rides shut in fog or rain.</p>
+
+    <article class="day day-genting">
+      <div class="day-head">
+        <div>
+          <div class="day-num">Day 3 <span class="date">Thu, 25 June</span></div>
+          <h3 class="day-title display">Rollercoasters <i>&amp; rest</i></h3>
+        </div>
+        <span class="day-badge">Theme park</span>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-time">8:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Breakfast at The Lodge</strong>
+            <p>Your booking includes RM 18 × 2 meal credit toward this buffet. Rates: RM 35 adult / RM 15 child. 4 adults + 2 kids = ~RM 134 out of pocket after credit.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">10:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Cable car up to SkyWorlds <span class="timeline-pin warn">check weather</span></strong>
+            <p>Theme park opens 11 AM. Take cable car or Awana shuttle. <b>Check the Genting app the night before</b> — outdoor rides close in heavy fog/rain. If forecast is bad, swap to Day 4 plan (Chin Swee + Skytropolis).</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">11:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Genting SkyWorlds <span class="timeline-pin kid">main event</span></strong>
+            <p>Malaysia's newest outdoor theme park. Charlotte (8) may be under the 130 cm bar for the wildest coasters — Nicholas (11) should clear most. Plan a meeting point + a "grandparents' shaded bench" at the central plaza. Lunch inside the park.</p>
+            <div class="meta">
+              <span><b>Tickets:</b> ~RM 200 adult, RM 170 child (book online, sometimes 20% off)</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Lunch inside the park</strong>
+            <p>Food courts and themed restaurants throughout. Skip queues by eating off-peak (1:30 PM onwards).</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">4:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Back to Awana, parents rest <span class="timeline-pin parents">important</span></strong>
+            <p>Don't push it. Parents have walked enough by now. They nap, you and the kids can keep going.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">5:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Kids round 2: Skytropolis or arcade <span class="timeline-pin kid">optional</span></strong>
+            <p>If kids still have energy, head back up. Skytropolis Indoor Theme Park has gentler rides perfect for Charlotte. Genting Bowl + arcade also good evening options.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">7:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Dinner: <i>The Olive</i> or <i>Coliseum Cafe</i></strong>
+            <p><b>The Olive</b> at Resorts World — Mediterranean, calmer ambiance, good for parents after a long day. <b>Coliseum Cafe</b> — old-school Malaysian if you want local. Book ahead either way (concierge can do it).</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">10:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Sleep early</strong>
+            <p>Tomorrow's pace is gentler. Tonight everyone is tired.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="day-aside">
+        <strong>Weather backup plan</strong>
+        Genting fog/rain is real and can close outdoor rides without notice. If Day 3 weather is bad, swap with Day 4 — do Chin Swee + Skytropolis indoor today, save SkyWorlds for Friday.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================
+     DAY 4 — Fri 26 Jun
+     ============================================ -->
+<section class="block">
+  <div class="container">
+    <span class="section-eyebrow">— Day 04 / Temple &amp; treat day</span>
+    <h2 class="display section-h2">Slower day, <i>bigger dinner.</i></h2>
+    <p class="section-lead">Lighter walking, mountain temple, optional strawberry farm or indoor rides, special dinner.</p>
+
+    <article class="day day-genting">
+      <div class="day-head">
+        <div>
+          <div class="day-num">Day 4 <span class="date">Fri, 26 June</span></div>
+          <h3 class="day-title display">Chin Swee <i>&amp; calm</i></h3>
+        </div>
+        <span class="day-badge">Easy pace</span>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-time">8:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Breakfast at The Lodge</strong>
+            <p>Same as yesterday. Take your time.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">10:00<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Chin Swee Caves Temple <span class="timeline-pin parents">parents will love</span></strong>
+            <p>Cable car up, get off at Chin Swee station (mid-way). Sprawling Taoist-Buddhist temple complex on the cliffside. 9-storey pagoda, Buddha statue, prayer halls, panoramic mountain views. Moderate walking with stairs — lifts are available between major levels. 2 hours is plenty.</p>
+            <div class="meta">
+              <span><b>Entry:</b> free</span>
+              <span><b>Donations:</b> appreciated</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Lunch back at SkyAvenue</strong>
+            <p>Try a different spot today — <b>Sushi Zanmai</b> if you didn't yesterday, or <b>Burger &amp; Lobster</b> for the kids. Genting has cosmopolitan options because it's resort food, not local food.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">2:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Choose one: Skytropolis OR Strawberry Farm</strong>
+            <p><b>Option A — Skytropolis Indoor</b>: gentler rides, all ages, in case anyone's tired or weather turned. <b>Option B — Genting Strawberry Leisure Farm</b> (Bentong, 35 min drive down): pick strawberries, see goats, very kid-and-grandparent friendly. <b>Choose based on energy + weather.</b></p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">5:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Back at Awana, rest</strong>
+            <p>Shower, change for dinner. Parents have an hour to themselves.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">7:00<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Special dinner: <i>Genting Palace</i> <span class="timeline-pin special">treat night</span></strong>
+            <p>Premium Cantonese inside Resorts World. Dim sum lunch is famous; dinner has the full repertoire — Peking duck, steamed fish, abalone if you want to splurge. Beautiful setting, parents will feel honoured. <b>Reservation essential</b> for 6 pax — call the concierge as soon as you check in.</p>
+            <div class="meta">
+              <span><b>Budget:</b> RM 500–800 for 6 pax</span>
+              <span><b>Beef-free:</b> easy</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">9:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Slow walk back</strong>
+            <p>The kids might want one last arcade round. Parents will want bed. Both fine.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="day-aside">
+        <strong>Pack for tomorrow tonight</strong>
+        Saturday is the long drive home with the worst Causeway day of the week. Pack the car the night before so you're not faffing at 9 AM.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================
+     DAY 5 — Sat 27 Jun
+     ============================================ -->
+<section class="block">
+  <div class="container">
+    <span class="section-eyebrow">— Day 05 / Home</span>
+    <h2 class="display section-h2">Genting <i>back to</i> Singapore.</h2>
+    <p class="section-lead">Saturday Causeway is the busiest of the week. Leave early, charge at A'Famosa over lunch, target SG by sunset.</p>
+
+    <article class="day day-return">
+      <div class="day-head">
+        <div>
+          <div class="day-num">Day 5 <span class="date">Sat, 27 June</span></div>
+          <h3 class="day-title display">The <i>long road</i> home</h3>
+        </div>
+        <span class="day-badge">≈ 400 km</span>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-time">7:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Last breakfast at The Lodge</strong>
+            <p>Quick this time. No lingering. Bags should already be packed from last night.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">9:30<span class="meridiem">am</span></span>
+          <div class="timeline-body">
+            <strong>Check out, load car, depart</strong>
+            <p>Aim to be on the Karak Highway by 10 AM. Tesla should be at 90%+ from overnight charging at Hilltop. Descent regenerates a few %.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">12:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Freeport A'Famosa: lunch + charge <span class="timeline-pin charge">Tesla Supercharger</span></strong>
+            <p>Same Supercharger as Day 1. Charge to 80–90% while everyone has a proper lunch. Plan 90 min here — it's the bottleneck saver. Kids can play; parents can shop.</p>
+            <a href="https://maps.google.com/?q=Freeport+A'Famosa+Outlet" class="maplink" target="_blank">Open in Maps ↗</a>
+            <div class="meta">
+              <span><b>Charge:</b> 40 min</span>
+              <span><b>Lunch:</b> 60 min</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">2:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Continue south</strong>
+            <p>~250 km to go. Stops only as needed.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">5:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Approach Causeway <span class="timeline-pin warn">Saturday traffic</span></strong>
+            <p>Saturday evening = worst Causeway window. Plan for 1–1.5 hours at immigration. <b>Tuas usually less crowded than Woodlands for return</b> — consider routing via Tuas Second Link. Have passports out, snacks accessible, kids' bladder schedule respected.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-time">7:30<span class="meridiem">pm</span></span>
+          <div class="timeline-body">
+            <strong>Home in Singapore</strong>
+            <p>Unpack tomorrow. Order in. Everyone collapses.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="day-aside">
+        <strong>Alternative timing</strong>
+        If you're flexible: leave Awana at 5 AM Saturday and target Causeway by 11 AM — clears in 30 min usually. But waking sleepy kids at 4:30 AM after a busy week is a hard sell. The 9:30 AM departure is the right compromise.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================
+     HOTELS
+     ============================================ -->
+<section class="block" id="hotels">
+  <div class="container">
+    <span class="section-eyebrow">— Hotels</span>
+    <h2 class="display section-h2">Where <i>we sleep.</i></h2>
+
+    <div class="cards-grid">
+
+      <div class="info-card">
+        <div class="info-card-label">Night 1 · 23 Jun</div>
+        <h3 class="display">Hilton <i>Kuala Lumpur</i></h3>
+        <div class="rows">
+          <div class="row"><span>Check-in</span><b>Tue 23 Jun, 3:00 PM</b></div>
+          <div class="row"><span>Check-out</span><b>Wed 24 Jun, 12:00 PM</b></div>
+          <div class="row"><span>Rooms</span><b>Family Deluxe + King Deluxe</b></div>
+          <div class="row"><span>Address</span><b>3 Jalan Stesen Sentral, KL 50470</b></div>
+          <div class="row"><span>Phone</span><b class="mono">+60 3 2264 2264</b></div>
+          <div class="row"><span>Conf #</span><b class="mono">3471664730</b></div>
+          <div class="row"><span>Honors #</span><b class="mono">2773814641</b></div>
+          <div class="row"><span>Total</span><b>MYR 2,000</b></div>
+        </div>
+        <div class="actions">
+          <a href="https://maps.google.com/?q=Hilton+Kuala+Lumpur,+3+Jalan+Stesen+Sentral" target="_blank">Maps</a>
+          <a href="tel:+60322642264">Call hotel</a>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-label">Nights 2–4 · 24–27 Jun</div>
+        <h3 class="display">Resorts World <i>Awana</i></h3>
+        <div class="rows">
+          <div class="row"><span>Check-in</span><b>Wed 24 Jun</b></div>
+          <div class="row"><span>Check-out</span><b>Sat 27 Jun</b></div>
+          <div class="row"><span>Rooms</span><b>2 × Superior Deluxe, 2 Queen each</b></div>
+          <div class="row"><span>Address</span><b>Genting Highlands, 69000 Pahang</b></div>
+          <div class="row"><span>Ref</span><b class="mono">EL0000100460</b></div>
+          <div class="row"><span>Package</span><b>Mid-Year Hotel Escape</b></div>
+          <div class="row"><span>Meal credit</span><b>RM 18 × 2 pax/day</b></div>
+          <div class="row"><span>Paid</span><b>SGD 497.64</b></div>
+        </div>
+        <div class="actions">
+          <a href="https://maps.google.com/?q=Resorts+World+Awana+Genting" target="_blank">Maps</a>
+          <a href="mailto:reservation.info@rwgenting.com">Email RW</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     EV CHARGING
+     ============================================ -->
+<section class="block" id="charging">
+  <div class="container">
+    <span class="section-eyebrow">— EV Charging</span>
+    <h2 class="display section-h2">Tesla <i>game plan.</i></h2>
+    <p class="section-lead">Two confirmed Supercharger stops. Two destination chargers. Range is comfortable if you charge before leaving.</p>
+
+    <ul class="charge-list">
+
+      <li class="charge-item">
+        <h4>Pre-trip: Charge to 100% at home <span class="km">night before</span></h4>
+        <p>Don't leave it to the morning. Full battery + 6 pax + AC + luggage = real range ~400 km.</p>
+      </li>
+
+      <li class="charge-item">
+        <h4>Stop 1: Yong Peng lay-by <span class="km">~140 km in</span></h4>
+        <p>Primarily a food + toilet stop. Tesla charging not confirmed here — check PlugShare app before relying on it. Worst case: skip charging here, go direct to A'Famosa.</p>
+        <div class="meta">
+          <span><b>Purpose:</b> rest, breakfast</span>
+        </div>
+      </li>
+
+      <li class="charge-item">
+        <h4>Stop 2: Freeport A'Famosa Outlet <span class="km">~250 km in</span></h4>
+        <p>Confirmed Tesla Supercharger (DC fast). 40 min to 80%. Easy mall to wait at. Restrooms, food, kids' shops.</p>
+        <div class="meta">
+          <span><b>Connector:</b> CCS2 / Tesla</span>
+          <span><b>Speed:</b> up to 150 kW</span>
+        </div>
+      </li>
+
+      <li class="charge-item">
+        <h4>Stop 3: Hilton KL valet parking <span class="km">~360 km / overnight</span></h4>
+        <p>Tesla Destination Chargers in valet parking. Slower (~7 kW) but you'll be there 12+ hours. Tell valet at check-in.</p>
+        <div class="meta">
+          <span><b>Connector:</b> Type 2</span>
+          <span><b>Cost:</b> usually free for guests</span>
+        </div>
+      </li>
+
+      <li class="charge-item">
+        <h4>Stop 4: Genting Hilltop chargers <span class="km">25–27 Jun</span></h4>
+        <p>Confirmed by RW Awana — public chargers at Hilltop accessible to all guests. Located opposite RW Hotel (formerly Highlands Hotel — name changed 11 May 2026). Top up while you're up there exploring.</p>
+        <div class="meta">
+          <span><b>Walk from Awana:</b> via cable car</span>
+        </div>
+      </li>
+
+      <li class="charge-item">
+        <h4>Return: Freeport A'Famosa again <span class="km">27 Jun lunch</span></h4>
+        <p>Same Supercharger, same 40-min routine. Pair with lunch. Should arrive Singapore with 30%+ buffer.</p>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOD
+     ============================================ -->
+<section class="block" id="food">
+  <div class="container">
+    <span class="section-eyebrow">— Must-eat list</span>
+    <h2 class="display section-h2">What to <i>eat where.</i></h2>
+    <p class="section-lead">A short list, not a long one. All beef-free-friendly. Kids' menus where it matters.</p>
+
+    <h3 class="display" style="font-size:24px; margin: 8px 0 16px; color: var(--moss); font-style: italic;">In KL</h3>
+    <div class="food-list">
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Madam Kwan's</h4>
+          <span class="food-tag must">Must</span>
+        </div>
+        <p>Iconic Malaysian. Nasi Lemak Tut Tut, Asam Laksa, Nasi Bojari. Broad enough for kids and parents both.</p>
+        <div class="where"><b>Where:</b> Pavilion KL or NU Sentral · <b>Booking:</b> call ahead for 6 pax</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Restoran Yut Kee</h4>
+          <span class="food-tag must">Must</span>
+        </div>
+        <p>Hainanese kopitiam since 1928. Roti babi, chicken chop with brown sauce, kaya butter toast. Bring cash. Service is brisk.</p>
+        <div class="where"><b>Where:</b> Jalan Kamunting · <b>Closed:</b> Mondays</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Lot 10 Hutong</h4>
+          <span class="food-tag">Food court</span>
+        </div>
+        <p>Curated hawker stalls inside a basement food court. Try Hokkien mee, char kway teow, hai nan chicken rice. No need to wander Petaling Street with the family.</p>
+        <div class="where"><b>Where:</b> Lot 10, Bukit Bintang · <b>Air-conditioned</b></div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Bijan Bar &amp; Restaurant</h4>
+          <span class="food-tag special">Date night</span>
+        </div>
+        <p>If you and wife want one nice evening without the kids (leave them with grandparents at Hilton). Modern Malaysian, refined plating. Tasting menu available.</p>
+        <div class="where"><b>Where:</b> Off Jalan Ceylon · <b>Reservation:</b> essential</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Roti Canai (any kopitiam)</h4>
+          <span class="food-tag">Breakfast</span>
+        </div>
+        <p>The Malaysian breakfast essential. Flaky flatbread, dal, curry. Available everywhere. Kids' version: plain with kaya. ~RM 3 each.</p>
+        <div class="where"><b>Where:</b> any old kopitiam, Yong Peng lay-by has these</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Durian — Musang King</h4>
+          <span class="food-tag special">Seasonal · June peak</span>
+        </div>
+        <p>If parents and you are durian people: June is peak Musang King season. SS2 morning market (Petaling Jaya) has stall after stall. Eat on-site, can't bring back to hotel.</p>
+        <div class="where"><b>Where:</b> SS2 Morning Market, Petaling Jaya · <b>Best:</b> 8–10 AM</div>
+      </div>
+
+    </div>
+
+    <h3 class="display" style="font-size:24px; margin: 36px 0 16px; color: var(--moss); font-style: italic;">At Genting</h3>
+    <div class="food-list">
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Genting Palace</h4>
+          <span class="food-tag special">Treat night</span>
+        </div>
+        <p>Cantonese fine dining at Resorts World. Dim sum lunch is famous; dinner does the works — Peking duck, steamed fish, abalone. <b>The right spot for the special dinner with parents.</b> Reserve via concierge.</p>
+        <div class="where"><b>Where:</b> Resorts World, Genting · <b>Budget:</b> RM 500–800 for 6</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">The Olive</h4>
+          <span class="food-tag">Mediterranean</span>
+        </div>
+        <p>Mediterranean comfort food. Calm setting, varied menu, easy for everyone. Good "I just want a quiet dinner" option.</p>
+        <div class="where"><b>Where:</b> Resorts World · <b>Booking:</b> recommended</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Imperial Rama</h4>
+          <span class="food-tag">Thai</span>
+        </div>
+        <p>Solid Thai at SkyAvenue. Tom yum, pad thai, green curry. Kids do well with the milder dishes.</p>
+        <div class="where"><b>Where:</b> SkyAvenue, top station</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Coliseum Cafe</h4>
+          <span class="food-tag">Local</span>
+        </div>
+        <p>Old-school Malaysian-Western at Genting. Sizzling steaks, chicken chop, classic kopitiam. Atmospheric, the kids will find it interesting.</p>
+        <div class="where"><b>Where:</b> First World · <b>Note:</b> menu has beef — order non-beef for parents</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">Hot pot / steamboat</h4>
+          <span class="food-tag">Cool weather</span>
+        </div>
+        <p>Perfect at 18°C. Multiple hot pot places at First World and SkyAvenue. Kids love picking ingredients. Get a half-half clear/spicy soup.</p>
+        <div class="where"><b>Where:</b> First World food courts</div>
+      </div>
+
+      <div class="food-item">
+        <div class="food-item-head">
+          <h4 class="display">The Lodge buffet</h4>
+          <span class="food-tag kid">Breakfast 3×</span>
+        </div>
+        <p>Where breakfast is. RM 35 adult / RM 15 child. Variety covers all six of you. Use your RM 18 × 2 meal credit here.</p>
+        <div class="where"><b>Where:</b> Awana Hotel · <b>Open:</b> 6:30 – 10:30 AM</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     PRACTICAL
+     ============================================ -->
+<section class="block" id="practical">
+  <div class="container">
+    <span class="section-eyebrow">— Practical stuff</span>
+    <h2 class="display section-h2">Things to <i>get right.</i></h2>
+
+    <div class="practical-grid">
+
+      <div class="practical-card">
+        <h4><span class="icon">🛂</span>Border crossing</h4>
+        <ul>
+          <li><b>VEP (Vehicle Entry Permit)</b> required for SG cars in Malaysia since Oct 2024. Confirm yours is active.</li>
+          <li><b>Touch 'n Go card</b> needed for tolls — top up before leaving SG.</li>
+          <li>Outbound: Tue 5:30 AM Woodlands → clear by 6:15 AM ✓</li>
+          <li>Return: Sat afternoon = busy. Consider <b>Tuas Second Link</b> instead of Woodlands.</li>
+          <li>Passports valid 6+ months. Kids' IC documents.</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <h4><span class="icon">💵</span>Money &amp; cards</h4>
+        <ul>
+          <li>Bring some <b>RM cash</b> — small stalls, parking, durian.</li>
+          <li>Cards work most places. <b>DBS Multiplier/Live Fresh</b> good for foreign use.</li>
+          <li>Yut Kee is <b>cash only</b>.</li>
+          <li>Rough rate: <b>SGD 1 ≈ RM 3.5</b> (check before leaving).</li>
+          <li>ATMs at A'Famosa, Hilton, Resorts World.</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <h4><span class="icon">☔</span>Weather</h4>
+        <ul>
+          <li><b>KL:</b> 28–34°C, humid. Afternoon thunderstorms possible.</li>
+          <li><b>Genting:</b> 15–22°C — bring <b>warm layers</b> for everyone, especially parents.</li>
+          <li>Genting fog: outdoor rides can close. Check Genting app the night before.</li>
+          <li>June is monsoon-light but pack a small umbrella each.</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <h4><span class="icon">📱</span>Phone &amp; data</h4>
+        <ul>
+          <li><b>Singtel ReadyRoam</b> ~SGD 11/day per line — easiest.</li>
+          <li>Or local SIM: <b>Hotlink/Celcom</b> tourist plans at Causeway.</li>
+          <li>Download <b>PlugShare</b> (charging), <b>Waze</b> (Malaysia traffic), <b>Genting World</b> (theme park).</li>
+          <li>WhatsApp works the same — no setup needed.</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <h4><span class="icon">🚨</span>Emergency numbers</h4>
+        <ul>
+          <li><b>Malaysia emergency:</b> 999</li>
+          <li><b>Tourist police:</b> 03-2149-6590</li>
+          <li><b>SG embassy KL:</b> +60 3 2161 6277</li>
+          <li><b>AA Malaysia (breakdown):</b> 1-800-88-0808</li>
+          <li><b>Hilton KL:</b> +60 3 2264 2264</li>
+          <li><b>RW Awana:</b> +60 3 2718 1118</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <h4><span class="icon">🚗</span>For the Tesla</h4>
+        <ul>
+          <li>Charge to 100% night before.</li>
+          <li>Pack the <b>J1772/Type 2 adapter</b> if you have one — backup for any non-Tesla destination charger.</li>
+          <li>Tire pressure check before leaving.</li>
+          <li>Sentry mode <b>off</b> when parked overnight at Hilton/Awana (battery drain).</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PACKING
+     ============================================ -->
+<section class="block" id="packing">
+  <div class="container">
+    <span class="section-eyebrow">— Packing</span>
+    <h2 class="display section-h2">What <i>to bring.</i></h2>
+    <p class="section-lead">Tick as you pack. Saved automatically — refresh and they're still ticked.</p>
+
+    <div class="pack-grid">
+
+      <div class="pack-col">
+        <h4>Documents</h4>
+        <ul class="pack-list" data-pack="docs">
+          <li><label><input type="checkbox" data-key="doc-passports"> Passports × 6 (6 months validity)</label></li>
+          <li><label><input type="checkbox" data-key="doc-vep"> VEP active on the Tesla</label></li>
+          <li><label><input type="checkbox" data-key="doc-tng"> Touch 'n Go card topped up</label></li>
+          <li><label><input type="checkbox" data-key="doc-hilton"> Hilton confirmation (printed/screenshot)</label></li>
+          <li><label><input type="checkbox" data-key="doc-rw"> RW Awana confirmation</label></li>
+          <li><label><input type="checkbox" data-key="doc-insurance"> Travel insurance docs</label></li>
+          <li><label><input type="checkbox" data-key="doc-license"> Driver's licence</label></li>
+        </ul>
+      </div>
+
+      <div class="pack-col">
+        <h4>Clothes</h4>
+        <ul class="pack-list" data-pack="clothes">
+          <li><label><input type="checkbox" data-key="cl-warm"> Warm layers for Genting (all 6 of you)</label></li>
+          <li><label><input type="checkbox" data-key="cl-light"> Light cotton for KL (all 6)</label></li>
+          <li><label><input type="checkbox" data-key="cl-rain"> Rain jacket / small umbrellas</label></li>
+          <li><label><input type="checkbox" data-key="cl-swim"> Swimwear (Awana pool)</label></li>
+          <li><label><input type="checkbox" data-key="cl-shoes"> Comfortable walking shoes</label></li>
+          <li><label><input type="checkbox" data-key="cl-nice"> One nice outfit (Genting Palace dinner)</label></li>
+          <li><label><input type="checkbox" data-key="cl-sleep"> Pajamas for kids</label></li>
+        </ul>
+      </div>
+
+      <div class="pack-col">
+        <h4>Kids (Nicholas &amp; Charlotte)</h4>
+        <ul class="pack-list" data-pack="kids">
+          <li><label><input type="checkbox" data-key="kid-meds"> Bonamine (car sickness, esp. for Genting climb)</label></li>
+          <li><label><input type="checkbox" data-key="kid-entertain"> iPad / books / colour pencils for the car</label></li>
+          <li><label><input type="checkbox" data-key="kid-water"> Water bottles × 2</label></li>
+          <li><label><input type="checkbox" data-key="kid-snacks"> Snacks for the drive</label></li>
+          <li><label><input type="checkbox" data-key="kid-jackets"> Jackets for cable car / theme park evenings</label></li>
+          <li><label><input type="checkbox" data-key="kid-meds2"> Any regular medications</label></li>
+        </ul>
+      </div>
+
+      <div class="pack-col">
+        <h4>Parents</h4>
+        <ul class="pack-list" data-pack="parents">
+          <li><label><input type="checkbox" data-key="par-meds"> Their regular medications (extra supply)</label></li>
+          <li><label><input type="checkbox" data-key="par-cards"> Their NRIC cards</label></li>
+          <li><label><input type="checkbox" data-key="par-warm"> Extra warm layer each (Genting can hit 15°C)</label></li>
+          <li><label><input type="checkbox" data-key="par-shoes"> Comfortable shoes (not new ones)</label></li>
+          <li><label><input type="checkbox" data-key="par-glasses"> Reading glasses</label></li>
+        </ul>
+      </div>
+
+      <div class="pack-col">
+        <h4>Tech</h4>
+        <ul class="pack-list" data-pack="tech">
+          <li><label><input type="checkbox" data-key="tech-phones"> Phones + chargers (MY plug = SG plug, no adapter needed)</label></li>
+          <li><label><input type="checkbox" data-key="tech-tesla"> Tesla charging cable / Type 2 adapter</label></li>
+          <li><label><input type="checkbox" data-key="tech-powerbank"> Power banks</label></li>
+          <li><label><input type="checkbox" data-key="tech-camera"> Camera if you're shooting properly</label></li>
+          <li><label><input type="checkbox" data-key="tech-roam"> Activate Singtel ReadyRoam</label></li>
+        </ul>
+      </div>
+
+      <div class="pack-col">
+        <h4>Misc</h4>
+        <ul class="pack-list" data-pack="misc">
+          <li><label><input type="checkbox" data-key="misc-water"> Empty water bottles (refill anywhere)</label></li>
+          <li><label><input type="checkbox" data-key="misc-tissue"> Pocket tissues / wet wipes</label></li>
+          <li><label><input type="checkbox" data-key="misc-trash"> Car trash bags</label></li>
+          <li><label><input type="checkbox" data-key="misc-cash"> RM 500 cash (small notes)</label></li>
+          <li><label><input type="checkbox" data-key="misc-sunscreen"> Sunscreen (KL is fierce)</label></li>
+          <li><label><input type="checkbox" data-key="misc-firstaid"> Mini first aid (plasters, panadol, charcoal)</label></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="reset-pack" id="resetPack">↺ Reset all checks</div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <p>Drive safely. Eat slowly. Take photos of your parents.</p>
+  <small>Built 21 May 2026 · Updates welcome</small>
+</footer>
+
+<script>
+/* =========================
+   "Today" card auto-update
+   ========================= */
+(function() {
+  const days = [
+    { date: '2026-06-23', day: 1, title: 'The drive up', desc: 'Singapore → KL. 5:30 AM Woodlands departure, A\\'Famosa charge, Hilton check-in by 3 PM, KLCC sunset.', anchor: '#day1' },
+    { date: '2026-06-24', day: 2, title: 'KL morning, Genting afternoon', desc: 'Aquaria KLCC, lunch at Yut Kee, drive up to cool 20°C Awana. Cable car + SkyAvenue dinner.', anchor: '#day2' },
+    { date: '2026-06-25', day: 3, title: 'SkyWorlds theme park', desc: 'Check weather. If clear: full day at the outdoor park. Parents rest mid-afternoon. Dinner at The Olive.', anchor: '#day3' },
+    { date: '2026-06-26', day: 4, title: 'Chin Swee &amp; treat dinner', desc: 'Cable car to the temple, optional Skytropolis or strawberry farm, then Genting Palace dinner.', anchor: '#day4' },
+    { date: '2026-06-27', day: 5, title: 'The long road home', desc: 'Depart 9:30 AM. A\\'Famosa for lunch + charge. Causeway crossing afternoon. Home by sunset.', anchor: '#day5' }
+  ];
+
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+  const tripStart = new Date('2026-06-23');
+  const tripEnd = new Date('2026-06-27');
+
+  const nowTitle = document.getElementById('nowTitle');
+  const nowDesc = document.getElementById('nowDesc');
+  const nowCountdown = document.getElementById('nowCountdown');
+
+  const todayDay = days.find(d => d.date === todayStr);
+
+  if (todayDay) {
+    nowTitle.innerHTML = `Day ${todayDay.day} — ${todayDay.title}`;
+    nowDesc.innerHTML = todayDay.desc;
+    nowCountdown.innerHTML = `<b>It's trip time.</b> Scroll to today's plan ↓`;
+  } else if (today < tripStart) {
+    const daysToGo = Math.ceil((tripStart - today) / (1000*60*60*24));
+    nowTitle.innerHTML = `${daysToGo} day${daysToGo === 1 ? '' : 's'} to go`;
+    nowDesc.innerHTML = 'The trip kicks off Tuesday 23 June with a 5:30 AM Woodlands departure. Pack the night before.';
+    nowCountdown.innerHTML = `<b>Next milestone:</b> Charge Tesla to 100% the night of 22 June.`;
+  } else if (today > tripEnd) {
+    nowTitle.innerHTML = 'Welcome home';
+    nowDesc.innerHTML = 'The trip is done. Hope the photos came out well. Take your parents to lunch sometime soon.';
+    nowCountdown.innerHTML = '';
+  } else {
+    nowTitle.innerHTML = 'Travel day';
+    nowDesc.innerHTML = 'Check your day plan above.';
+    nowCountdown.innerHTML = '';
+  }
+})();
+
+/* =========================
+   Packing checklist localStorage
+   ========================= */
+(function() {
+  const STORAGE_KEY = 'kl-trip-pack-2026';
+  const checkboxes = document.querySelectorAll('.pack-list input[type=checkbox]');
+
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) {}
+
+  checkboxes.forEach(cb => {
+    const key = cb.dataset.key;
+    if (saved[key]) {
+      cb.checked = true;
+      cb.closest('li').classList.add('done');
+    }
+    cb.addEventListener('change', () => {
+      saved[key] = cb.checked;
+      cb.closest('li').classList.toggle('done', cb.checked);
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saved)); } catch(e) {}
+    });
+  });
+
+  document.getElementById('resetPack').addEventListener('click', () => {
+    if (!confirm('Uncheck everything?')) return;
+    checkboxes.forEach(cb => {
+      cb.checked = false;
+      cb.closest('li').classList.remove('done');
+    });
+    saved = {};
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  });
+})();
+</script>
+
+</body>
+</html>
