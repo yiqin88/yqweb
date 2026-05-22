@@ -1355,6 +1355,55 @@ footer small {
   font-weight: 600;
 }
 
+/* Sync status indicator */
+.sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute-2);
+  font-weight: 600;
+  padding: 4px 10px;
+  background: var(--paper);
+  border-radius: 100px;
+  margin-bottom: 16px;
+  transition: all .3s;
+}
+.sync-status::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--leaf);
+  display: inline-block;
+}
+.sync-status.syncing::before {
+  background: var(--gold);
+  animation: pulse-sync 1s ease-in-out infinite;
+}
+.sync-status.error {
+  color: var(--sunset-deep);
+  background: rgba(198,106,60,0.12);
+}
+.sync-status.error::before { background: var(--sunset); }
+@keyframes pulse-sync {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.qr-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--mute-2);
+  font-size: 14px;
+}
+
 /* print */
 @media print {
   body { background: white; color: black; font-size: 11pt; padding: 0; }
@@ -2536,7 +2585,9 @@ footer small {
   <div class="container">
     <span class="section-eyebrow">— Places &amp; Tickets</span>
     <h2 class="display section-h2">All in <i>one place.</i></h2>
-    <p class="section-lead">Every hotel, restaurant, attraction and ticket — with address, phone, booking ref and a slot to upload the QR code when you have it. Tap a QR to fullscreen for the scanner.</p>
+    <p class="section-lead">Every hotel, restaurant, attraction and ticket — with address, phone, booking ref and a slot to upload the QR code when you have it. Tap a QR to fullscreen for the scanner. <b>QRs sync across all your devices</b> via Supabase.</p>
+
+    <div class="sync-status" id="placesSyncStatus">● Syncing QRs...</div>
 
     <div class="places-tabs" id="placesTabs">
       <button class="places-tab active" data-filter="all">All</button>
@@ -2563,7 +2614,9 @@ footer small {
   <div class="container">
     <span class="section-eyebrow">— Spending tracker</span>
     <h2 class="display section-h2">Where the <i>money goes.</i></h2>
-    <p class="section-lead">Quick-log every meal, ticket, snack. Daily totals + trip total. Both currencies. Saved locally on your phone — no account, no cloud.</p>
+    <p class="section-lead">Quick-log every meal, ticket, snack. Daily totals + trip total. Both currencies. <b>Synced across all your devices</b> — open on any phone or laptop and see the same data.</p>
+
+    <div class="sync-status" id="expSyncStatus">● Loading from cloud...</div>
 
     <div class="expense-form">
       <div class="expense-form-title">Add a spend</div>
@@ -2716,7 +2769,50 @@ footer small {
 
 
 /* =========================
-   PLACES & TICKETS data + render
+   Supabase config — shared by Places + Expenses
+   ========================= */
+const SUPABASE_URL = 'https://sslkappqxwgonzlumkbo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzbGthcHBxeHdnb256bHVta2JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNzE5MzIsImV4cCI6MjA5NDg0NzkzMn0._XNwW1gmjkxiD4dgY-k6JFajvfe2egFwl7H696HBfv8';
+
+function sbHeaders(extra) {
+  return Object.assign({
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+    'Content-Type': 'application/json'
+  }, extra || {});
+}
+
+async function sbFetch(path, options) {
+  options = options || {};
+  const res = await fetch(SUPABASE_URL + path, {
+    method: options.method || 'GET',
+    headers: sbHeaders(options.headers),
+    body: options.body
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error('Supabase ' + res.status + ': ' + text);
+  }
+  if (res.status === 204 || options.method === 'DELETE') return null;
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+function qrImageUrl(imagePath) {
+  return SUPABASE_URL + '/storage/v1/object/public/kl-trip-qrs/' + imagePath;
+}
+
+function setSyncStatus(id, text, mode) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.classList.remove('syncing', 'error');
+  if (mode) el.classList.add(mode);
+}
+
+
+/* =========================
+   PLACES & TICKETS — Supabase-backed
    ========================= */
 (function() {
   const PLACES = [
@@ -2740,7 +2836,7 @@ footer small {
       phone: '+60 3 2718 1118', email: '',
       ref: 'Booking #10693258AL', refExtra: 'Member #1218997403 (Hui Shan)',
       mapsUrl: 'https://maps.google.com/?q=First+World+Hotel+Genting',
-      notes: 'Day 2 backup rest base (24-25 Jun). Originally booked with wrong dates - kept as a kept-paid option. Useful if you decide to cable car up Day 2 evening for SkyAvenue dinner.'
+      notes: 'Day 2 backup rest base (24-25 Jun). Originally booked with wrong dates - kept as a paid backup option.'
     },
     { id: 'firstworld', cat: 'hotel', icon: '🏨', day: 3, name: 'First World <i>Hotel</i> (Day 3)',
       address: 'Genting Highlands (top of mountain, next to SkyWorlds)',
@@ -2876,9 +2972,8 @@ footer small {
     },
   ];
 
-  const STORAGE_QR = 'kl-trip-place-qrs-2026';
-  let savedQRs = {};
-  try { savedQRs = JSON.parse(localStorage.getItem(STORAGE_QR) || '{}'); } catch(e) {}
+  let qrMap = {};
+  let currentFilter = 'all';
 
   const grid = document.getElementById('placesGrid');
   const tabs = document.getElementById('placesTabs');
@@ -2888,6 +2983,107 @@ footer small {
   }
   function dayLabel(d) {
     return { 0:'Pre-trip', 1:'Day 1', 2:'Day 2', 3:'Day 3', 4:'Day 4', 5:'Day 5' }[d] || ('Day ' + d);
+  }
+
+  async function loadQRs() {
+    setSyncStatus('placesSyncStatus', '● Syncing QRs...', 'syncing');
+    try {
+      const rows = await sbFetch('/rest/v1/kl_trip_qrs?select=*');
+      qrMap = {};
+      for (const row of rows) qrMap[row.place_id] = qrImageUrl(row.image_path);
+      try { localStorage.setItem('kl-trip-qr-cache', JSON.stringify(qrMap)); } catch(e) {}
+      setSyncStatus('placesSyncStatus', '✓ Synced · ' + rows.length + ' QR(s) loaded', null);
+    } catch (err) {
+      console.error('QR load failed:', err);
+      // Fall back to localStorage cache
+      try { qrMap = JSON.parse(localStorage.getItem('kl-trip-qr-cache') || '{}'); } catch(e) { qrMap = {}; }
+      setSyncStatus('placesSyncStatus', '✗ Offline — showing cached QRs', 'error');
+    }
+  }
+
+  async function uploadQR(placeId, file) {
+    setSyncStatus('placesSyncStatus', '● Uploading QR...', 'syncing');
+    try {
+      // Generate filename with timestamp
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const filename = placeId + '-' + Date.now() + '.' + ext;
+
+      // Find existing QR for this place_id (to delete old file later)
+      const existing = await sbFetch('/rest/v1/kl_trip_qrs?place_id=eq.' + encodeURIComponent(placeId) + '&select=image_path');
+
+      // Upload new file to storage
+      const uploadRes = await fetch(SUPABASE_URL + '/storage/v1/object/kl-trip-qrs/' + filename, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': file.type || 'image/jpeg'
+        },
+        body: file
+      });
+      if (!uploadRes.ok) {
+        const errText = await uploadRes.text();
+        throw new Error('Upload failed: ' + uploadRes.status + ' ' + errText);
+      }
+
+      // Upsert row in kl_trip_qrs (uses primary key place_id)
+      const upsertRes = await fetch(SUPABASE_URL + '/rest/v1/kl_trip_qrs', {
+        method: 'POST',
+        headers: sbHeaders({ 'Prefer': 'resolution=merge-duplicates,return=representation' }),
+        body: JSON.stringify({ place_id: placeId, image_path: filename })
+      });
+      if (!upsertRes.ok) {
+        const errText = await upsertRes.text();
+        throw new Error('DB upsert failed: ' + upsertRes.status + ' ' + errText);
+      }
+
+      // Delete old file from storage (if any, and different)
+      if (existing && existing.length && existing[0].image_path !== filename) {
+        await fetch(SUPABASE_URL + '/storage/v1/object/kl-trip-qrs/' + existing[0].image_path, {
+          method: 'DELETE',
+          headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+        }).catch(() => {});  // non-fatal
+      }
+
+      qrMap[placeId] = qrImageUrl(filename);
+      try { localStorage.setItem('kl-trip-qr-cache', JSON.stringify(qrMap)); } catch(e) {}
+      setSyncStatus('placesSyncStatus', '✓ QR uploaded', null);
+      renderPlaces(currentFilter);
+    } catch (err) {
+      console.error('QR upload failed:', err);
+      setSyncStatus('placesSyncStatus', '✗ Upload failed: ' + err.message, 'error');
+      alert('Could not upload QR: ' + err.message);
+    }
+  }
+
+  async function deleteQR(placeId) {
+    setSyncStatus('placesSyncStatus', '● Removing QR...', 'syncing');
+    try {
+      // Get file path first
+      const rows = await sbFetch('/rest/v1/kl_trip_qrs?place_id=eq.' + encodeURIComponent(placeId) + '&select=image_path');
+
+      // Delete from DB
+      await fetch(SUPABASE_URL + '/rest/v1/kl_trip_qrs?place_id=eq.' + encodeURIComponent(placeId), {
+        method: 'DELETE',
+        headers: sbHeaders()
+      });
+
+      // Delete file from storage
+      if (rows && rows.length) {
+        await fetch(SUPABASE_URL + '/storage/v1/object/kl-trip-qrs/' + rows[0].image_path, {
+          method: 'DELETE',
+          headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+        }).catch(() => {});
+      }
+
+      delete qrMap[placeId];
+      try { localStorage.setItem('kl-trip-qr-cache', JSON.stringify(qrMap)); } catch(e) {}
+      setSyncStatus('placesSyncStatus', '✓ QR removed', null);
+      renderPlaces(currentFilter);
+    } catch (err) {
+      console.error('QR delete failed:', err);
+      setSyncStatus('placesSyncStatus', '✗ Delete failed: ' + err.message, 'error');
+    }
   }
 
   function renderPlaces(filter) {
@@ -2908,77 +3104,73 @@ footer small {
     }
 
     grid.innerHTML = list.map(p => {
-      const qr = savedQRs[p.id];
-      const phoneHTML = p.phone ? `<div class="place-detail"><span class="label">Phone</span><span><a href="tel:${p.phone.replace(/\s/g,'')}">${p.phone}</a></span></div>` : '';
-      const emailHTML = p.email ? `<div class="place-detail"><span class="label">Email</span><span><a href="mailto:${p.email}">${p.email}</a></span></div>` : '';
-      const refHTML = p.ref ? `<div class="place-detail"><span class="label">Ref</span><span class="ref">${p.ref}</span></div>` : '';
-      const refExtraHTML = p.refExtra ? `<div class="place-detail"><span class="label"></span><span style="font-size:12px;color:var(--mute-2);">${p.refExtra}</span></div>` : '';
-      const notesHTML = p.notes ? `<div class="place-detail" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);"><span style="font-size:12px;color:var(--ink-2);font-style:italic;">${p.notes}</span></div>` : '';
+      const qr = qrMap[p.id];
+      const phoneHTML = p.phone ? '<div class="place-detail"><span class="label">Phone</span><span><a href="tel:' + p.phone.replace(/\s/g,'') + '">' + p.phone + '</a></span></div>' : '';
+      const emailHTML = p.email ? '<div class="place-detail"><span class="label">Email</span><span><a href="mailto:' + p.email + '">' + p.email + '</a></span></div>' : '';
+      const refHTML = p.ref ? '<div class="place-detail"><span class="label">Ref</span><span class="ref">' + p.ref + '</span></div>' : '';
+      const refExtraHTML = p.refExtra ? '<div class="place-detail"><span class="label"></span><span style="font-size:12px;color:var(--mute-2);">' + p.refExtra + '</span></div>' : '';
+      const notesHTML = p.notes ? '<div class="place-detail" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);"><span style="font-size:12px;color:var(--ink-2);font-style:italic;">' + p.notes + '</span></div>' : '';
 
-      const toBookHTML = (p.toBook && !qr) ? `<div class="place-tobook"><div class="place-tobook-pill">📋 Not yet booked</div><div class="place-tobook-text">${p.toBook}</div></div>` : '';
-      const bookBtnHTML = (p.bookUrl && !qr) ? `<a href="${p.bookUrl}" target="_blank" class="place-book-btn">🔗 Book now</a>` : '';
+      const toBookHTML = (p.toBook && !qr) ? '<div class="place-tobook"><div class="place-tobook-pill">📋 Not yet booked</div><div class="place-tobook-text">' + p.toBook + '</div></div>' : '';
+      const bookBtnHTML = (p.bookUrl && !qr) ? '<a href="' + p.bookUrl + '" target="_blank" class="place-book-btn">🔗 Book now</a>' : '';
 
       const qrHTML = qr
-        ? `<div class="place-qr-area">
-            <div class="place-qr-label">QR code / ticket</div>
-            <img src="${qr}" class="place-qr-img" data-id="${p.id}" alt="QR" />
-            <div class="place-qr-clear" data-id="${p.id}">× Remove</div>
-          </div>`
+        ? '<div class="place-qr-area">' +
+            '<div class="place-qr-label">QR code / ticket</div>' +
+            '<img src="' + qr + '" class="place-qr-img" data-id="' + p.id + '" alt="QR" />' +
+            '<div class="place-qr-clear" data-id="' + p.id + '">× Remove</div>' +
+          '</div>'
         : '';
 
-      return `
-        <div class="place-card ${p.cat}">
-          <div class="place-icon-row">
-            <span class="place-type"><span class="place-icon">${p.icon}</span>${catLabel(p.cat)}</span>
-            <span class="place-day">${dayLabel(p.day)}</span>
-          </div>
-          <div class="place-name">${p.name}</div>
-          <div class="place-detail"><span class="label">Where</span><span>${p.address}</span></div>
-          ${phoneHTML}
-          ${emailHTML}
-          ${refHTML}
-          ${refExtraHTML}
-          ${notesHTML}
-          ${toBookHTML}
-          <div class="place-actions">
-            <a href="${p.mapsUrl}" target="_blank">📍 Maps</a>
-            ${bookBtnHTML}
-            ${p.phone ? `<a href="tel:${p.phone.replace(/\s/g,'')}">📞 Call</a>` : ''}
-            <label class="qr-upload-label">
-              📷 ${qr ? 'Replace' : 'Add'} QR / ticket
-              <input type="file" accept="image/*" data-id="${p.id}" class="qr-upload" />
-            </label>
-          </div>
-        </div>
-      `;
+      const callLink = p.phone ? '<a href="tel:' + p.phone.replace(/\s/g,'') + '">📞 Call</a>' : '';
+
+      return '' +
+        '<div class="place-card ' + p.cat + '">' +
+          '<div class="place-icon-row">' +
+            '<span class="place-type"><span class="place-icon">' + p.icon + '</span>' + catLabel(p.cat) + '</span>' +
+            '<span class="place-day">' + dayLabel(p.day) + '</span>' +
+          '</div>' +
+          '<div class="place-name">' + p.name + '</div>' +
+          '<div class="place-detail"><span class="label">Where</span><span>' + p.address + '</span></div>' +
+          phoneHTML +
+          emailHTML +
+          refHTML +
+          refExtraHTML +
+          notesHTML +
+          toBookHTML +
+          qrHTML +
+          '<div class="place-actions">' +
+            '<a href="' + p.mapsUrl + '" target="_blank">📍 Maps</a>' +
+            bookBtnHTML +
+            callLink +
+            '<label class="qr-upload-label">' +
+              '📷 ' + (qr ? 'Replace' : 'Add') + ' QR / ticket' +
+              '<input type="file" accept="image/*" data-id="' + p.id + '" class="qr-upload" />' +
+            '</label>' +
+          '</div>' +
+        '</div>';
     }).join('');
 
-    // Wire up file uploaders
+    // Wire up uploaders
     grid.querySelectorAll('.qr-upload').forEach(inp => {
       inp.addEventListener('change', (e) => {
         const file = e.target.files[0];
         const id = inp.dataset.id;
         if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          savedQRs[id] = ev.target.result;
-          try { localStorage.setItem(STORAGE_QR, JSON.stringify(savedQRs)); } catch(err) {
-            alert('Could not save QR — likely too large. Try a smaller image.');
-            return;
-          }
-          renderPlaces(currentFilter);
-        };
-        reader.readAsDataURL(file);
+        if (file.size > 2 * 1024 * 1024) {
+          alert('Image too large (max 2 MB). Try a smaller photo.');
+          inp.value = '';
+          return;
+        }
+        uploadQR(id, file);
       });
     });
 
     grid.querySelectorAll('.place-qr-clear').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-        if (!confirm('Remove this QR code?')) return;
-        delete savedQRs[id];
-        try { localStorage.setItem(STORAGE_QR, JSON.stringify(savedQRs)); } catch(e){}
-        renderPlaces(currentFilter);
+        if (!confirm('Remove this QR? It will be deleted from cloud storage.')) return;
+        deleteQR(id);
       });
     });
 
@@ -2991,7 +3183,6 @@ footer small {
     });
   }
 
-  let currentFilter = 'all';
   tabs.addEventListener('click', (e) => {
     const btn = e.target.closest('.places-tab');
     if (!btn) return;
@@ -3001,64 +3192,24 @@ footer small {
     renderPlaces(currentFilter);
   });
 
-  // Modal close
   const modal = document.getElementById('qrModal');
   modal.addEventListener('click', () => modal.classList.remove('active'));
   document.getElementById('qrClose').addEventListener('click', () => modal.classList.remove('active'));
 
+  // Init: try cache first for instant render, then refresh from Supabase
+  try { qrMap = JSON.parse(localStorage.getItem('kl-trip-qr-cache') || '{}'); } catch(e) { qrMap = {}; }
   renderPlaces('all');
+  loadQRs().then(() => renderPlaces(currentFilter));
 })();
 
+
 /* =========================
-   EXPENSES tracker
+   EXPENSES tracker — Supabase-backed
    ========================= */
 (function() {
-  const STORAGE_EXP = 'kl-trip-expenses-2026';
-  const STORAGE_FX = 'kl-trip-fx-2026';
-
   let expenses = [];
-  try { expenses = JSON.parse(localStorage.getItem(STORAGE_EXP) || '[]'); } catch(e) {}
-
-  // v1 seed - prepaid items (first-time load only)
-  const SEED_KEY = 'kl-trip-exp-seeded-2026';
-  if (expenses.length === 0 && !localStorage.getItem(SEED_KEY)) {
-    expenses = [
-      { id: 'seed-awana', amount: 497.64, currency: 'SGD', day: 0, category: 'hotel',
-        note: 'RW Awana — 3 nights (Mid-Year Hotel Escape, paid)', ts: '2026-05-12T00:00:00Z' },
-      { id: 'seed-firstworld', amount: 32.87, currency: 'SGD', day: 0, category: 'hotel',
-        note: 'First World — Day 3 rest base, booking 10693538AL (paid)', ts: '2026-05-22T00:00:00Z' },
-      { id: 'seed-hilton', amount: 2000.00, currency: 'MYR', day: 1, category: 'hotel',
-        note: 'Hilton KL — 1 night (Conf 3471664730, paid on arrival)', ts: '2026-06-23T00:00:00Z' }
-    ];
-    try {
-      localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses));
-      localStorage.setItem(SEED_KEY, '1');
-    } catch(e) {}
-  }
-
-  // v2 seed - add Day 2 First World (idempotent, only adds if missing by ID)
-  const SEED_V2_KEY = 'kl-trip-exp-seeded-2026-v2';
-  if (!localStorage.getItem(SEED_V2_KEY)) {
-    const v2Items = [
-      { id: 'seed-firstworld-d2', amount: 32.87, currency: 'SGD', day: 0, category: 'hotel',
-        note: 'First World — Day 2 rest base, booking 10693258AL (paid, kept as backup)', ts: '2026-05-10T00:00:00Z' }
-    ];
-    let added = false;
-    for (const item of v2Items) {
-      if (!expenses.find(e => e.id === item.id)) {
-        expenses.push(item);
-        added = true;
-      }
-    }
-    if (added) {
-      try { localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses)); } catch(e) {}
-    }
-    try { localStorage.setItem(SEED_V2_KEY, '1'); } catch(e) {}
-  }
-
   let fxRate = 3.50;
-  try { fxRate = parseFloat(localStorage.getItem(STORAGE_FX) || '3.50'); } catch(e) {}
-  document.getElementById('fxRate').value = fxRate.toFixed(2);
+  let currentFilter = 'all';
 
   const CAT = {
     food:        { icon: '🍴', label: 'Food' },
@@ -3069,58 +3220,103 @@ footer small {
     misc:        { icon: '📌', label: 'Misc' },
   };
 
-  function save() {
-    try { localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses)); } catch(e) {
-      alert('Could not save — localStorage full.');
+  async function loadAll() {
+    setSyncStatus('expSyncStatus', '● Loading from cloud...', 'syncing');
+    try {
+      const [exps, fxRows] = await Promise.all([
+        sbFetch('/rest/v1/kl_trip_expenses?select=*&order=ts.asc'),
+        sbFetch('/rest/v1/kl_trip_fx?id=eq.1&select=rate')
+      ]);
+      expenses = exps || [];
+      fxRate = parseFloat(fxRows && fxRows[0] ? fxRows[0].rate : 3.50);
+      document.getElementById('fxRate').value = fxRate.toFixed(2);
+      setSyncStatus('expSyncStatus', '✓ Synced · ' + expenses.length + ' entries', null);
+    } catch (err) {
+      console.error('Expense load failed:', err);
+      setSyncStatus('expSyncStatus', '✗ Offline — cannot load expenses', 'error');
+      expenses = [];
+    }
+    render();
+  }
+
+  async function addExpense(item) {
+    setSyncStatus('expSyncStatus', '● Saving...', 'syncing');
+    try {
+      const inserted = await sbFetch('/rest/v1/kl_trip_expenses', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify(item)
+      });
+      if (inserted && inserted.length) {
+        expenses.push(inserted[0]);
+      } else {
+        expenses.push(item);
+      }
+      setSyncStatus('expSyncStatus', '✓ Saved', null);
+      render();
+    } catch (err) {
+      console.error('Add expense failed:', err);
+      setSyncStatus('expSyncStatus', '✗ Save failed: ' + err.message, 'error');
+      alert('Could not save: ' + err.message);
+    }
+  }
+
+  async function deleteExpense(id) {
+    setSyncStatus('expSyncStatus', '● Deleting...', 'syncing');
+    try {
+      await fetch(SUPABASE_URL + '/rest/v1/kl_trip_expenses?id=eq.' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: sbHeaders()
+      });
+      expenses = expenses.filter(e => e.id !== id);
+      setSyncStatus('expSyncStatus', '✓ Deleted', null);
+      render();
+    } catch (err) {
+      console.error('Delete failed:', err);
+      setSyncStatus('expSyncStatus', '✗ Delete failed', 'error');
+    }
+  }
+
+  async function setFx(rate) {
+    setSyncStatus('expSyncStatus', '● Updating FX...', 'syncing');
+    try {
+      await fetch(SUPABASE_URL + '/rest/v1/kl_trip_fx?id=eq.1', {
+        method: 'PATCH',
+        headers: sbHeaders(),
+        body: JSON.stringify({ rate: rate })
+      });
+      fxRate = rate;
+      setSyncStatus('expSyncStatus', '✓ FX rate updated', null);
+      render();
+    } catch (err) {
+      console.error('FX update failed:', err);
+      setSyncStatus('expSyncStatus', '✗ FX update failed', 'error');
     }
   }
 
   function toMYR(amount, currency) {
     return currency === 'SGD' ? amount * fxRate : amount;
   }
-  function toSGD(amount, currency) {
-    return currency === 'MYR' ? amount / fxRate : amount;
-  }
-
   function fmt(amount) {
     return amount.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  let currentFilter = 'all';
-
   function renderTotals() {
-    const totalMYR = expenses.reduce((s, e) => s + toMYR(e.amount, e.currency), 0);
+    const totalMYR = expenses.reduce((s, e) => s + toMYR(parseFloat(e.amount), e.currency), 0);
     const totalSGD = totalMYR / fxRate;
     const byCat = {};
     expenses.forEach(e => {
-      const m = toMYR(e.amount, e.currency);
+      const m = toMYR(parseFloat(e.amount), e.currency);
       byCat[e.category] = (byCat[e.category] || 0) + m;
     });
     const foodMYR = byCat.food || 0;
     const attrMYR = byCat.attraction || 0;
 
-    document.getElementById('expTotals').innerHTML = `
-      <div class="expense-total-card">
-        <div class="label">Trip total</div>
-        <div class="amount">RM ${fmt(totalMYR)}</div>
-        <div class="amount-sub">≈ SGD ${fmt(totalSGD)}</div>
-      </div>
-      <div class="expense-total-card">
-        <div class="label">Entries</div>
-        <div class="amount">${expenses.length}</div>
-        <div class="amount-sub">spend items</div>
-      </div>
-      <div class="expense-total-card">
-        <div class="label">Food</div>
-        <div class="amount">RM ${fmt(foodMYR)}</div>
-        <div class="amount-sub">≈ SGD ${fmt(foodMYR / fxRate)}</div>
-      </div>
-      <div class="expense-total-card">
-        <div class="label">Tickets</div>
-        <div class="amount">RM ${fmt(attrMYR)}</div>
-        <div class="amount-sub">≈ SGD ${fmt(attrMYR / fxRate)}</div>
-      </div>
-    `;
+    document.getElementById('expTotals').innerHTML =
+      '<div class="expense-total-card"><div class="label">Trip total</div><div class="amount">RM ' + fmt(totalMYR) + '</div><div class="amount-sub">≈ SGD ' + fmt(totalSGD) + '</div></div>' +
+      '<div class="expense-total-card"><div class="label">Entries</div><div class="amount">' + expenses.length + '</div><div class="amount-sub">spend items</div></div>' +
+      '<div class="expense-total-card"><div class="label">Food</div><div class="amount">RM ' + fmt(foodMYR) + '</div><div class="amount-sub">≈ SGD ' + fmt(foodMYR / fxRate) + '</div></div>' +
+      '<div class="expense-total-card"><div class="label">Tickets</div><div class="amount">RM ' + fmt(attrMYR) + '</div><div class="amount-sub">≈ SGD ' + fmt(attrMYR / fxRate) + '</div></div>';
   }
 
   function renderList() {
@@ -3136,7 +3332,6 @@ footer small {
       return;
     }
 
-    // Group by day
     const byDay = {};
     filtered.forEach(e => { (byDay[e.day] = byDay[e.day] || []).push(e); });
 
@@ -3146,33 +3341,29 @@ footer small {
 
     list.innerHTML = sortedDays.map(d => {
       const items = byDay[d];
-      const dayTotal = items.reduce((s, e) => s + toMYR(e.amount, e.currency), 0);
-      return `
-        <div class="expense-day-group">
-          <div class="expense-day-header">
-            <span>${dayLabels[d]}</span>
-            <span class="day-total">RM ${fmt(dayTotal)} · SGD ${fmt(dayTotal / fxRate)}</span>
-          </div>
-          ${items.map(e => `
-            <div class="expense-item">
-              <div class="cat-icon">${CAT[e.category]?.icon || '📌'}</div>
-              <div class="note">${e.note || '(no note)'}<small>${CAT[e.category]?.label || e.category}</small></div>
-              <div class="amount">${e.currency} ${fmt(e.amount)}<small>≈ ${e.currency === 'MYR' ? 'SGD ' + fmt(e.amount/fxRate) : 'RM ' + fmt(e.amount*fxRate)}</small></div>
-              <span class="del-btn" data-id="${e.id}" title="Delete">✕</span>
-            </div>
-          `).join('')}
-        </div>
-      `;
+      const dayTotal = items.reduce((s, e) => s + toMYR(parseFloat(e.amount), e.currency), 0);
+      const itemsHTML = items.map(e => {
+        const amt = parseFloat(e.amount);
+        const convStr = e.currency === 'MYR' ? 'SGD ' + fmt(amt/fxRate) : 'RM ' + fmt(amt*fxRate);
+        return '<div class="expense-item">' +
+          '<div class="cat-icon">' + (CAT[e.category] ? CAT[e.category].icon : '📌') + '</div>' +
+          '<div class="note">' + (e.note || '(no note)') + '<small>' + (CAT[e.category] ? CAT[e.category].label : e.category) + '</small></div>' +
+          '<div class="amount">' + e.currency + ' ' + fmt(amt) + '<small>≈ ' + convStr + '</small></div>' +
+          '<span class="del-btn" data-id="' + e.id + '" title="Delete">✕</span>' +
+        '</div>';
+      }).join('');
+      return '<div class="expense-day-group">' +
+        '<div class="expense-day-header">' +
+          '<span>' + dayLabels[d] + '</span>' +
+          '<span class="day-total">RM ' + fmt(dayTotal) + ' · SGD ' + fmt(dayTotal/fxRate) + '</span>' +
+        '</div>' + itemsHTML +
+      '</div>';
     }).join('');
 
     list.querySelectorAll('.del-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (!confirm('Delete this entry?')) return;
-        const id = btn.dataset.id;
-        expenses = expenses.filter(e => e.id !== id);
-        save();
-        renderTotals();
-        renderList();
+        deleteExpense(btn.dataset.id);
       });
     });
   }
@@ -3182,28 +3373,24 @@ footer small {
     renderList();
   }
 
-  // Add button
   document.getElementById('expAdd').addEventListener('click', () => {
     const amount = parseFloat(document.getElementById('expAmount').value);
     const currency = document.getElementById('expCurrency').value;
     const day = parseInt(document.getElementById('expDay').value, 10);
     const category = document.getElementById('expCategory').value;
     const note = document.getElementById('expNote').value.trim();
-
     if (!amount || amount <= 0) { alert('Enter an amount'); return; }
 
-    expenses.push({
+    const newItem = {
       id: Date.now() + '-' + Math.random().toString(36).slice(2, 8),
       amount, currency, day, category, note,
       ts: new Date().toISOString()
-    });
-    save();
+    };
+    addExpense(newItem);
     document.getElementById('expAmount').value = '';
     document.getElementById('expNote').value = '';
-    render();
   });
 
-  // Filter
   document.getElementById('expFilter').addEventListener('click', (e) => {
     const btn = e.target.closest('.expense-filter-btn');
     if (!btn) return;
@@ -3213,22 +3400,27 @@ footer small {
     renderList();
   });
 
-  // FX rate change
   document.getElementById('fxRate').addEventListener('change', (e) => {
     const v = parseFloat(e.target.value);
-    if (v > 0) {
-      fxRate = v;
-      try { localStorage.setItem(STORAGE_FX, String(fxRate)); } catch(err){}
-      render();
-    }
+    if (v > 0) setFx(v);
   });
 
-  // Reset
-  document.getElementById('expReset').addEventListener('click', () => {
-    if (!confirm('Clear ALL expense entries? This cannot be undone.')) return;
-    expenses = [];
-    save();
-    render();
+  document.getElementById('expReset').addEventListener('click', async () => {
+    if (!confirm('Clear ALL expense entries from the cloud? This cannot be undone, and will affect every device.')) return;
+    setSyncStatus('expSyncStatus', '● Resetting all...', 'syncing');
+    try {
+      // Delete all rows (no row will have id = '__nonexistent__' so this deletes everything)
+      await fetch(SUPABASE_URL + '/rest/v1/kl_trip_expenses?id=neq.__nonexistent__', {
+        method: 'DELETE',
+        headers: sbHeaders()
+      });
+      expenses = [];
+      setSyncStatus('expSyncStatus', '✓ All cleared', null);
+      render();
+    } catch (err) {
+      console.error('Reset failed:', err);
+      setSyncStatus('expSyncStatus', '✗ Reset failed', 'error');
+    }
   });
 
   // Auto-fill day based on current date
@@ -3238,7 +3430,8 @@ footer small {
     document.getElementById('expDay').value = String(dayMap[todayStr]);
   }
 
-  render();
+  // Initial load
+  loadAll();
 })();
 
 </script>
