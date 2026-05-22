@@ -1636,8 +1636,8 @@ footer small {
       </ol>
 
       <div class="day-aside">
-        <strong>Save the cable car for tomorrow</strong>
-        Your one round-trip cable car ticket is best used Day 3 — up in the morning, down at night. Today is the Awana day. If anyone really wants a peek at the peak, you can grab a single-trip ticket (~RM 8/pax) for a 30-min there-and-back, but it's honestly not worth it before tomorrow's full day.
+        <strong>You have a Day 2 First World room (10693258AL)</strong>
+        Originally booked on wrong dates — you've kept it rather than cancel (the SGD 33 is non-refundable anyway). Use cases: (a) anyone who feels off after the climb can nap at the peak instead of Awana; (b) optional cable car up Day 2 evening for SkyAvenue dinner, room as rest base, then cable car down — but this burns your one round-trip ticket. <b>If you don't want to use it</b>, no harm — the room just sits there, you sleep at Awana as planned, and you've already paid.
       </div>
     </article>
   </div>
@@ -2064,6 +2064,24 @@ footer small {
         <div class="actions">
           <a href="https://maps.google.com/?q=Hilton+Kuala+Lumpur,+3+Jalan+Stesen+Sentral" target="_blank">Maps</a>
           <a href="tel:+60322642264">Call hotel</a>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-label">Day 2 rest base · 24 Jun</div>
+        <h3 class="display">First World <i>Hotel</i></h3>
+        <div class="rows">
+          <div class="row"><span>Check-in</span><b>Wed 24 Jun, 3 PM</b></div>
+          <div class="row"><span>Check-out</span><b>Thu 25 Jun, noon</b></div>
+          <div class="row"><span>Use as</span><b>Day 2 rest base (optional peak visit)</b></div>
+          <div class="row"><span>Why</span><b>Originally a date mistake — kept as backup</b></div>
+          <div class="row"><span>Booking #</span><b class="mono">10693258AL</b></div>
+          <div class="row"><span>Member #</span><b class="mono">1218997403</b></div>
+          <div class="row"><span>Booked by</span><b>Hui Shan</b></div>
+          <div class="row"><span>Total</span><b>SGD 32.87</b></div>
+        </div>
+        <div class="actions">
+          <a href="https://maps.google.com/?q=First+World+Hotel+Genting" target="_blank">Maps</a>
         </div>
       </div>
 
@@ -2717,12 +2735,19 @@ footer small {
       mapsUrl: 'https://maps.google.com/?q=Resorts+World+Awana+Genting',
       notes: '2 Superior Deluxe rooms, 2 Queen each. Adjacent + renovated wing + same floor requested. Confirmed by Michelle Chuah.'
     },
-    { id: 'firstworld', cat: 'hotel', icon: '🏨', day: 3, name: 'First World <i>Hotel</i>',
+    { id: 'firstworld-d2', cat: 'hotel', icon: '🏨', day: 2, name: 'First World <i>Hotel</i> (Day 2)',
+      address: 'Genting Highlands (top of mountain, next to SkyWorlds)',
+      phone: '+60 3 2718 1118', email: '',
+      ref: 'Booking #10693258AL', refExtra: 'Member #1218997403 (Hui Shan)',
+      mapsUrl: 'https://maps.google.com/?q=First+World+Hotel+Genting',
+      notes: 'Day 2 backup rest base (24-25 Jun). Originally booked with wrong dates - kept as a kept-paid option. Useful if you decide to cable car up Day 2 evening for SkyAvenue dinner.'
+    },
+    { id: 'firstworld', cat: 'hotel', icon: '🏨', day: 3, name: 'First World <i>Hotel</i> (Day 3)',
       address: 'Genting Highlands (top of mountain, next to SkyWorlds)',
       phone: '+60 3 2718 1118', email: '',
       ref: 'Booking #10693538AL', refExtra: 'Member #1218997403 (Hui Shan)',
       mapsUrl: 'https://maps.google.com/?q=First+World+Hotel+Genting',
-      notes: 'Day 3 daytime rest base only (25-26 Jun). Request late checkout to 3 PM for theme park afternoon.'
+      notes: 'Day 3 daytime rest base (25-26 Jun). Request late checkout to 3 PM for theme park afternoon.'
     },
 
     // === ATTRACTIONS / TICKETS ===
@@ -2994,7 +3019,7 @@ footer small {
   let expenses = [];
   try { expenses = JSON.parse(localStorage.getItem(STORAGE_EXP) || '[]'); } catch(e) {}
 
-  // Seed with known prepaid items on first load
+  // v1 seed - prepaid items (first-time load only)
   const SEED_KEY = 'kl-trip-exp-seeded-2026';
   if (expenses.length === 0 && !localStorage.getItem(SEED_KEY)) {
     expenses = [
@@ -3009,6 +3034,26 @@ footer small {
       localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses));
       localStorage.setItem(SEED_KEY, '1');
     } catch(e) {}
+  }
+
+  // v2 seed - add Day 2 First World (idempotent, only adds if missing by ID)
+  const SEED_V2_KEY = 'kl-trip-exp-seeded-2026-v2';
+  if (!localStorage.getItem(SEED_V2_KEY)) {
+    const v2Items = [
+      { id: 'seed-firstworld-d2', amount: 32.87, currency: 'SGD', day: 0, category: 'hotel',
+        note: 'First World — Day 2 rest base, booking 10693258AL (paid, kept as backup)', ts: '2026-05-10T00:00:00Z' }
+    ];
+    let added = false;
+    for (const item of v2Items) {
+      if (!expenses.find(e => e.id === item.id)) {
+        expenses.push(item);
+        added = true;
+      }
+    }
+    if (added) {
+      try { localStorage.setItem(STORAGE_EXP, JSON.stringify(expenses)); } catch(e) {}
+    }
+    try { localStorage.setItem(SEED_V2_KEY, '1'); } catch(e) {}
   }
 
   let fxRate = 3.50;
