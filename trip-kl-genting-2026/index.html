@@ -1935,6 +1935,48 @@ footer small {
 .live-fx-equals { font-size: 14px; color: var(--muted); flex: 0 0 auto; }
 
 /* Traffic */
+.live-traffic-pills {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.live-traffic-pill {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.live-traffic-pill:hover { border-color: var(--moss); }
+.live-traffic-pill.is-active {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--cream);
+  font-weight: 500;
+}
+.live-traffic-map {
+  width: 100%;
+  height: 240px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  margin-bottom: 12px;
+  background: var(--cream);
+}
+.live-traffic-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
 .live-traffic-note {
   font-size: 13px;
   color: var(--ink-2);
@@ -2085,26 +2127,19 @@ footer small {
       </div>
 
       <!-- Traffic -->
-      <div class="live-card">
+      <div class="live-card live-card-traffic">
         <div class="live-card-head">
           <span class="live-card-eyebrow">Traffic</span>
         </div>
-        <p class="live-traffic-note">Tap a route &mdash; opens Google Maps with the live traffic layer.</p>
-        <div class="live-traffic-routes">
-          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Woodlands+Checkpoint+Singapore&destination=Hilton+Garden+Inn+Kuala+Lumpur+North&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
-            <span class="live-traffic-leg"><span class="live-traffic-from">Singapore</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">KL</span></span>
-            <span class="live-traffic-ext">&#8599;</span>
-          </a>
-          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Hilton+Garden+Inn+Kuala+Lumpur+North&destination=Genting+Highlands+Resort&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
-            <span class="live-traffic-leg"><span class="live-traffic-from">KL</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">Genting</span></span>
-            <span class="live-traffic-ext">&#8599;</span>
-          </a>
-          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Genting+Highlands+Resort&destination=Woodlands+Checkpoint+Singapore&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
-            <span class="live-traffic-leg"><span class="live-traffic-from">Genting</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">Singapore</span></span>
-            <span class="live-traffic-ext">&#8599;</span>
-          </a>
+        <div class="live-traffic-pills">
+          <button class="live-traffic-pill is-active" data-route="sg-kl">SG&rarr;KL</button>
+          <button class="live-traffic-pill" data-route="kl-gt">KL&rarr;Genting</button>
+          <button class="live-traffic-pill" data-route="gt-sg">Genting&rarr;SG</button>
         </div>
-        <div class="live-card-foot">Best checked on the day of travel.</div>
+        <div class="live-traffic-map">
+          <iframe id="trafficMap" src="https://maps.google.com/maps?saddr=Woodlands+Checkpoint+Singapore&daddr=Kuala+Lumpur+Sentral&output=embed" frameborder="0" loading="lazy"></iframe>
+        </div>
+        <div class="live-card-foot">Live ETA reflects current traffic. Tap <a href="https://www.google.com/maps/dir/?api=1&origin=Singapore&destination=Kuala+Lumpur" target="_blank" rel="noopener" id="trafficOpenLink" style="color:inherit;text-decoration:underline;">Open in Maps</a> for traffic colors.</div>
       </div>
 
     </div>
@@ -4583,13 +4618,13 @@ function setSyncStatus(id, text, mode) {
     const status = document.getElementById('fxStatus');
     status.className = 'live-card-status loading';
     try {
-      const res = await fetch('https://api.frankfurter.app/latest?from=MYR&to=SGD');
+      const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/myr.json');
       const data = await res.json();
-      rate = data.rates.SGD;
+      rate = data.myr.sgd;
       document.getElementById('fxRate').textContent = rate.toFixed(4);
       const dt = new Date(data.date);
       const formatted = dt.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
-      document.getElementById('fxFoot').textContent = 'ECB rate \u00B7 ' + formatted;
+      document.getElementById('fxFoot').textContent = 'Source: jsdelivr \u00B7 ' + formatted;
       status.className = 'live-card-status';
       recompute('myr');
     } catch (e) {
@@ -4621,6 +4656,33 @@ function setSyncStatus(id, text, mode) {
   loadWeather();
   loadFX();
 
+
+  // ---- Traffic pill switcher ----
+  const ROUTES = {
+    'sg-kl': {
+      embed: 'https://maps.google.com/maps?saddr=Woodlands+Checkpoint+Singapore&daddr=Kuala+Lumpur+Sentral&output=embed',
+      open:  'https://www.google.com/maps/dir/?api=1&origin=Woodlands+Checkpoint+Singapore&destination=Kuala+Lumpur+Sentral'
+    },
+    'kl-gt': {
+      embed: 'https://maps.google.com/maps?saddr=Kuala+Lumpur+Sentral&daddr=Genting+Highlands+Resort&output=embed',
+      open:  'https://www.google.com/maps/dir/?api=1&origin=Kuala+Lumpur+Sentral&destination=Genting+Highlands+Resort'
+    },
+    'gt-sg': {
+      embed: 'https://maps.google.com/maps?saddr=Genting+Highlands+Resort&daddr=Woodlands+Checkpoint+Singapore&output=embed',
+      open:  'https://www.google.com/maps/dir/?api=1&origin=Genting+Highlands+Resort&destination=Woodlands+Checkpoint+Singapore'
+    }
+  };
+  document.querySelectorAll('.live-traffic-pill').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const route = btn.getAttribute('data-route');
+      const r = ROUTES[route];
+      if (!r) return;
+      document.querySelectorAll('.live-traffic-pill').forEach(function(p) { p.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      document.getElementById('trafficMap').src = r.embed;
+      document.getElementById('trafficOpenLink').href = r.open;
+    });
+  });
   // ---- Refresh on tab focus (rate-limited) ----
   let lastWeather = Date.now();
   let lastFX = Date.now();
