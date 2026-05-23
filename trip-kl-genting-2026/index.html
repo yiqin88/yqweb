@@ -1696,14 +1696,15 @@ footer small {
    ========================= */
 .float-polaroid {
   position: absolute;
-  width: 120px;
+  width: 160px;
   background: #ffffff;
-  padding: 8px 8px 22px;
-  box-shadow: 0 8px 24px rgba(31,42,34,0.16), 0 2px 4px rgba(31,42,34,0.08);
+  padding: 10px 10px 26px;
+  box-shadow: 0 10px 28px rgba(31,42,34,0.14), 0 2px 4px rgba(31,42,34,0.06);
   z-index: 0;
   pointer-events: none;
   border-radius: 2px;
-  animation: floatSway 9s ease-in-out infinite;
+  opacity: 0.5;
+  animation: floatDrift 15s ease-in-out infinite;
   animation-delay: var(--delay, 0s);
   transform-origin: center center;
 }
@@ -1714,13 +1715,14 @@ footer small {
   object-fit: cover;
   background: var(--paper-2);
 }
-.float-polaroid.left  { left:  calc(50% - 580px); }
-.float-polaroid.right { right: calc(50% - 580px); }
-@keyframes floatSway {
-  0%, 100% { transform: rotate(var(--rot, 0deg)) translate(0, 0); }
-  50%      { transform: rotate(calc(var(--rot, 0deg) + 1.5deg)) translate(4px, -3px); }
+.float-polaroid.left  { left:  calc(50% - 620px); }
+.float-polaroid.right { right: calc(50% - 620px); }
+@keyframes floatDrift {
+  0%, 100% { transform: translate(0, 0)       rotate(var(--rot, 0deg)); }
+  33%      { transform: translate(8px, -30px) rotate(calc(var(--rot, 0deg) + 2deg)); }
+  66%      { transform: translate(-6px, 22px) rotate(calc(var(--rot, 0deg) - 1.5deg)); }
 }
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .float-polaroid { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -4077,7 +4079,7 @@ function setSyncStatus(id, text, mode) {
       document.querySelectorAll('.float-polaroid').forEach(function(p) { p.remove(); });
 
       // Only place on screens wide enough
-      if (window.innerWidth < 1180) return;
+      if (window.innerWidth < 1280) return;
 
       // Place in section gutters (not photos section - that IS photos)
       const sections = Array.from(document.querySelectorAll('section.block'))
