@@ -1745,6 +1745,46 @@ footer small {
   }
 }
 
+/* =========================
+   MOBILE POLAROID STRIP (horizontal scroll scrapbook, <=1280px)
+   ========================= */
+.mobile-strip-wrap {
+  display: none;
+  overflow: hidden;
+  padding: 28px 0 4px;
+}
+.mobile-strip-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 32px 20px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+.mobile-strip-track::-webkit-scrollbar { display: none; }
+.strip-polaroid {
+  flex-shrink: 0;
+  width: 110px;
+  background: #ffffff;
+  padding: 8px 8px 22px;
+  box-shadow: 0 6px 20px rgba(31,42,34,0.13), 0 2px 4px rgba(31,42,34,0.06);
+  border-radius: 2px;
+  transform: rotate(var(--rot, 0deg));
+  opacity: 0.55;
+  pointer-events: none;
+}
+.strip-polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--paper-2);
+}
+@media (max-width: 1280px) {
+  .mobile-strip-wrap { display: block; }
+}
 </style>
 </head>
 <body>
@@ -1765,6 +1805,11 @@ footer small {
     </div>
   </div>
 </header>
+
+<!-- MOBILE POLAROID STRIP -->
+<div class="mobile-strip-wrap" id="mobileStripWrap" hidden>
+  <div class="mobile-strip-track" id="mobileStripTrack"></div>
+</div>
 
 <!-- ============================================
      STICKY TRIP NAV
@@ -4147,6 +4192,62 @@ function setSyncStatus(id, text, mode) {
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(placePolaroids, 300);
+  });
+})();
+
+/* =========================
+   MOBILE POLAROID STRIP
+   ========================= */
+(function() {
+  async function initMobileStrip() {
+    try {
+      if (window.innerWidth >= 1280) return;
+      var rows = await sbFetch('/rest/v1/kl_trip_photos?select=image_path&order=uploaded_at.desc');
+      if (!rows || rows.length === 0) return;
+      var safe = rows.filter(function(r) {
+        var ext = (r.image_path.split('.').pop() || '').toLowerCase();
+        return ['jpg','jpeg','png','webp','gif'].indexOf(ext) !== -1;
+      });
+      if (safe.length === 0) return;
+      var publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+      var track = document.getElementById('mobileStripTrack');
+      var wrap  = document.getElementById('mobileStripWrap');
+      if (!track || !wrap) return;
+      var count = Math.min(12, Math.max(safe.length, 1));
+      for (var i = 0; i < count; i++) {
+        var photo = safe[i % safe.length];
+        var rot   = (Math.random() * 10 - 5).toFixed(2);
+        var el    = document.createElement('div');
+        el.className = 'strip-polaroid';
+        el.style.setProperty('--rot', rot + 'deg');
+        var img = document.createElement('img');
+        img.src     = publicBase + photo.image_path;
+        img.loading = 'lazy';
+        img.alt     = '';
+        el.appendChild(img);
+        track.appendChild(el);
+      }
+      wrap.removeAttribute('hidden');
+    } catch(e) {
+      console.error('mobile strip failed', e);
+    }
+  }
+  if (document.readyState === 'complete') {
+    setTimeout(initMobileStrip, 250);
+  } else {
+    window.addEventListener('load', function() { setTimeout(initMobileStrip, 250); });
+  }
+  var lastWide = window.innerWidth >= 1280;
+  window.addEventListener('resize', function() {
+    var nowWide = window.innerWidth >= 1280;
+    if (nowWide !== lastWide) {
+      lastWide = nowWide;
+      var w = document.getElementById('mobileStripWrap');
+      var t = document.getElementById('mobileStripTrack');
+      if (!w || !t) return;
+      if (nowWide) { w.setAttribute('hidden', ''); t.innerHTML = ''; }
+      else { t.innerHTML = ''; initMobileStrip(); }
+    }
   });
 })();
 
