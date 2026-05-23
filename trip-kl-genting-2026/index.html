@@ -1977,6 +1977,40 @@ footer small {
   border: 0;
   display: block;
 }
+.live-traffic-geo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.live-traffic-geo-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.live-traffic-geo-toggle:hover { border-color: var(--moss); }
+.live-traffic-geo-toggle[aria-pressed="true"] {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--cream);
+}
+.live-traffic-geo-icon { font-size: 14px; line-height: 1; }
+.live-traffic-geo-status {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--ink-2);
+  opacity: 0.75;
+}
 .live-traffic-note {
   font-size: 13px;
   color: var(--ink-2);
@@ -2135,6 +2169,13 @@ footer small {
           <button class="live-traffic-pill is-active" data-route="sg-kl">SG&rarr;KL</button>
           <button class="live-traffic-pill" data-route="kl-gt">KL&rarr;Genting</button>
           <button class="live-traffic-pill" data-route="gt-sg">Genting&rarr;SG</button>
+        </div>
+        <div class="live-traffic-geo">
+          <button class="live-traffic-geo-toggle" id="geoToggle" type="button" aria-pressed="false">
+            <span class="live-traffic-geo-icon">&#x1F4CD;</span>
+            <span class="live-traffic-geo-label">Use my location as start</span>
+          </button>
+          <span class="live-traffic-geo-status" id="geoStatus"></span>
         </div>
         <div class="live-traffic-map">
           <iframe id="trafficMap" src="https://maps.google.com/maps?saddr=Woodlands+Checkpoint+Singapore&daddr=Kuala+Lumpur+Sentral&output=embed" frameborder="0" loading="lazy"></iframe>
@@ -4657,32 +4698,87 @@ function setSyncStatus(id, text, mode) {
   loadFX();
 
 
-  // ---- Traffic pill switcher ----
+  // ---- Traffic pill switcher (with optional geolocation) ----
   const ROUTES = {
-    'sg-kl': {
-      embed: 'https://maps.google.com/maps?saddr=Woodlands+Checkpoint+Singapore&daddr=Kuala+Lumpur+Sentral&output=embed',
-      open:  'https://www.google.com/maps/dir/?api=1&origin=Woodlands+Checkpoint+Singapore&destination=Kuala+Lumpur+Sentral'
-    },
-    'kl-gt': {
-      embed: 'https://maps.google.com/maps?saddr=Kuala+Lumpur+Sentral&daddr=Genting+Highlands+Resort&output=embed',
-      open:  'https://www.google.com/maps/dir/?api=1&origin=Kuala+Lumpur+Sentral&destination=Genting+Highlands+Resort'
-    },
-    'gt-sg': {
-      embed: 'https://maps.google.com/maps?saddr=Genting+Highlands+Resort&daddr=Woodlands+Checkpoint+Singapore&output=embed',
-      open:  'https://www.google.com/maps/dir/?api=1&origin=Genting+Highlands+Resort&destination=Woodlands+Checkpoint+Singapore'
-    }
+    'sg-kl': { saddr: 'Woodlands+Checkpoint+Singapore', daddr: 'Kuala+Lumpur+Sentral' },
+    'kl-gt': { saddr: 'Kuala+Lumpur+Sentral', daddr: 'Genting+Highlands+Resort' },
+    'gt-sg': { saddr: 'Genting+Highlands+Resort', daddr: 'Woodlands+Checkpoint+Singapore' }
   };
+  let useGeolocation = false;
+  let userCoords = null;
+  let activeRouteKey = 'sg-kl';
+
+  function buildUrls(routeKey) {
+    const r = ROUTES[routeKey];
+    if (!r) return null;
+    const saddr = (useGeolocation && userCoords)
+      ? (userCoords.lat + ',' + userCoords.lng)
+      : r.saddr;
+    return {
+      embed: 'https://maps.google.com/maps?saddr=' + encodeURIComponent(saddr) + '&daddr=' + r.daddr + '&output=embed',
+      open: 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(saddr) + '&destination=' + r.daddr
+    };
+  }
+
+  function refreshMap() {
+    const urls = buildUrls(activeRouteKey);
+    if (!urls) return;
+    document.getElementById('trafficMap').src = urls.embed;
+    document.getElementById('trafficOpenLink').href = urls.open;
+  }
+
   document.querySelectorAll('.live-traffic-pill').forEach(function(btn) {
     btn.addEventListener('click', function() {
       const route = btn.getAttribute('data-route');
-      const r = ROUTES[route];
-      if (!r) return;
+      if (!ROUTES[route]) return;
       document.querySelectorAll('.live-traffic-pill').forEach(function(p) { p.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      document.getElementById('trafficMap').src = r.embed;
-      document.getElementById('trafficOpenLink').href = r.open;
+      activeRouteKey = route;
+      refreshMap();
     });
   });
+
+  // Geolocation toggle
+  const geoToggleBtn = document.getElementById('geoToggle');
+  const geoStatus = document.getElementById('geoStatus');
+  if (geoToggleBtn) {
+    geoToggleBtn.addEventListener('click', function() {
+      if (useGeolocation) {
+        useGeolocation = false;
+        geoToggleBtn.setAttribute('aria-pressed', 'false');
+        geoStatus.textContent = '';
+        refreshMap();
+        return;
+      }
+      if (!('geolocation' in navigator)) {
+        geoStatus.textContent = 'Geolocation not supported';
+        return;
+      }
+      geoStatus.textContent = 'Locating\u2026';
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          userCoords = {
+            lat: pos.coords.latitude.toFixed(6),
+            lng: pos.coords.longitude.toFixed(6)
+          };
+          useGeolocation = true;
+          geoToggleBtn.setAttribute('aria-pressed', 'true');
+          geoStatus.textContent = 'From current location';
+          refreshMap();
+        },
+        function(err) {
+          let msg = 'Location unavailable';
+          if (err.code === 1) msg = 'Permission denied';
+          else if (err.code === 2) msg = 'Position unavailable';
+          else if (err.code === 3) msg = 'Request timed out';
+          geoStatus.textContent = msg;
+          useGeolocation = false;
+          geoToggleBtn.setAttribute('aria-pressed', 'false');
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+      );
+    });
+  }
   // ---- Refresh on tab focus (rate-limited) ----
   let lastWeather = Date.now();
   let lastFX = Date.now();
