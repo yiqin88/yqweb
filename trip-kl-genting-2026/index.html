@@ -1785,6 +1785,193 @@ footer small {
 @media (max-width: 1280px) {
   .mobile-strip-wrap { display: block; }
 }
+
+/* =========================
+   LIVE — weather, currency, traffic cards
+   ========================= */
+.live-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .live-grid { grid-template-columns: 1fr; gap: 14px; }
+}
+.live-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+.live-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+.live-card-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.live-card-status {
+  font-size: 8px;
+  color: var(--moss);
+  transition: color 0.3s ease;
+}
+.live-card-status.loading { color: var(--gold); animation: livePulse 1.2s ease-in-out infinite; }
+.live-card-status.error   { color: #c75d2c; }
+@keyframes livePulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+.live-card-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Weather */
+.live-weather-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.live-weather-loc { display: flex; flex-direction: column; }
+.live-weather-place {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+.live-weather-temp {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1;
+}
+.live-weather-summary {
+  font-size: 12px;
+  color: var(--ink-2);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Currency */
+.live-fx-rate {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.live-fx-rate-value {
+  font-family: var(--display);
+  font-size: 38px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.live-fx-rate-unit {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.live-fx-converter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-fx-input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 0;
+}
+.live-fx-input-group:focus-within { border-color: var(--moss); }
+.live-fx-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.live-fx-input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink);
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+}
+.live-fx-input-group input::-webkit-outer-spin-button,
+.live-fx-input-group input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.live-fx-equals { font-size: 14px; color: var(--muted); flex: 0 0 auto; }
+
+/* Traffic */
+.live-traffic-note {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+.live-traffic-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.live-traffic-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.live-traffic-route:hover {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--cream);
+}
+.live-traffic-leg { display: inline-flex; align-items: center; gap: 8px; }
+.live-traffic-from, .live-traffic-to { font-weight: 500; }
+.live-traffic-arrow { color: var(--muted); }
+.live-traffic-route:hover .live-traffic-arrow { color: var(--cream); }
+.live-traffic-ext { font-size: 13px; color: var(--muted); }
+.live-traffic-route:hover .live-traffic-ext { color: var(--cream); }
+
 </style>
 </head>
 <body>
@@ -1816,6 +2003,7 @@ footer small {
      ============================================ -->
 <nav class="trip-nav" id="tripNav">
   <div class="trip-nav-inner">
+    <a href="#live" class="trip-nav-pill">Live</a>
     <a href="#photos" class="trip-nav-pill">Photos</a>
     <a href="#days" class="trip-nav-pill">Days</a>
     <a href="#hotels" class="trip-nav-pill">Hotels</a>
@@ -1839,6 +2027,89 @@ footer small {
   </div>
 </div>
 
+
+<!-- ============================================
+     LIVE — weather, currency, traffic
+     ============================================ -->
+<section class="block" id="live">
+  <div class="container">
+    <span class="section-eyebrow">— Live conditions</span>
+    <h2 class="display section-h2">Right <i>now.</i></h2>
+    <p class="section-lead">Current weather across the trip, live RM/SGD rate, and route traffic. Refreshes when you open the page.</p>
+
+    <div class="live-grid">
+
+      <!-- Weather -->
+      <div class="live-card">
+        <div class="live-card-head">
+          <span class="live-card-eyebrow">Weather</span>
+          <span class="live-card-status loading" id="weatherStatus">&#9679;</span>
+        </div>
+        <div class="live-weather-row">
+          <div class="live-weather-loc">
+            <div class="live-weather-place">Kuala Lumpur</div>
+            <div class="live-weather-temp" id="wTempKl">&mdash;</div>
+            <div class="live-weather-summary" id="wSumKl">Loading&hellip;</div>
+          </div>
+          <div class="live-weather-loc">
+            <div class="live-weather-place">Genting Highlands</div>
+            <div class="live-weather-temp" id="wTempGe">&mdash;</div>
+            <div class="live-weather-summary" id="wSumGe">Loading&hellip;</div>
+          </div>
+        </div>
+        <div class="live-card-foot" id="weatherFoot">Trip-date forecast appears ~14 days before departure.</div>
+      </div>
+
+      <!-- Currency -->
+      <div class="live-card">
+        <div class="live-card-head">
+          <span class="live-card-eyebrow">Currency</span>
+          <span class="live-card-status loading" id="fxStatus">&#9679;</span>
+        </div>
+        <div class="live-fx-rate">
+          <span class="live-fx-rate-value" id="fxRate">&mdash;</span>
+          <span class="live-fx-rate-unit">SGD per 1 RM</span>
+        </div>
+        <div class="live-fx-converter">
+          <div class="live-fx-input-group">
+            <span class="live-fx-label">RM</span>
+            <input type="number" id="fxMyr" value="100" min="0" step="10" inputmode="decimal" />
+          </div>
+          <div class="live-fx-equals">=</div>
+          <div class="live-fx-input-group">
+            <span class="live-fx-label">SGD</span>
+            <input type="number" id="fxSgd" value="" min="0" step="1" inputmode="decimal" />
+          </div>
+        </div>
+        <div class="live-card-foot" id="fxFoot">Source: Frankfurter (ECB)</div>
+      </div>
+
+      <!-- Traffic -->
+      <div class="live-card">
+        <div class="live-card-head">
+          <span class="live-card-eyebrow">Traffic</span>
+        </div>
+        <p class="live-traffic-note">Tap a route &mdash; opens Google Maps with the live traffic layer.</p>
+        <div class="live-traffic-routes">
+          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Woodlands+Checkpoint+Singapore&destination=Hilton+Garden+Inn+Kuala+Lumpur+North&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
+            <span class="live-traffic-leg"><span class="live-traffic-from">Singapore</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">KL</span></span>
+            <span class="live-traffic-ext">&#8599;</span>
+          </a>
+          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Hilton+Garden+Inn+Kuala+Lumpur+North&destination=Genting+Highlands+Resort&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
+            <span class="live-traffic-leg"><span class="live-traffic-from">KL</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">Genting</span></span>
+            <span class="live-traffic-ext">&#8599;</span>
+          </a>
+          <a class="live-traffic-route" href="https://www.google.com/maps/dir/?api=1&origin=Genting+Highlands+Resort&destination=Woodlands+Checkpoint+Singapore&travelmode=driving&layer=traffic" target="_blank" rel="noopener">
+            <span class="live-traffic-leg"><span class="live-traffic-from">Genting</span> <span class="live-traffic-arrow">&rarr;</span> <span class="live-traffic-to">Singapore</span></span>
+            <span class="live-traffic-ext">&#8599;</span>
+          </a>
+        </div>
+        <div class="live-card-foot">Best checked on the day of travel.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ============================================
      PHOTOS (Supabase-backed family upload)
@@ -4248,6 +4519,116 @@ function setSyncStatus(id, text, mode) {
       if (nowWide) { w.style.display = ''; t.innerHTML = ''; }
       else { t.innerHTML = ''; initMobileStrip(); }
     }
+  });
+})();
+
+
+
+/* =========================
+   LIVE — weather, currency, traffic logic
+   ========================= */
+(function() {
+  // ---- Weather ----
+  const KL = { lat: 3.139, lng: 101.6869 };
+  const GENTING = { lat: 3.4231, lng: 101.7937 };
+
+  // WMO weather code → short label
+  function weatherSummary(code) {
+    if (code === 0)              return 'Clear';
+    if (code === 1)              return 'Mainly clear';
+    if (code === 2)              return 'Partly cloudy';
+    if (code === 3)              return 'Overcast';
+    if (code === 45 || code === 48) return 'Fog';
+    if (code >= 51 && code <= 57)   return 'Light drizzle';
+    if (code >= 61 && code <= 63)   return 'Rain';
+    if (code >= 64 && code <= 67)   return 'Heavy rain';
+    if (code >= 80 && code <= 82)   return 'Showers';
+    if (code >= 95 && code <= 99)   return 'Thunderstorm';
+    return 'Weather data';
+  }
+
+  async function loadWeather() {
+    const status = document.getElementById('weatherStatus');
+    status.className = 'live-card-status loading';
+    try {
+      const url = function(loc) {
+        return 'https://api.open-meteo.com/v1/forecast'
+          + '?latitude=' + loc.lat
+          + '&longitude=' + loc.lng
+          + '&current=temperature_2m,weather_code'
+          + '&timezone=Asia%2FSingapore';
+      };
+      const responses = await Promise.all([
+        fetch(url(KL)).then(function(r) { return r.json(); }),
+        fetch(url(GENTING)).then(function(r) { return r.json(); })
+      ]);
+      const kl = responses[0], ge = responses[1];
+      document.getElementById('wTempKl').textContent = Math.round(kl.current.temperature_2m) + '\u00B0';
+      document.getElementById('wSumKl').textContent  = weatherSummary(kl.current.weather_code);
+      document.getElementById('wTempGe').textContent = Math.round(ge.current.temperature_2m) + '\u00B0';
+      document.getElementById('wSumGe').textContent  = weatherSummary(ge.current.weather_code);
+      status.className = 'live-card-status';
+    } catch (e) {
+      console.error('weather failed', e);
+      status.className = 'live-card-status error';
+      document.getElementById('wSumKl').textContent = 'Offline';
+      document.getElementById('wSumGe').textContent = 'Offline';
+    }
+  }
+
+  // ---- Currency (MYR → SGD) ----
+  let rate = null;
+
+  async function loadFX() {
+    const status = document.getElementById('fxStatus');
+    status.className = 'live-card-status loading';
+    try {
+      const res = await fetch('https://api.frankfurter.app/latest?from=MYR&to=SGD');
+      const data = await res.json();
+      rate = data.rates.SGD;
+      document.getElementById('fxRate').textContent = rate.toFixed(4);
+      const dt = new Date(data.date);
+      const formatted = dt.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
+      document.getElementById('fxFoot').textContent = 'ECB rate \u00B7 ' + formatted;
+      status.className = 'live-card-status';
+      recompute('myr');
+    } catch (e) {
+      console.error('fx failed', e);
+      status.className = 'live-card-status error';
+      document.getElementById('fxRate').textContent = '?';
+    }
+  }
+
+  function recompute(direction) {
+    if (!rate) return;
+    const myr = document.getElementById('fxMyr');
+    const sgd = document.getElementById('fxSgd');
+    if (direction === 'sgd') {
+      const v = parseFloat(sgd.value);
+      if (!isNaN(v)) myr.value = (v / rate).toFixed(2);
+      else myr.value = '';
+    } else {
+      const v = parseFloat(myr.value);
+      if (!isNaN(v)) sgd.value = (v * rate).toFixed(2);
+      else sgd.value = '';
+    }
+  }
+
+  document.getElementById('fxMyr').addEventListener('input', function() { recompute('myr'); });
+  document.getElementById('fxSgd').addEventListener('input', function() { recompute('sgd'); });
+
+  // ---- Initial loads ----
+  loadWeather();
+  loadFX();
+
+  // ---- Refresh on tab focus (rate-limited) ----
+  let lastWeather = Date.now();
+  let lastFX = Date.now();
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) return;
+    const now = Date.now();
+    if (now - lastWeather > 5 * 60 * 1000) { loadWeather(); lastWeather = now; }
+    if (now - lastFX > 60 * 60 * 1000)     { loadFX();      lastFX = now; }
   });
 })();
 
