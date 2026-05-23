@@ -1704,7 +1704,9 @@ footer small {
   pointer-events: none;
   border-radius: 2px;
   opacity: 0.5;
-  animation: floatDrift 15s ease-in-out infinite;
+  animation-duration: 28s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
   animation-delay: var(--delay, 0s);
   transform-origin: center center;
 }
@@ -1715,12 +1717,23 @@ footer small {
   object-fit: cover;
   background: var(--paper-2);
 }
-.float-polaroid.left  { left:  calc(50% - 620px); }
-.float-polaroid.right { right: calc(50% - 620px); }
-@keyframes floatDrift {
-  0%, 100% { transform: translate(0, 0)       rotate(var(--rot, 0deg)); }
-  33%      { transform: translate(8px, -30px) rotate(calc(var(--rot, 0deg) + 2deg)); }
-  66%      { transform: translate(-6px, 22px) rotate(calc(var(--rot, 0deg) - 1.5deg)); }
+.float-polaroid.left  {
+  left: 4%;
+  animation-name: floatDriftLeft;
+}
+.float-polaroid.right {
+  right: 4%;
+  animation-name: floatDriftRight;
+}
+@keyframes floatDriftLeft {
+  0%, 100% { transform: translate(0, 0)         rotate(var(--rot, 0deg)); }
+  33%      { transform: translate(40vw, -30px)  rotate(calc(var(--rot, 0deg) + 4deg)); }
+  66%      { transform: translate(70vw, 20px)   rotate(calc(var(--rot, 0deg) - 2deg)); }
+}
+@keyframes floatDriftRight {
+  0%, 100% { transform: translate(0, 0)          rotate(var(--rot, 0deg)); }
+  33%      { transform: translate(-40vw, -30px)  rotate(calc(var(--rot, 0deg) - 4deg)); }
+  66%      { transform: translate(-70vw, 20px)   rotate(calc(var(--rot, 0deg) + 2deg)); }
 }
 @media (max-width: 1280px) {
   .float-polaroid { display: none; }
@@ -4096,7 +4109,8 @@ function setSyncStatus(id, text, mode) {
         const photo = safe[i % safe.length];
         const side = i % 2 === 0 ? 'left' : 'right';
         const rot = (Math.random() * 8 - 4).toFixed(2);
-        const delay = (Math.random() * 4).toFixed(2);
+        // Negative delay = start mid-cycle, so polaroids spread across the loop on load
+        const delay = (Math.random() * -28).toFixed(2);
         const verticalOffset = 30 + Math.random() * 80;
 
         const rect = section.getBoundingClientRect();
