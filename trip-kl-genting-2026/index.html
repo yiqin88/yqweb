@@ -1416,6 +1416,233 @@ footer small {
   a { color: black; text-decoration: none; }
 }
 
+
+/* =========================
+   STICKY TRIP NAV
+   ========================= */
+.trip-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 246, 238, 0.92);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+.trip-nav-inner {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.trip-nav-inner::-webkit-scrollbar { display: none; }
+.trip-nav-pill {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.trip-nav-pill:hover, .trip-nav-pill:focus {
+  background: var(--moss);
+  color: var(--cream);
+  border-color: var(--moss);
+}
+
+/* =========================
+   PHOTOS section
+   ========================= */
+.photo-upload-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 18px 0 24px;
+}
+.photo-upload-card label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 14px 0 6px;
+}
+.photo-upload-card label:first-of-type { margin-top: 0; }
+.photo-upload-card input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+}
+.photo-upload-card input[type="text"]:focus {
+  outline: none;
+  border-color: var(--moss);
+}
+.photo-upload-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--moss);
+  color: var(--cream);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: background 0.15s ease;
+}
+.photo-upload-btn:hover:not(:disabled) { background: var(--moss-deep); }
+.photo-upload-btn:disabled { background: var(--mute-2); cursor: not-allowed; }
+.photo-upload-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.photo-upload-progress {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--cream);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--moss);
+  text-align: center;
+}
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.photo-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--paper-2);
+  cursor: pointer;
+  border: 1px solid var(--line);
+}
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.photo-card:hover img { transform: scale(1.04); }
+.photo-card-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px 10px 8px;
+  background: linear-gradient(to top, rgba(31,42,34,0.85), transparent);
+  color: var(--cream);
+  font-family: var(--sans);
+}
+.photo-card-uploader {
+  font-size: 11px;
+  font-weight: 600;
+}
+.photo-card-caption {
+  font-size: 10px;
+  opacity: 0.85;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.photo-card-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(31,42,34,0.7);
+  color: var(--cream);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.photo-card:hover .photo-card-delete { opacity: 1; }
+@media (hover: none) { .photo-card-delete { opacity: 1; } }
+.photo-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  background: var(--paper);
+  border: 1px dashed var(--line-2);
+  border-radius: 12px;
+  margin-top: 18px;
+}
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 17, 0.96);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.photo-lightbox-img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.photo-lightbox-caption {
+  margin-top: 16px;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 14px;
+  text-align: center;
+  max-width: 700px;
+}
+.photo-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  font-size: 28px;
+  color: var(--cream);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 </style>
 </head>
 <body>
@@ -1438,6 +1665,22 @@ footer small {
 </header>
 
 <!-- ============================================
+     STICKY TRIP NAV
+     ============================================ -->
+<nav class="trip-nav" id="tripNav">
+  <div class="trip-nav-inner">
+    <a href="#photos" class="trip-nav-pill">Photos</a>
+    <a href="#days" class="trip-nav-pill">Days</a>
+    <a href="#hotels" class="trip-nav-pill">Hotels</a>
+    <a href="#food" class="trip-nav-pill">Food</a>
+    <a href="#charging" class="trip-nav-pill">Charging</a>
+    <a href="#places" class="trip-nav-pill">Places</a>
+    <a href="#expenses" class="trip-nav-pill">Expenses</a>
+    <a href="#practical" class="trip-nav-pill">Practical</a>
+  </div>
+</nav>
+
+<!-- ============================================
      NOW CARD (auto-updates by date)
      ============================================ -->
 <div class="container">
@@ -1449,10 +1692,46 @@ footer small {
   </div>
 </div>
 
+
+<!-- ============================================
+     PHOTOS (Supabase-backed family upload)
+     ============================================ -->
+<section class="block" id="photos">
+  <div class="container">
+    <span class="section-eyebrow">— Trip photos</span>
+    <h2 class="display section-h2">Memories <i>together.</i></h2>
+    <p class="section-lead">Snap a photo, upload it here — everyone sees it instantly across all devices. Synced via cloud.</p>
+    <div class="sync-status" id="photoSyncStatus">&#9679; Loading photos...</div>
+
+    <div class="photo-upload-card">
+      <label for="photoUploader">Who&#39;s uploading?</label>
+      <input type="text" id="photoUploader" placeholder="Papa / Mama / Nick / Charlotte..." autocomplete="name" />
+
+      <label for="photoCaption">Caption (optional)</label>
+      <input type="text" id="photoCaption" placeholder="A&#39;Famosa lunch &middot; Genting cable car &middot; etc" />
+
+      <input type="file" id="photoFiles" accept="image/*" multiple hidden />
+      <button class="photo-upload-btn" id="photoUploadBtn">&#128247; Choose photos to upload</button>
+      <div class="photo-upload-hint">Multiple OK. JPG / PNG / HEIC. Up to 10 MB each.</div>
+      <div class="photo-upload-progress" id="photoProgress" hidden></div>
+    </div>
+
+    <div class="photo-gallery" id="photoGallery"></div>
+    <div class="photo-empty" id="photoEmpty" hidden>No photos yet &mdash; be the first to upload one!</div>
+  </div>
+</section>
+
+<!-- Photo lightbox -->
+<div class="photo-lightbox" id="photoLightbox" hidden>
+  <div class="photo-lightbox-close" id="photoLightboxClose">&times;</div>
+  <img class="photo-lightbox-img" id="photoLightboxImg" alt="" />
+  <div class="photo-lightbox-caption" id="photoLightboxCaption"></div>
+</div>
+
 <!-- ============================================
      DAY 1 — Tue 23 Jun
      ============================================ -->
-<section class="block">
+<section class="block" id="days">
   <div class="container">
     <span class="section-eyebrow">— Day 01 / The drive up</span>
     <h2 class="display section-h2">Singapore <i>to</i> KL.</h2>
@@ -3432,6 +3711,200 @@ function setSyncStatus(id, text, mode) {
 
   // Initial load
   loadAll();
+})();
+
+
+/* =========================
+   PHOTOS - Supabase-backed
+   ========================= */
+(function() {
+  let photos = [];
+  const PHOTO_BUCKET = 'kl-trip-photos';
+  const UPLOADER_LS_KEY = 'kl-trip-photo-uploader';
+
+  function publicImageUrl(imagePath) {
+    return SUPABASE_URL + '/storage/v1/object/public/' + PHOTO_BUCKET + '/' + imagePath;
+  }
+
+  function escHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  async function loadPhotos() {
+    setSyncStatus('photoSyncStatus', '\u25CF Loading photos...', 'syncing');
+    try {
+      const rows = await sbFetch('/rest/v1/kl_trip_photos?select=*&order=uploaded_at.desc');
+      photos = rows || [];
+      renderPhotos();
+      const msg = photos.length === 0
+        ? '\u2713 Connected \u00B7 no photos yet'
+        : '\u2713 Synced \u00B7 ' + photos.length + ' photo' + (photos.length === 1 ? '' : 's');
+      setSyncStatus('photoSyncStatus', msg, null);
+    } catch (e) {
+      console.error('loadPhotos failed', e);
+      setSyncStatus('photoSyncStatus', '\u2717 Offline \u2014 cannot load photos', 'error');
+    }
+  }
+
+  function renderPhotos() {
+    const gallery = document.getElementById('photoGallery');
+    const empty = document.getElementById('photoEmpty');
+    if (!gallery) return;
+    if (photos.length === 0) {
+      gallery.innerHTML = '';
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    gallery.innerHTML = photos.map(function(p) {
+      return '<div class="photo-card" data-id="' + escHtml(p.id) + '" data-path="' + escHtml(p.image_path) + '">' +
+        '<img src="' + publicImageUrl(p.image_path) + '" alt="' + escHtml(p.caption || 'photo') + '" loading="lazy" />' +
+        '<div class="photo-card-meta">' +
+          '<div class="photo-card-uploader">' + escHtml(p.uploader || 'Family') + '</div>' +
+          (p.caption ? '<div class="photo-card-caption">' + escHtml(p.caption) + '</div>' : '') +
+        '</div>' +
+        '<div class="photo-card-delete" title="Delete">\u00D7</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  async function uploadFiles(fileList) {
+    const uploaderInput = document.getElementById('photoUploader');
+    const captionInput = document.getElementById('photoCaption');
+    const uploader = (uploaderInput.value || '').trim();
+    const caption = (captionInput.value || '').trim();
+    if (!uploader) {
+      alert('Please enter who is uploading first.');
+      uploaderInput.focus();
+      return;
+    }
+    localStorage.setItem(UPLOADER_LS_KEY, uploader);
+
+    const btn = document.getElementById('photoUploadBtn');
+    const progress = document.getElementById('photoProgress');
+    btn.disabled = true;
+    progress.hidden = false;
+
+    let success = 0, fail = 0;
+    const files = Array.from(fileList);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      progress.textContent = 'Uploading ' + (i + 1) + ' of ' + files.length + ': ' + file.name;
+      try {
+        const dot = file.name.lastIndexOf('.');
+        const ext = (dot > -1 ? file.name.slice(dot + 1) : 'jpg').toLowerCase();
+        const filename = 'photo_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+
+        const upRes = await fetch(SUPABASE_URL + '/storage/v1/object/' + PHOTO_BUCKET + '/' + filename, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': file.type || 'application/octet-stream'
+          },
+          body: file
+        });
+        if (!upRes.ok) throw new Error('Storage upload failed: ' + upRes.status);
+
+        await sbFetch('/rest/v1/kl_trip_photos', {
+          method: 'POST',
+          headers: { 'Prefer': 'return=minimal' },
+          body: JSON.stringify({
+            image_path: filename,
+            caption: caption || null,
+            uploader: uploader
+          })
+        });
+        success++;
+      } catch (err) {
+        console.error('Upload failed for', file.name, err);
+        fail++;
+      }
+    }
+
+    btn.disabled = false;
+    progress.textContent = 'Done. ' + success + ' uploaded' + (fail ? (' \u00B7 ' + fail + ' failed') : '');
+    setTimeout(function() { progress.hidden = true; progress.textContent = ''; }, 4000);
+
+    captionInput.value = '';
+    document.getElementById('photoFiles').value = '';
+    await loadPhotos();
+  }
+
+  async function deletePhoto(id, imagePath) {
+    if (!confirm('Delete this photo? This cannot be undone.')) return;
+    try {
+      await fetch(SUPABASE_URL + '/rest/v1/kl_trip_photos?id=eq.' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+        }
+      });
+      await fetch(SUPABASE_URL + '/storage/v1/object/' + PHOTO_BUCKET + '/' + imagePath, {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+        }
+      });
+      await loadPhotos();
+    } catch (err) {
+      console.error('deletePhoto failed', err);
+      alert('Delete failed. Check your connection.');
+    }
+  }
+
+  function openLightbox(imagePath, caption, uploader) {
+    document.getElementById('photoLightboxImg').src = publicImageUrl(imagePath);
+    const cap = caption ? (uploader + ' \u00B7 ' + caption) : (uploader || '');
+    document.getElementById('photoLightboxCaption').textContent = cap;
+    document.getElementById('photoLightbox').hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('photoLightbox').hidden = true;
+    document.getElementById('photoLightboxImg').src = '';
+    document.body.style.overflow = '';
+  }
+
+  // ---- wire up ----
+  document.getElementById('photoUploadBtn').addEventListener('click', function() {
+    document.getElementById('photoFiles').click();
+  });
+  document.getElementById('photoFiles').addEventListener('change', function(e) {
+    if (e.target.files.length > 0) uploadFiles(e.target.files);
+  });
+  document.getElementById('photoGallery').addEventListener('click', function(e) {
+    const card = e.target.closest('.photo-card');
+    if (!card) return;
+    const id = card.dataset.id;
+    const path = card.dataset.path;
+    if (e.target.classList.contains('photo-card-delete')) {
+      e.stopPropagation();
+      deletePhoto(id, path);
+      return;
+    }
+    const photo = photos.find(function(p) { return String(p.id) === String(id); });
+    if (photo) openLightbox(path, photo.caption, photo.uploader);
+  });
+  document.getElementById('photoLightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('photoLightbox').addEventListener('click', function(e) {
+    if (e.target.id === 'photoLightbox') closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !document.getElementById('photoLightbox').hidden) closeLightbox();
+  });
+
+  // Restore uploader name
+  const saved = localStorage.getItem(UPLOADER_LS_KEY);
+  if (saved) document.getElementById('photoUploader').value = saved;
+
+  // Initial load + refresh every 30s
+  loadPhotos();
+  setInterval(loadPhotos, 30000);
 })();
 
 </script>
