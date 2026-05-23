@@ -137,6 +137,51 @@ body {
 }
 .hero-meta b { color: var(--ink); font-weight: 600; }
 
+/* Hero photo montage — mid-opacity, slow Ken Burns, gradient overlay */
+.hero-photo-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-photo-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 246, 238, 0.70) 0%,
+    rgba(250, 246, 238, 0.30) 38%,
+    rgba(250, 246, 238, 0.35) 62%,
+    rgba(242, 237, 223, 0.88) 100%
+  );
+  pointer-events: none;
+}
+.hero-photo-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  will-change: opacity, transform;
+}
+.hero-photo-bg img.is-active {
+  opacity: 0.5;
+  animation: heroKenBurns 12s ease-in-out infinite alternate;
+}
+@keyframes heroKenBurns {
+  0%   { transform: scale(1.05) translate(0%, 0%); }
+  100% { transform: scale(1.18) translate(-3%, 2%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-bg img.is-active {
+    animation: none;
+    transform: scale(1.05);
+  }
+}
+
 .hero-decor {
   position: absolute;
   top: 30px;
@@ -3908,6 +3953,69 @@ function setSyncStatus(id, text, mode) {
   // Initial load + refresh every 30s
   loadPhotos();
   setInterval(loadPhotos, 30000);
+})();
+
+/* =========================
+   HERO photo montage
+   ========================= */
+(function() {
+  async function initHeroPhotoBg() {
+    try {
+      const rows = await sbFetch('/rest/v1/kl_trip_photos?select=image_path&order=uploaded_at.desc&limit=8');
+      if (!rows || rows.length === 0) return;
+
+      // Filter to safely-renderable formats (Chrome can't render HEIC)
+      const safe = rows.filter(function(r) {
+        const ext = (r.image_path.split('.').pop() || '').toLowerCase();
+        return ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext);
+      });
+      if (safe.length === 0) return;
+
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      // Avoid double-injection on re-runs
+      const existing = hero.querySelector('.hero-photo-bg');
+      if (existing) existing.remove();
+
+      const bg = document.createElement('div');
+      bg.className = 'hero-photo-bg';
+      const publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+
+      safe.forEach(function(row, i) {
+        const img = document.createElement('img');
+        img.src = publicBase + row.image_path;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        img.alt = '';
+        bg.appendChild(img);
+      });
+
+      hero.insertBefore(bg, hero.firstChild);
+
+      const imgs = bg.querySelectorAll('img');
+      const activate = function() { imgs[0].classList.add('is-active'); };
+      if (imgs[0].complete) {
+        activate();
+      } else {
+        imgs[0].addEventListener('load', activate, { once: true });
+        imgs[0].addEventListener('error', activate, { once: true });
+      }
+
+      if (imgs.length === 1) return;
+
+      // Cross-fade rotation every 6s
+      let idx = 0;
+      setInterval(function() {
+        imgs[idx].classList.remove('is-active');
+        idx = (idx + 1) % imgs.length;
+        imgs[idx].classList.add('is-active');
+      }, 6000);
+    } catch (e) {
+      console.error('hero photo bg failed', e);
+    }
+  }
+
+  initHeroPhotoBg();
 })();
 
 </script>
