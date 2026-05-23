@@ -1691,6 +1691,45 @@ footer small {
   line-height: 1;
 }
 
+/* =========================
+   FLOATING POLAROIDS (desktop scrapbook decoration)
+   ========================= */
+.float-polaroid {
+  position: absolute;
+  width: 120px;
+  background: #ffffff;
+  padding: 8px 8px 22px;
+  box-shadow: 0 8px 24px rgba(31,42,34,0.16), 0 2px 4px rgba(31,42,34,0.08);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: floatSway 9s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  transform-origin: center center;
+}
+.float-polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--paper-2);
+}
+.float-polaroid.left  { left:  calc(50% - 580px); }
+.float-polaroid.right { right: calc(50% - 580px); }
+@keyframes floatSway {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) translate(0, 0); }
+  50%      { transform: rotate(calc(var(--rot, 0deg) + 1.5deg)) translate(4px, -3px); }
+}
+@media (max-width: 1180px) {
+  .float-polaroid { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-polaroid {
+    animation: none;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4016,6 +4055,83 @@ function setSyncStatus(id, text, mode) {
   }
 
   initHeroPhotoBg();
+})();
+
+/* =========================
+   FLOATING POLAROIDS - scrapbook decoration in page gutter
+   ========================= */
+(function() {
+  async function placePolaroids() {
+    try {
+      const rows = await sbFetch('/rest/v1/kl_trip_photos?select=image_path&order=uploaded_at.desc');
+      if (!rows || rows.length === 0) return;
+
+      // Skip HEIC (Chrome incompatible)
+      const safe = rows.filter(function(r) {
+        const ext = (r.image_path.split('.').pop() || '').toLowerCase();
+        return ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext);
+      });
+      if (safe.length === 0) return;
+
+      // Clear any existing polaroids before repositioning
+      document.querySelectorAll('.float-polaroid').forEach(function(p) { p.remove(); });
+
+      // Only place on screens wide enough
+      if (window.innerWidth < 1180) return;
+
+      // Place in section gutters (not photos section - that IS photos)
+      const sections = Array.from(document.querySelectorAll('section.block'))
+        .filter(function(s) { return s.id !== 'photos'; });
+      if (sections.length === 0) return;
+
+      const publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+      // Cap polaroid count: at most 8, at most ~3 per unique photo
+      const max = Math.min(sections.length, safe.length * 3, 8);
+      const step = sections.length / max;
+
+      for (let i = 0; i < max; i++) {
+        const section = sections[Math.floor(i * step)];
+        const photo = safe[i % safe.length];
+        const side = i % 2 === 0 ? 'left' : 'right';
+        const rot = (Math.random() * 8 - 4).toFixed(2);
+        const delay = (Math.random() * 4).toFixed(2);
+        const verticalOffset = 30 + Math.random() * 80;
+
+        const rect = section.getBoundingClientRect();
+        const top = rect.top + window.scrollY + verticalOffset;
+
+        const el = document.createElement('div');
+        el.className = 'float-polaroid ' + side;
+        el.style.top = top + 'px';
+        el.style.setProperty('--rot', rot + 'deg');
+        el.style.setProperty('--delay', delay + 's');
+
+        const img = document.createElement('img');
+        img.src = publicBase + photo.image_path;
+        img.loading = 'lazy';
+        img.alt = '';
+        el.appendChild(img);
+
+        document.body.appendChild(el);
+      }
+    } catch (e) {
+      console.error('polaroids failed', e);
+    }
+  }
+
+  // Wait for full load so section positions are final
+  if (document.readyState === 'complete') {
+    setTimeout(placePolaroids, 250);
+  } else {
+    window.addEventListener('load', function() { setTimeout(placePolaroids, 250); });
+  }
+
+  // Reposition on resize (debounced)
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(placePolaroids, 300);
+  });
 })();
 
 </script>
