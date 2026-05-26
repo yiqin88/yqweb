@@ -4398,7 +4398,16 @@ function setSyncStatus(id, text, mode) {
 
   // Initial load + refresh every 30s
   loadPhotos();
-  setInterval(loadPhotos, 30000);
+  // Refresh on tab focus, rate-limited to 60s (was setInterval every 30s — burned through cached egress quota)
+  let lastPhotoLoad = Date.now();
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) return;
+    const now = Date.now();
+    if (now - lastPhotoLoad > 60 * 1000) {
+      loadPhotos();
+      lastPhotoLoad = now;
+    }
+  });
 })();
 
 /* =========================
