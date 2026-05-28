@@ -4216,8 +4216,36 @@ function setSyncStatus(id, text, mode) {
   const PHOTO_BUCKET = 'kl-trip-photos';
   const UPLOADER_LS_KEY = 'kl-trip-photo-uploader';
 
-  function publicImageUrl(imagePath) {
-    return SUPABASE_URL + '/storage/v1/object/public/' + PHOTO_BUCKET + '/' + imagePath;
+  // Bucket is private; build signed URLs via Supabase Storage API.
+  async function getSignedUrl(imagePath, expiresIn) {
+    if (!imagePath) return '';
+    try {
+      const res = await fetch(SUPABASE_URL + '/storage/v1/object/sign/' + PHOTO_BUCKET + '/' + imagePath, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expiresIn: expiresIn || 3600 })
+      });
+      if (!res.ok) return '';
+      const d = await res.json();
+      return d.signedURL ? (SUPABASE_URL + '/storage/v1' + d.signedURL) : '';
+    } catch (e) { return ''; }
+  }
+  async function getSignedUrlMap(paths, expiresIn) {
+    const map = {};
+    if (!paths || !paths.length) return map;
+    try {
+      const res = await fetch(SUPABASE_URL + '/storage/v1/object/sign/' + PHOTO_BUCKET, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paths: paths, expiresIn: expiresIn || 3600 })
+      });
+      if (!res.ok) return map;
+      const arr = await res.json();
+      for (const item of arr) {
+        if (item && item.signedURL) map[item.path] = SUPABASE_URL + '/storage/v1' + item.signedURL;
+      }
+    } catch (e) { /* ignore */ }
+    return map;
   }
 
   function escHtml(s) {
@@ -4242,7 +4270,7 @@ function setSyncStatus(id, text, mode) {
     }
   }
 
-  function renderPhotos() {
+  async function renderPhotos() {
     const gallery = document.getElementById('photoGallery');
     const empty = document.getElementById('photoEmpty');
     if (!gallery) return;
@@ -4252,9 +4280,11 @@ function setSyncStatus(id, text, mode) {
       return;
     }
     if (empty) empty.hidden = true;
+    const signedMap = await getSignedUrlMap(photos.map(function(p) { return p.image_path; }));
     gallery.innerHTML = photos.map(function(p) {
+      const src = signedMap[p.image_path] || '';
       return '<div class="photo-card" data-id="' + escHtml(p.id) + '" data-path="' + escHtml(p.image_path) + '">' +
-        '<img src="' + publicImageUrl(p.image_path) + '" alt="' + escHtml(p.caption || 'photo') + '" loading="lazy" />' +
+        '<img src="' + src + '" alt="' + escHtml(p.caption || 'photo') + '" loading="lazy" />' +
         '<div class="photo-card-meta">' +
           '<div class="photo-card-uploader">' + escHtml(p.uploader || 'Family') + '</div>' +
           (p.caption ? '<div class="photo-card-caption">' + escHtml(p.caption) + '</div>' : '') +
@@ -4264,6 +4294,34 @@ function setSyncStatus(id, text, mode) {
     }).join('');
   }
 
+  async function resizeImageIfNeeded(file) {
+    const MAX_DIM = 1920, QUALITY = 0.85;
+    // HEIC won't decode in canvas on most browsers - upload as-is
+    if (file.type === 'image/heic' || /\.heic$/i.test(file.name)) return file;
+    return new Promise(function(resolve) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const scale = Math.min(MAX_DIM / img.width, MAX_DIM / img.height, 1);
+          if (scale >= 1) { resolve(file); return; }
+          const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+          const cv = document.createElement('canvas');
+          cv.width = w; cv.height = h;
+          cv.getContext('2d').drawImage(img, 0, 0, w, h);
+          cv.toBlob(function(blob) {
+            if (!blob) { resolve(file); return; }
+            const newName = file.name.replace(/\.(png|webp|gif|bmp|tiff?)$/i, '.jpg');
+            resolve(new File([blob], newName, { type: 'image/jpeg' }));
+          }, 'image/jpeg', QUALITY);
+        };
+        img.onerror = function() { resolve(file); };
+        img.src = e.target.result;
+      };
+      reader.onerror = function() { resolve(file); };
+      reader.readAsDataURL(file);
+    });
+  }
   async function uploadFiles(fileList) {
     const uploaderInput = document.getElementById('photoUploader');
     const captionInput = document.getElementById('photoCaption');
@@ -4284,8 +4342,13 @@ function setSyncStatus(id, text, mode) {
     let success = 0, fail = 0;
     const files = Array.from(fileList);
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      progress.textContent = 'Uploading ' + (i + 1) + ' of ' + files.length + ': ' + file.name;
+      let file = files[i];
+      progress.textContent = 'Preparing ' + (i + 1) + ' of ' + files.length + ': ' + file.name;
+      const origSize = file.size;
+      file = await resizeImageIfNeeded(file);
+      const newSize = file.size;
+      const savingsLabel = origSize > newSize ? (' (' + Math.round(100 - newSize / origSize * 100) + '% smaller)') : '';
+      progress.textContent = 'Uploading ' + (i + 1) + ' of ' + files.length + ': ' + file.name + savingsLabel;
       try {
         const dot = file.name.lastIndexOf('.');
         const ext = (dot > -1 ? file.name.slice(dot + 1) : 'jpg').toLowerCase();
@@ -4351,8 +4414,8 @@ function setSyncStatus(id, text, mode) {
     }
   }
 
-  function openLightbox(imagePath, caption, uploader) {
-    document.getElementById('photoLightboxImg').src = publicImageUrl(imagePath);
+  async function openLightbox(imagePath, caption, uploader) {
+    document.getElementById('photoLightboxImg').src = await getSignedUrl(imagePath);
     const cap = caption ? (uploader + ' \u00B7 ' + caption) : (uploader || '');
     document.getElementById('photoLightboxCaption').textContent = cap;
     document.getElementById('photoLightbox').hidden = false;
@@ -4435,11 +4498,11 @@ function setSyncStatus(id, text, mode) {
 
       const bg = document.createElement('div');
       bg.className = 'hero-photo-bg';
-      const publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+      const heroMap = await getSignedUrlMap(safe.map(function(r) { return r.image_path; }));
 
       safe.forEach(function(row, i) {
         const img = document.createElement('img');
-        img.src = publicBase + row.image_path;
+        img.src = heroMap[row.image_path] || '';
         img.loading = i === 0 ? 'eager' : 'lazy';
         img.alt = '';
         bg.appendChild(img);
@@ -4497,10 +4560,10 @@ function setSyncStatus(id, text, mode) {
 
       // Place in section gutters (not photos section - that IS photos)
       const sections = Array.from(document.querySelectorAll('section.block'))
-        .filter(function(s) { return s.id !== 'photos'; });
+        .filter(async function(s) { return s.id !== 'photos'; });
       if (sections.length === 0) return;
 
-      const publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+      const polMap = await getSignedUrlMap(safe.map(function(r) { return r.image_path; }));
       // Cap polaroid count: at most 8, at most ~3 per unique photo
       const max = Math.min(sections.length, safe.length * 3, 8);
       const step = sections.length / max;
@@ -4524,7 +4587,7 @@ function setSyncStatus(id, text, mode) {
         el.style.setProperty('--delay', delay + 's');
 
         const img = document.createElement('img');
-        img.src = publicBase + photo.image_path;
+        img.src = polMap[photo.image_path] || '';
         img.loading = 'lazy';
         img.alt = '';
         el.appendChild(img);
@@ -4560,12 +4623,12 @@ function setSyncStatus(id, text, mode) {
       if (window.innerWidth >= 1280) return;
       var rows = await sbFetch('/rest/v1/kl_trip_photos?select=image_path&order=uploaded_at.desc');
       if (!rows || rows.length === 0) return;
-      var safe = rows.filter(function(r) {
+      var safe = rows.filter(async function(r) {
         var ext = (r.image_path.split('.').pop() || '').toLowerCase();
         return ['jpg','jpeg','png','webp','gif'].indexOf(ext) !== -1;
       });
       if (safe.length === 0) return;
-      var publicBase = SUPABASE_URL + '/storage/v1/object/public/kl-trip-photos/';
+      var stripMap = await getSignedUrlMap(safe.map(function(r) { return r.image_path; }));
       var track = document.getElementById('mobileStripTrack');
       var wrap  = document.getElementById('mobileStripWrap');
       if (!track || !wrap) return;
@@ -4577,7 +4640,7 @@ function setSyncStatus(id, text, mode) {
         el.className = 'strip-polaroid';
         el.style.setProperty('--rot', rot + 'deg');
         var img = document.createElement('img');
-        img.src     = publicBase + photo.image_path;
+        img.src     = stripMap[photo.image_path] || '';
         img.loading = 'eager';
         img.alt     = '';
         el.appendChild(img);
