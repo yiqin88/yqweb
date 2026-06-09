@@ -2511,7 +2511,7 @@ footer small {
             <strong>Awana SkyWay cable car UP <span class="timeline-pin kid">round-trip starts</span></strong>
             <p>10–15 min ride. Glass-bottomed gondolas optional. Skip Chin Swee stop (Day 4). <b>This is your ONE round-trip cable car for the trip</b> — return portion gets used tonight after dinner. Pack a <b>day-bag</b> (change of clothes, kids meds, water, snacks).</p>
             <div class="meta">
-              <span><b>Fare:</b> ~RM 10–15 round trip per person</span>
+              <span><b>Fare:</b> RM 19 Standard Return × 6 = RM 114 (buy at counter)</span>
               <span><b>Pack:</b> day-bag only, leave main luggage at Awana</span>
             </div>
           </div>
@@ -3653,20 +3653,19 @@ function setSyncStatus(id, text, mode) {
     { id: 'cable-car', cat: 'attraction', icon: '🚠', day: 3, name: 'Awana <i>SkyWay</i> cable car',
       address: 'Awana SkyWay Station, Genting Highlands',
       phone: '+60 3 2718 1118', email: '',
-      ref: 'Round-trip ~RM 10-15/pax', refExtra: 'Used Day 3 — UP 9:30 AM, DOWN 8:30 PM',
+      ref: 'Standard Return RM 19/pax · 6 × RM 19 = RM 114', refExtra: 'Used Day 3 — UP 9:30 AM, DOWN 8:30 PM',
       mapsUrl: 'https://maps.google.com/?q=Awana+SkyWay+Genting',
       bookUrl: 'https://www.rwgenting.com/en/things-to-do/awana-skyway.html',
-      toBook: 'Buy at station OR rwgenting.com · 6 round-trip tickets for the family',
-      notes: 'One round-trip ticket used Day 3. Glass-bottom gondolas +RM 5/pax optional.'
+      toBook: 'BUY DAY-OF at Awana SkyWay counter · 6 × Standard Return @ RM 19 = RM 114 (~SGD 35). Thursday morning weekday = no queue. Standard tickets are 30-day-valid so online advance booking offers no benefit.',
+      notes: 'Glass Floor gondola upgrade +RM 18/pax per direction (online RM 29 vs Standard RM 11). Optional novelty for kids — decide at counter based on morning visibility.'
     },
     { id: 'skyworlds', cat: 'attraction', icon: '🎢', day: 3, name: 'Genting <i>SkyWorlds</i>',
       address: 'Resorts World Genting (top of mountain)',
       phone: '', email: '',
-      ref: '~RM 200 adult / RM 170 child', refExtra: 'Check Klook for promos (often 20% off)',
+      ref: 'Booking #10741841AL', refExtra: 'Hui Shan · 25 Jun 2026, 10 AM–6 PM · 4 Standard + 2 Child/Senior · RM 802',
       mapsUrl: 'https://maps.google.com/?q=Genting+SkyWorlds',
-      bookUrl: 'https://www.klook.com/en-SG/activity/119943-genting-skyworlds-theme-park-tickets/',
-      toBook: 'Klook — Non-Malaysian 1 Day Ticket S$20.95 OR SkyWorlds + Skytropolis bundle S$49.09',
-      notes: 'Charlotte may be under 130 cm for wildest rides. Park typically opens 11 AM weekday.'
+      booked: 'Confirmed by Resorts World Genting. Master e-ticket PDF in Hui Shan email — QRs intentionally NOT uploaded to web (fingerprint-bound on first scan = theft risk).',
+      notes: 'Charlotte may be under 130 cm for wildest rides. Park opens 10 AM per booking. Each Standard ticket includes RM 10 e-voucher (RM 40 total) for in-park retail/F&B.'
     },
     { id: 'chinswee', cat: 'attraction', icon: '🛕', day: 4, name: 'Chin Swee <i>Caves Temple</i>',
       address: 'Genting Highlands (mid-level)',
@@ -3897,8 +3896,8 @@ function setSyncStatus(id, text, mode) {
       const refExtraHTML = p.refExtra ? '<div class="place-detail"><span class="label"></span><span style="font-size:12px;color:var(--mute-2);">' + p.refExtra + '</span></div>' : '';
       const notesHTML = p.notes ? '<div class="place-detail" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);"><span style="font-size:12px;color:var(--ink-2);font-style:italic;">' + p.notes + '</span></div>' : '';
 
-      const toBookHTML = (p.toBook && !qr) ? '<div class="place-tobook"><div class="place-tobook-pill">📋 Not yet booked</div><div class="place-tobook-text">' + p.toBook + '</div></div>' : '';
-      const bookBtnHTML = (p.bookUrl && !qr) ? '<a href="' + p.bookUrl + '" target="_blank" class="place-book-btn">🔗 Book now</a>' : '';
+      const toBookHTML = (p.booked && !qr) ? '<div class="place-tobook" style="background:rgba(45,90,61,0.10);border-left-color:var(--moss);"><div class="place-tobook-pill" style="color:var(--moss-deep);">✓ Booked</div><div class="place-tobook-text">' + p.booked + '</div></div>' : ((p.toBook && !qr) ? '<div class="place-tobook"><div class="place-tobook-pill">📋 Not yet booked</div><div class="place-tobook-text">' + p.toBook + '</div></div>' : '');
+      const bookBtnHTML = (p.bookUrl && !qr && !p.booked) ? '<a href="' + p.bookUrl + '" target="_blank" class="place-book-btn">🔗 Book now</a>' : '';
 
       const qrHTML = qr
         ? '<div class="place-qr-area">' +
