@@ -2048,6 +2048,189 @@ footer small {
 .live-traffic-ext { font-size: 13px; color: var(--muted); }
 .live-traffic-route:hover .live-traffic-ext { color: var(--cream); }
 
+/* =========================
+   SKYWORLDS — route plan
+   ========================= */
+.sw-hero {
+  background: linear-gradient(135deg, var(--moss-deep) 0%, var(--moss) 60%, var(--leaf) 100%);
+  color: var(--cream);
+  border-radius: 18px;
+  padding: 28px 26px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.sw-hero h3 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(22px, 4vw, 30px);
+  color: var(--cream);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+.sw-hero p {
+  font-size: 14px;
+  color: rgba(250,246,238,0.88);
+  line-height: 1.55;
+  max-width: 64ch;
+  margin-bottom: 8px;
+}
+.sw-hero .sw-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.sw-hero .sw-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  background: rgba(250,246,238,0.14);
+  color: var(--cream);
+  padding: 6px 11px;
+  border-radius: 100px;
+  font-weight: 600;
+}
+.sw-hero .sw-chip b { color: var(--gold); }
+
+/* route step list */
+.sw-route {
+  list-style: none;
+  counter-reset: swstep;
+  position: relative;
+  margin-bottom: 10px;
+}
+.sw-step {
+  position: relative;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px 20px 64px;
+  margin-bottom: 14px;
+  counter-increment: swstep;
+}
+.sw-step::before {
+  content: counter(swstep);
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 32px; height: 32px;
+  background: var(--moss);
+  color: var(--cream);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+.sw-step.sw-meal::before { background: var(--sunset); }
+.sw-step.sw-rest::before { background: var(--sky); }
+.sw-step-world {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.sw-step h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.sw-step h4 i { font-style: italic; color: var(--moss); }
+.sw-step p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.sw-step .sw-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sw-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-weight: 600;
+  background: var(--paper);
+  color: var(--moss);
+}
+.sw-tag.thrill-mild { background: rgba(74,124,92,0.16); color: var(--moss-deep); }
+.sw-tag.thrill-med { background: rgba(217,167,65,0.2); color: var(--sunset-deep); }
+.sw-tag.thrill-high { background: rgba(198,106,60,0.18); color: var(--sunset-deep); }
+.sw-tag.height { background: rgba(92,138,168,0.16); color: var(--sky); }
+.sw-tag.charlotte-yes { background: var(--moss); color: var(--cream); }
+.sw-tag.charlotte-no { background: rgba(198,106,60,0.16); color: var(--sunset-deep); }
+
+/* skip box */
+.sw-skip {
+  background: rgba(198,106,60,0.08);
+  border: 1px solid rgba(198,106,60,0.22);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.sw-skip h4 {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--sunset-deep);
+  margin-bottom: 8px;
+}
+.sw-skip p { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; margin-bottom: 6px; }
+.sw-skip ul { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+.sw-skip li { font-size: 13px; color: var(--ink-2); padding-left: 16px; position: relative; line-height: 1.45; }
+.sw-skip li::before { content: '✕'; position: absolute; left: 0; color: var(--sunset); font-weight: 600; font-size: 11px; }
+
+/* tips grid */
+.sw-tips {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 6px;
+}
+@media (min-width: 720px) { .sw-tips { grid-template-columns: 1fr 1fr; } }
+.sw-tip {
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.sw-tip h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sw-tip p { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+.sw-tip p b { color: var(--moss); }
+
+.sw-subhead {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--moss);
+  font-style: italic;
+  margin: 26px 0 14px;
+}
+
 </style>
 </head>
 <body>
@@ -2082,6 +2265,7 @@ footer small {
     <a href="#live" class="trip-nav-pill">Live</a>
     <a href="#photos" class="trip-nav-pill">Photos</a>
     <a href="#days" class="trip-nav-pill">Days</a>
+    <a href="#skyworlds" class="trip-nav-pill">SkyWorlds</a>
     <a href="#hotels" class="trip-nav-pill">Hotels</a>
     <a href="#food" class="trip-nav-pill">Food</a>
     <a href="#charging" class="trip-nav-pill">Charging</a>
@@ -2810,6 +2994,166 @@ footer small {
         If you're flexible: leave Awana at 5 AM Saturday and target Causeway by 11 AM — clears in 30 min usually. But waking sleepy kids at 4:30 AM after a busy week is a hard sell. The 9:30 AM departure is the right compromise.
       </div>
     </article>
+  </div>
+</section>
+
+
+<!-- ============================================
+     SKYWORLDS — ride route plan (Day 3)
+     ============================================ -->
+<section class="block" id="skyworlds">
+  <div class="container">
+    <span class="section-eyebrow">— Day 03 / SkyWorlds in order</span>
+    <h2 class="display section-h2">SkyWorlds, <i>one loop.</i></h2>
+    <p class="section-lead">The park is a big ring of 9 worlds. This route walks that ring <b>one direction</b> from the entrance — no doubling back, no up-and-down. Family rides only; the high-risk coasters are flagged to skip. Charlotte (122 cm) clears every ride on the main route with an adult beside her.</p>
+
+    <div class="sw-hero">
+      <h3>The loop, anti-clockwise from the entrance</h3>
+      <p>Studio Plaza (entrance) → Eagle Mountain → Central Park → Liberty Lane → Robots Rivet Town → Andromeda Base → Ice Age → Epic → Rio → back to Studio Plaza. You only walk the circle once. Use the free <b>Genting SkyWorlds app</b> to grab Virtual Queue slots for the 3 busiest rides as you enter, so you're never standing in line.</p>
+      <div class="sw-hero-meta">
+        <span class="sw-chip"><b>9:30 AM</b> early entry (Awana guest)</span>
+        <span class="sw-chip"><b>10 AM–6 PM</b> park hours</span>
+        <span class="sw-chip"><b>VQ</b> reserve 3 rides free</span>
+        <span class="sw-chip">Charlotte <b>122 cm</b> · clears main route</span>
+      </div>
+    </div>
+
+    <ol class="sw-route">
+
+      <li class="sw-step">
+        <div class="sw-step-world">Studio Plaza · entrance</div>
+        <h4>Enter, grab Virtual Queue slots <i>first</i></h4>
+        <p>Walk in through the art-deco movie-lobby. Before anything else, open the SkyWorlds app and book Virtual Queue for your 3 priority rides (Step 2 Apes, Step 6 Independence Day, Step 4 Museum). Rent a locker here (~RM 22) for the day-bag. Then turn toward Eagle Mountain, the zone directly ahead of the fountain hub.</p>
+        <div class="sw-tags">
+          <span class="sw-tag">Locker RM 22</span>
+          <span class="sw-tag">Book VQ now</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Andromeda Base</div>
+        <h4>Invasion of the Planet of the Apes</h4>
+        <p>Indoor 3D motion-simulator ride — feels thrilling (big screens + motion seats) but has no coaster forces or real risk. Great first ride to use an early-morning VQ slot on. Both kids ride; an adult sits with Charlotte.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-high">Thrill: high (simulator)</span>
+          <span class="sw-tag height">110–122 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Andromeda Base</div>
+        <h4>Independence Day: Defiance</h4>
+        <p>Flight-simulator with large dome screens — same zone, so do it right after the Apes ride (no walking). Widest height band in the park, so the grandparents can ride too. Mild motion-queasiness risk; skip if anyone's sensitive to simulators.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-high">Thrill: high (simulator)</span>
+          <span class="sw-tag height">100–140 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓ · grandparents ✓</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Studio Plaza</div>
+        <h4>Night at the Museum: Midnight Mayhem</h4>
+        <p>Best all-round family ride in the park — a gentle 3D interactive dark ride where you shoot targets from the cart. Everyone can ride together including grandparents. It sits back near the entrance/Studio Plaza, so swing through here on the way around.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-mild">Thrill: mild</span>
+          <span class="sw-tag height">90–122 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓ · grandparents ✓</span>
+        </div>
+      </li>
+
+      <li class="sw-step sw-meal">
+        <div class="sw-step-world">Studio Plaza / SkyAvenue Gateway</div>
+        <h4>Lunch — eat off-peak ~1:30 PM</h4>
+        <p>Eat at the <b>Studio Plaza</b> outlets inside the park (burgers, fried chicken, local rice/noodle sets) to avoid losing ride time. Better value if you want a proper sit-down: walk out the entrance to <b>SkyAvenue</b> (5 min, re-enter on your ticket) and hit <b>Malaysian Food Street</b> — hawker-style, cheaper, familiar for grandparents. Going at 1:30 PM dodges the noon queue.</p>
+        <div class="sw-tags">
+          <span class="sw-tag">In-park: Studio Plaza</span>
+          <span class="sw-tag">Better: Malaysian Food Street (SkyAvenue)</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Ice Age</div>
+        <h4>Ice Age: Expedition Thin Ice</h4>
+        <p>Indoor family dark ride through ice caverns and a lava tunnel with Sid and the herd. Mild, story-driven, weather-proof. Continue the loop round to the Ice Age zone after lunch.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-mild">Thrill: mild</span>
+          <span class="sw-tag height">110–122 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Epic</div>
+        <h4>Epic Voyage to Moonhaven</h4>
+        <p>Gentle indoor boat ride with large-scale animatronics and effects — the calmest ride in the park, lovely for grandparents and Charlotte together. Epic sits right next to Ice Age on the loop.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-med">Thrill: gentle</span>
+          <span class="sw-tag height">90–140 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓ · grandparents ✓</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Rio</div>
+        <h4>Samba Gliders</h4>
+        <p>Suspended hang-glider spinner, ~65 ft up, with a bird's-eye view over the Rio carnival zone. Outdoor — so weather-dependent; ride it while the sky's clear. Last ride zone before the loop returns you to Studio Plaza and the exit.</p>
+        <div class="sw-tags">
+          <span class="sw-tag thrill-med">Thrill: medium</span>
+          <span class="sw-tag height">95–122 cm w/ adult</span>
+          <span class="sw-tag charlotte-yes">Charlotte ✓</span>
+          <span class="sw-tag">Outdoor · weather</span>
+        </div>
+      </li>
+
+      <li class="sw-step">
+        <div class="sw-step-world">Across the loop · zero height limit</div>
+        <h4>Shows, walk-throughs &amp; the Lake of Dreams</h4>
+        <p>Between rides, the themed zones themselves are the payoff for grandparents and Charlotte — Rio's carnival, Central Park's facades, and the <b>Lake of Dreams</b> fountain show in Central Park (the park's largest world). No queues, no height limits, best photo spots. Check the app feed that morning for showtimes — they move around.</p>
+        <div class="sw-tags">
+          <span class="sw-tag">No height limit</span>
+          <span class="sw-tag charlotte-yes">Everyone</span>
+          <span class="sw-tag">Photo spots</span>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="sw-skip">
+      <h4>Skip these — high-thrill coasters (130 cm+, real risk)</h4>
+      <p>The genuine adrenaline rides need ~130 cm+, so Charlotte can't ride and they're the ones you said to avoid. <b>Don't queue these as a family.</b> If Nicholas (11) wants one or two, send him with one parent via a Virtual Queue slot while the other parent + Charlotte + grandparents repeat a Tier-1 ride or rest. Decide at the park off the posted bars:</p>
+      <ul>
+        <li><b>Mad Ramp Peak – Full Throttle Racing</b> (Eagle Mountain) — dual-powered coaster bike, the park's headline thrill</li>
+        <li><b>Robots Rivet Town spin coaster</b> — fast spinning coaster</li>
+        <li>Any ride posting a <b>130 cm+</b> minimum at the entrance — that's the cutoff Charlotte misses</li>
+      </ul>
+    </div>
+
+    <h3 class="sw-subhead">How to run it smoothly</h3>
+    <div class="sw-tips">
+      <div class="sw-tip">
+        <h4>📲 Virtual Queue first</h4>
+        <p>Free in the SkyWorlds app. Reserve <b>3 rides</b> the moment you enter — book the two Andromeda Base simulators + Night at the Museum. You skip the physical lines for those.</p>
+      </div>
+      <div class="sw-tip">
+        <h4>🌧️ Rain plan</h4>
+        <p>Steps 2, 3, 4, 6, 7 are <b>all indoor</b> — a wet afternoon won't kill the day. Only Samba Gliders (outdoor) and the skip-list coasters close in storms. Park also has a Rainy Day Guarantee — check the app.</p>
+      </div>
+      <div class="sw-tip">
+        <h4>🪑 Grandparents' base</h4>
+        <p>Central Park has the most seating, shade, and the Lake of Dreams show. Park them there between rides — it's roughly the middle of the loop so no one walks far to regroup.</p>
+      </div>
+      <div class="sw-tip">
+        <h4>📏 Re-measure Charlotte</h4>
+        <p>The family rides cap at <b>122 cm with an adult</b> — she's exactly at the line. If she grows past 122 cm before June she could be turned away from the child-band rides. Measure her again closer to the date.</p>
+      </div>
+    </div>
+
+    <div class="day-aside" style="margin-top:18px;">
+      <strong>Live ride status beats this list</strong>
+      Parks rotate maintenance closures and showtimes change. Treat this as the priority order, but the <b>SkyWorlds app's live wait-times + ride-status feed</b> is the source of truth on the day. If a ride on the route is down, skip ahead on the loop and catch it on a second pass rather than backtracking.
+    </div>
   </div>
 </section>
 
