@@ -3835,7 +3835,7 @@ footer small {
     </div>
 
     <div class="fx-rate-bar">
-      FX rate: 1 SGD = <input type="number" id="fxRate" step="0.01" min="1" value="3.10" /> MYR
+      FX rate: 1 SGD = <input type="number" id="expFxRate" step="0.01" min="1" value="3.10" /> MYR
       · <span class="reset-btn" id="expReset">Reset all expenses</span>
     </div>
   </div>
@@ -4401,7 +4401,7 @@ function setSyncStatus(id, text, mode) {
       ]);
       expenses = exps || [];
       fxRate = parseFloat(fxRows && fxRows[0] ? fxRows[0].rate : 3.10);
-      document.getElementById('fxRate').value = fxRate.toFixed(2);
+      document.getElementById('expFxRate').value = fxRate.toFixed(2);
       setSyncStatus('expSyncStatus', '✓ Synced · ' + expenses.length + ' entries', null);
     } catch (err) {
       console.error('Expense load failed:', err);
@@ -4572,7 +4572,7 @@ function setSyncStatus(id, text, mode) {
     renderList();
   });
 
-  document.getElementById('fxRate').addEventListener('change', (e) => {
+  document.getElementById('expFxRate').addEventListener('change', (e) => {
     const v = parseFloat(e.target.value);
     if (v > 0) setFx(v);
   });
